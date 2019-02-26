@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { allCountries, allCountryCodes } from '../../utils'
+import ReactCountryFlag from "react-country-flag";
+import { allCountries } from '../../utils'
 
 class PhoneInput extends Component {
   state = {
@@ -17,10 +18,19 @@ class PhoneInput extends Component {
   }
 
   handleChange = e => {
-    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(e.target.value.substring(0, country.dialCode.length)))
+    const { value } = e.target
+    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(value.substring(0, 4)))
+    const phoneNumber = value.replace(/[^0-9.]+/g, '') || ''
+
+    if (selectedCountry) {
+      this.setState({
+        selectedCountry,
+        phoneNumber
+      })
+    }
+
     this.setState({
-      selectedCountry,
-      phoneNumber: e.target.value.replace(/[^0-9.]+/g, '') || '',
+      phoneNumber
     })
   }
 
@@ -28,12 +38,21 @@ class PhoneInput extends Component {
     const { selectedCountry, phoneNumber } = this.state;
     return (
       <div>
-        <select onChange={this.handleSelect} value={selectedCountry.iso2}>
+        <select onChange={this.handleSelect} value={selectedCountry.iso2} style={{maxWidth: '50px'}}>
           {
             allCountries.map(country => {
               if (country.isAreaCode) { return null }
               return (
-                <option key={country.iso2} value={country.iso2}>{country.iso2}</option>
+                <option key={country.iso2} value={country.iso2}>
+                  <ReactCountryFlag
+                    styleProps={{
+                      width: '20px',
+                      height: '20px'
+                    }}
+                    code={country.iso2}
+                  />
+                  {country.name}
+                </option>
               )
             })
           }
