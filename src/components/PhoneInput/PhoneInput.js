@@ -26,7 +26,7 @@ class PhoneInput extends Component {
     const selectedCountry = allCountries.find(country => country.dialCode.startsWith(value.substring(0, 5)))
     let phoneNumber = `+${value.replace(/[^0-9.]+/g, '')}` || ''
 
-    if(value.length > 1) {
+    if(value.length) {
       const { iso2 } = selectedCountry || this.state.selectedCountry
       const parsedPhoneNumber = iso2 ? parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`) : phoneNumber
       phoneNumber = phoneNumber.length > 4 ? parsedPhoneNumber.formatInternational() : phoneNumber
@@ -38,8 +38,6 @@ class PhoneInput extends Component {
         phoneNumber,
       })
     }
-
-
 
     this.setState({
       phoneNumber,
