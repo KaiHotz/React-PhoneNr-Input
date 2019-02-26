@@ -44,13 +44,6 @@ class PhoneInput extends Component {
               if (country.isAreaCode) { return null }
               return (
                 <option key={country.iso2} value={country.iso2}>
-                  <ReactCountryFlag
-                    styleProps={{
-                      width: '20px',
-                      height: '20px'
-                    }}
-                    code={country.iso2}
-                  />
                   {country.name}
                 </option>
               )
@@ -58,6 +51,13 @@ class PhoneInput extends Component {
           }
         </select>
         <input type="tel" value={phoneNumber} onChange={this.handleChange} />
+        <ReactCountryFlag
+          styleProps={{
+            width: '20px',
+            height: '20px'
+          }}
+          code={selectedCountry.iso2 || 'de'}
+        />
       </div>
     )
   }
