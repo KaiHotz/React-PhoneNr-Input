@@ -1,12 +1,14 @@
-import React, { Component } from 'react'
-import ReactCountryFlag from "react-country-flag";
+import React, { Component, createRef } from 'react'
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import { allCountries } from '../../utils'
 
 class PhoneInput extends Component {
   state = {
-    selectedCountry: '',
+    selectedCountry: {},
     phoneNumber: ''
   }
+
+  phoneInput = createRef();
 
   handleSelect = e => {
     const selectedCountry = allCountries.find(country => country.iso2 === e.target.value)
@@ -15,22 +17,32 @@ class PhoneInput extends Component {
       selectedCountry,
       phoneNumber: selectedCountry.dialCode,
     })
+
+    this.phoneInput.current.focus()
   }
 
   handleChange = e => {
     const { value } = e.target
-    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(value.substring(0, 4)))
-    const phoneNumber = value.replace(/[^0-9.]+/g, '') || ''
+    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(value.substring(0, 5)))
+    let phoneNumber = `+${value.replace(/[^0-9.]+/g, '')}` || ''
+
+    if(value.length > 1) {
+      const { iso2 } = selectedCountry || this.state.selectedCountry
+      const parsedPhoneNumber = iso2 ? parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`) : phoneNumber
+      phoneNumber = phoneNumber.length > 4 ? parsedPhoneNumber.formatInternational() : phoneNumber
+    }
 
     if (selectedCountry) {
       this.setState({
         selectedCountry,
-        phoneNumber
+        phoneNumber,
       })
     }
 
+
+
     this.setState({
-      phoneNumber
+      phoneNumber,
     })
   }
 
@@ -44,20 +56,13 @@ class PhoneInput extends Component {
               if (country.isAreaCode) { return null }
               return (
                 <option key={country.iso2} value={country.iso2}>
-                  {country.name}
+                  {`${country.iso2} - ${country.name}`}
                 </option>
               )
             })
           }
         </select>
-        <input type="tel" value={phoneNumber} onChange={this.handleChange} />
-        <ReactCountryFlag
-          styleProps={{
-            width: '20px',
-            height: '20px'
-          }}
-          code={selectedCountry.iso2 || 'de'}
-        />
+        <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput}/>
       </div>
     )
   }
