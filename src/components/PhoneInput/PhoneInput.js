@@ -17,7 +17,9 @@ class PhoneInput extends Component {
   }
 
   handleChange = e => {
+    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(e.target.value))
     this.setState({
+      selectedCountry,
       phoneNumber: e.target.value,
     })
   }
@@ -26,7 +28,7 @@ class PhoneInput extends Component {
     const { selectedCountry, phoneNumber } = this.state;
     return (
       <div>
-        <select onChange={this.handleSelect} value={selectedCountry}>
+        <select onChange={this.handleSelect} value={selectedCountry.iso2}>
           {
             allCountries.map(country => {
               if (country.isAreaCode) { return null }
@@ -36,7 +38,7 @@ class PhoneInput extends Component {
             })
           }
         </select>
-        <input type='text' value={phoneNumber} onChange={this.handleChange}/>
+        <input type="tel" value={phoneNumber} onChange={this.handleChange} />
       </div>
     )
   }
