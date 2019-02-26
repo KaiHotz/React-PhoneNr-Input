@@ -8,7 +8,7 @@ class PhoneInput extends Component {
     phoneNumber: ''
   }
 
-  phoneInput = createRef();
+  phoneInput = createRef()
 
   handleSelect = e => {
     const selectedCountry = allCountries.find(country => country.iso2 === e.target.value)
@@ -45,7 +45,7 @@ class PhoneInput extends Component {
   }
 
   render() {
-    const { selectedCountry, phoneNumber } = this.state;
+    const { selectedCountry, phoneNumber } = this.state
     return (
       <div>
         <select onChange={this.handleSelect} value={selectedCountry.iso2} style={{maxWidth: '50px'}}>
