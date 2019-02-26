@@ -60,7 +60,7 @@ class PhoneInput extends Component {
             })
           }
         </select>
-        <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput}/>
+        <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput} maxLength="20"/>
       </div>
     )
   }
