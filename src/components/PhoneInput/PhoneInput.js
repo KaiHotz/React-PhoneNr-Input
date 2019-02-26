@@ -17,10 +17,10 @@ class PhoneInput extends Component {
   }
 
   handleChange = e => {
-    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(e.target.value))
+    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(e.target.value.substring(0, country.dialCode.length)))
     this.setState({
       selectedCountry,
-      phoneNumber: e.target.value,
+      phoneNumber: e.target.value.replace(/[^0-9.]+/g, '') || '',
     })
   }
 
