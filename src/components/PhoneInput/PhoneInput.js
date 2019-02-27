@@ -11,11 +11,11 @@ class PhoneInput extends Component {
   phoneInput = createRef()
 
   handleSelect = e => {
-    const selectedCountry = allCountries.find(country => country.iso2 === e.target.value)
+    const selectedCountry = allCountries.find(c => c.iso2 === e.target.value)
 
     this.setState({
       selectedCountry,
-      phoneNumber: `+${selectedCountry.dialCode}`,
+      phoneNumber: selectedCountry.dialCode,
     })
 
     this.phoneInput.current.focus()
@@ -23,25 +23,19 @@ class PhoneInput extends Component {
 
   handleChange = e => {
     const { value } = e.target
-    const selectedCountry = allCountries.find(country => country.dialCode.startsWith(value.substring(0, 5)))
     let phoneNumber = `+${value.replace(/[^0-9.]+/g, '')}` || ''
+    const country = allCountries.find(c => c.dialCode.startsWith(value.substring(0, 5)))
+    const { iso2, dialCode } = country || this.state.selectedCountry
 
-    if(value.length) {
-      const { iso2, format } = selectedCountry || this.state.selectedCountry
-      const parsedPhoneNumber = iso2 ? parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`) : phoneNumber
-      phoneNumber = phoneNumber.length > 4 && !!format ? parsedPhoneNumber.formatInternational() : phoneNumber
+    if (value.lenght || (dialCode && value.slice(dialCode.length).length > 2)) {
+      const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
+      phoneNumber = phoneNumber.length > 4 ? parsedPhoneNumber.formatInternational() : phoneNumber
     }
 
-    if (selectedCountry) {
-      this.setState({
-        selectedCountry,
-        phoneNumber,
-      })
-    }
-
-    this.setState({
-      phoneNumber,
-    })
+    this.setState(prevState => ({
+      selectedCountry: country || prevState.selectedCountry,
+      phoneNumber
+    }))
   }
 
   render() {
