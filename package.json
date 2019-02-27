@@ -27,6 +27,7 @@
     "not op_mini all"
   ],
   "devDependencies": {
-    "node-sass": "^4.11.0"
+    "node-sass": "^4.11.0",
+    "prop-types": "^15.7.2"
   }
 }

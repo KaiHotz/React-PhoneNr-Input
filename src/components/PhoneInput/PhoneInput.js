@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react'
+import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside';
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag';
@@ -6,13 +7,38 @@ import { allCountries } from '../../utils'
 import './styles.scss'
 
 class PhoneInput extends Component {
-  state = {
-    selectedCountry: {},
-    phoneNumber: '',
-    showCountries: false,
+  static propTypes = {
+    defaultCountry: PropTypes.string,
+    preferredCountries: PropTypes.arrayOf(PropTypes.string),
+    regions: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.arrayOf(PropTypes.string)
+    ]),
+    placeholder: PropTypes.string,
+    disabled: PropTypes.bool,
   }
 
-  phoneInput = createRef()
+  static defaultProps = {
+    defaultCountry: null,
+    preferredCountries: null,
+    excludeCountries: null,
+    regions: null,
+    placeholder: null,
+    disabled: false,
+  }
+
+  constructor(props) {
+    super(props)
+    const { defaultCountry } = props
+
+    this.state = {
+      selectedCountry: defaultCountry ? allCountries.find(c => c.iso2 === defaultCountry) : {},
+      phoneNumber: '',
+      showCountries: false,
+    }
+
+    this.phoneInput = createRef()
+  }
 
   handleClickOutside() {
     this.setState({
@@ -24,6 +50,35 @@ class PhoneInput extends Component {
     this.setState(prevState => ({
       showCountries: !prevState.showCountries
     }))
+  }
+
+  filterRegions = () => {
+    const { regions } = this.props
+
+    if (typeof regions === 'string') {
+      return allCountries.filter(country => country.regions.includes(regions))
+    }
+
+    return allCountries.filter(country =>
+      regions.map(region =>
+        country.regions.includes(region)).some(el => el));
+  }
+
+  filterCountries = () => {
+    const { preferredCountries } = this.props
+
+    return preferredCountries.map(prefCountry => allCountries.find(country => country.iso2 === prefCountry))
+  }
+
+
+  getCountryList = () => {
+    const { preferredCountries, regions } = this.props
+
+    if (preferredCountries) return this.filterCountries()
+
+    if (regions) return this.filterRegions()
+
+    return allCountries
   }
 
   handleCountrySelect = code => () => {
@@ -40,28 +95,34 @@ class PhoneInput extends Component {
 
   handleChange = e => {
     const { value } = e.target
-    let phoneNumber = `+${value.replace(/[^0-9.]+/g, '')}` || ''
-    const country = allCountries.find(c => c.dialCode.startsWith(value.substring(0, 5)))
-    const { iso2, dialCode } = country || this.state.selectedCountry
+    let phoneNumber = value !== '+' ? `+${value.replace(/[^0-9.]+/g, '')}` : ''
+
+    const selectedCountry = allCountries.find(c =>
+      c.dialCode.startsWith(phoneNumber.substring(1, 20))) || this.state.selectedCountry
+
+    const { iso2, dialCode } = selectedCountry
 
     if (value.lenght || (dialCode && value.slice(dialCode.length).length > 2)) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
       phoneNumber = phoneNumber.length > 4 ? parsedPhoneNumber.formatInternational() : phoneNumber
     }
 
-    this.setState(prevState => ({
-      selectedCountry: country || prevState.selectedCountry,
+    this.setState({
+      selectedCountry,
       phoneNumber
-    }))
+    })
   }
 
   render() {
     const { selectedCountry, phoneNumber, showCountries } = this.state
+
+    const countries = this.getCountryList()
+
     return (
       <div className="phone-input">
         <button onClick={this.toggleList}>
           <ReactCountryFlag
-            code={selectedCountry.iso2 || 'de'}
+            code={selectedCountry.iso2 || ''}
             styleProps={{
               display: 'inline-block',
               width: '13px',
@@ -75,7 +136,7 @@ class PhoneInput extends Component {
           showCountries && (
             <ul onClick={this.handleSelect} className="countryList">
               {
-                allCountries.map((c, i)=> {
+                countries.map((c, i)=> {
                   if (c.isAreaCode) { return null }
                   return (
                     <li
