@@ -53,13 +53,18 @@ class PhoneInput extends Component {
     return (
       <div className="phone-input">
         <button onClick={this.toggleList}>
-          <ReactCountryFlag
-            code={selectedCountry.iso2 || 'de'}
-            styleProps={{
-              width: '13px',
-            }}
-            svg
-          />
+          <div className="flag-wrapper">
+            <ReactCountryFlag
+              code={selectedCountry.iso2 || 'de'}
+              styleProps={{
+                display: 'inline-block',
+                width: '13px',
+                backgroundPosition: 'top center',
+              }}
+              svg
+            />
+
+          </div>
         </button>
         <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput} maxLength="20"/>
         {

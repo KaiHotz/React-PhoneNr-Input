@@ -5,11 +5,26 @@
     outline: none;
   }
   button {
+
+    position: relative;
     border-right: none;
-    border-radius: 0px;
+    border-radius: 3px 0px 0px 3px;
     padding: 1px 7px 1px;
+    width: 30px;
+    &::after {
+      content: "";
+      width: 0;
+      height: 0;
+      border: 2.8px solid transparent;
+      border-color: #000 transparent transparent transparent;
+      position: absolute;
+      right: 1px;
+      top: 40%;
+      pointer-events: none;
+    }
   }
   input {
+    border-radius: 0px 3px 3px 0px;
     padding: 1px 5px;
   }
   ul {
@@ -20,7 +35,7 @@
     overflow-y: auto;
     padding-left: 0;
     li {
-      padding: 0.5rem;
+      padding: 3px 0.5rem;
       &:not(:last-of-type) {
         border-bottom: 1px solid #ccc;
       }
