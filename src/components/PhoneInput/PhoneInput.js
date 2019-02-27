@@ -19,11 +19,11 @@ class PhoneInput extends Component {
   }
 
   static defaultProps = {
-    defaultCountry: null,
-    preferredCountries: null,
+    defaultCountry: 'us',
+    preferredCountries: [],
     excludeCountries: null,
     regions: null,
-    placeholder: null,
+    placeholder: '+1 702 123 4567',
     disabled: false,
   }
 
@@ -42,8 +42,8 @@ class PhoneInput extends Component {
   getInitialCountry = () => {
     const { defaultCountry, preferredCountries } = this.props
 
-    return (defaultCountry || preferredCountries)
-      ? allCountries.find(c => c.iso2 === (defaultCountry || preferredCountries[0]))
+    return (preferredCountries.length || defaultCountry)
+      ? allCountries.find(c => c.iso2 === (preferredCountries[0] || defaultCountry ))
       : {}
   }
 
@@ -92,7 +92,7 @@ class PhoneInput extends Component {
   getCountryList = () => {
     const { preferredCountries, regions } = this.props
 
-    return preferredCountries ? this.filterCountries() : regions ? this.filterRegions() : allCountries
+    return preferredCountries.length ? this.filterCountries() : regions ? this.filterRegions() : allCountries
   }
 
   handleChange = e => {
@@ -122,10 +122,11 @@ class PhoneInput extends Component {
 
   render() {
     const { selectedCountry, phoneNumber, showCountries } = this.state
+    const { placeholder, disabled } = this.props
 
     return (
       <div className="phone-input">
-        <button onClick={this.toggleList}>
+        <button onClick={this.toggleList} disabled={disabled}>
           <ReactCountryFlag
             code={selectedCountry.iso2 || ''}
             styleProps={{
@@ -136,7 +137,15 @@ class PhoneInput extends Component {
             svg
           />
         </button>
-        <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput} maxLength="20"/>
+        <input
+          type="tel"
+          value={phoneNumber}
+          onChange={this.handleChange}
+          ref={this.phoneInput}
+          placeholder={placeholder}
+          disabled={disabled}
+          maxLength="20"
+        />
         {
           showCountries && (
             <ul className="countryList">
