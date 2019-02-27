@@ -1,4 +1,5 @@
 import React, { Component, createRef } from 'react'
+import enhanceWithClickOutside from 'react-click-outside';
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag';
 import { allCountries } from '../../utils'
@@ -12,6 +13,12 @@ class PhoneInput extends Component {
   }
 
   phoneInput = createRef()
+
+  handleClickOutside() {
+    this.setState({
+      showCountries: false,
+    })
+  }
 
   toggleList = () => {
     this.setState(prevState => ({
@@ -53,18 +60,15 @@ class PhoneInput extends Component {
     return (
       <div className="phone-input">
         <button onClick={this.toggleList}>
-          <div className="flag-wrapper">
-            <ReactCountryFlag
-              code={selectedCountry.iso2 || 'de'}
-              styleProps={{
-                display: 'inline-block',
-                width: '13px',
-                backgroundPosition: 'top center',
-              }}
-              svg
-            />
-
-          </div>
+          <ReactCountryFlag
+            code={selectedCountry.iso2 || 'de'}
+            styleProps={{
+              display: 'inline-block',
+              width: '13px',
+              backgroundPosition: 'top center',
+            }}
+            svg
+          />
         </button>
         <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput} maxLength="20"/>
         {
@@ -81,6 +85,7 @@ class PhoneInput extends Component {
                       <ReactCountryFlag
                         styleProps={{
                           width: '13px',
+                          height: '10px',
                         }}
                         code={c.iso2}
                         svg
@@ -98,4 +103,4 @@ class PhoneInput extends Component {
   }
 }
 
-export default PhoneInput
+export default enhanceWithClickOutside(PhoneInput)
