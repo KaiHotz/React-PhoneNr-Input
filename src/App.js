@@ -5,7 +5,7 @@ class App extends Component {
   render() {
     return (
       <div className="App">
-        <PhoneInput defaultCountry='de' preferredCountries={['de', 'ar', 'br', 'at']}/>
+        <PhoneInput defaultCountry='de'/>
       </div>
     );
   }

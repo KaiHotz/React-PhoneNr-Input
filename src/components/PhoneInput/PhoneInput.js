@@ -29,10 +29,9 @@ class PhoneInput extends Component {
 
   constructor(props) {
     super(props)
-    const { defaultCountry } = props
 
     this.state = {
-      selectedCountry: defaultCountry ? allCountries.find(c => c.iso2 === defaultCountry) : {},
+      selectedCountry: this.getInitialCountry(),
       phoneNumber: '',
       showCountries: false,
     }
@@ -40,11 +39,32 @@ class PhoneInput extends Component {
     this.phoneInput = createRef()
   }
 
+  getInitialCountry = () => {
+    const { defaultCountry, preferredCountries } = this.props
+
+    return (defaultCountry || preferredCountries)
+      ? allCountries.find(c => c.iso2 === (defaultCountry || preferredCountries[0]))
+      : {}
+  }
+
   handleClickOutside() {
     this.setState({
       showCountries: false,
     })
   }
+
+  handleClick = code => () => {
+    const selectedCountry = allCountries.find(c => c.iso2 === code)
+
+    this.setState({
+      selectedCountry,
+      phoneNumber: selectedCountry.dialCode,
+      showCountries: false,
+    })
+
+    this.phoneInput.current.focus()
+  }
+
 
   toggleList = () => {
     this.setState(prevState => ({
@@ -81,24 +101,17 @@ class PhoneInput extends Component {
     return allCountries
   }
 
-  handleCountrySelect = code => () => {
-    const selectedCountry = allCountries.find(c => c.iso2 === code)
-
-    this.setState({
-      selectedCountry,
-      phoneNumber: selectedCountry.dialCode,
-      showCountries: false,
-    })
-
-    this.phoneInput.current.focus()
-  }
-
   handleChange = e => {
     const { value } = e.target
-    let phoneNumber = value !== '+' ? `+${value.replace(/[^0-9.]+/g, '')}` : ''
+    let phoneNumber = value === '+' || value.startsWith('0') ? '' : `+${value.replace(/[^0-9.]+/g, '')}`
 
-    const selectedCountry = allCountries.find(c =>
-      c.dialCode.startsWith(phoneNumber.substring(1, 20))) || this.state.selectedCountry
+    let selectedCountry = allCountries.find(c =>
+      c.dialCode.startsWith(phoneNumber.substring(0, 20))) || this.state.selectedCountry
+
+    if (value === '+' || value.startsWith('0')) {
+      phoneNumber = ''
+      selectedCountry = this.getInitialCountry()
+    }
 
     const { iso2, dialCode } = selectedCountry
 
@@ -116,8 +129,6 @@ class PhoneInput extends Component {
   render() {
     const { selectedCountry, phoneNumber, showCountries } = this.state
 
-    const countries = this.getCountryList()
-
     return (
       <div className="phone-input">
         <button onClick={this.toggleList}>
@@ -134,14 +145,14 @@ class PhoneInput extends Component {
         <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput} maxLength="20"/>
         {
           showCountries && (
-            <ul onClick={this.handleSelect} className="countryList">
+            <ul className="countryList">
               {
-                countries.map((c, i)=> {
+                this.getCountryList().map((c, i)=> {
                   if (c.isAreaCode) { return null }
                   return (
                     <li
                       key={c.iso2}
-                      onClick={this.handleCountrySelect(c.iso2)}
+                      onClick={this.handleClick(c.iso2)}
                     >
                       <ReactCountryFlag
                         styleProps={{
