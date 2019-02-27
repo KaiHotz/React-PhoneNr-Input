@@ -65,7 +65,6 @@ class PhoneInput extends Component {
     this.phoneInput.current.focus()
   }
 
-
   toggleList = () => {
     this.setState(prevState => ({
       showCountries: !prevState.showCountries
@@ -90,15 +89,10 @@ class PhoneInput extends Component {
     return preferredCountries.map(prefCountry => allCountries.find(country => country.iso2 === prefCountry))
   }
 
-
   getCountryList = () => {
     const { preferredCountries, regions } = this.props
 
-    if (preferredCountries) return this.filterCountries()
-
-    if (regions) return this.filterRegions()
-
-    return allCountries
+    return preferredCountries ? this.filterCountries() : regions ? this.filterRegions() : allCountries
   }
 
   handleChange = e => {
