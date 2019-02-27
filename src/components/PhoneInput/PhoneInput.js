@@ -1,21 +1,31 @@
 import React, { Component, createRef } from 'react'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import ReactCountryFlag from 'react-country-flag';
 import { allCountries } from '../../utils'
+import './styles.scss'
 
 class PhoneInput extends Component {
   state = {
     selectedCountry: {},
-    phoneNumber: ''
+    phoneNumber: '',
+    showCountries: false,
   }
 
   phoneInput = createRef()
 
-  handleSelect = e => {
-    const selectedCountry = allCountries.find(c => c.iso2 === e.target.value)
+  toggleList = () => {
+    this.setState(prevState => ({
+      showCountries: !prevState.showCountries
+    }))
+  }
+
+  handleCountrySelect = code => () => {
+    const selectedCountry = allCountries.find(c => c.iso2 === code)
 
     this.setState({
       selectedCountry,
       phoneNumber: selectedCountry.dialCode,
+      showCountries: false,
     })
 
     this.phoneInput.current.focus()
@@ -39,22 +49,45 @@ class PhoneInput extends Component {
   }
 
   render() {
-    const { selectedCountry, phoneNumber } = this.state
+    const { selectedCountry, phoneNumber, showCountries } = this.state
     return (
-      <div>
-        <select onChange={this.handleSelect} value={selectedCountry.iso2} style={{maxWidth: '50px'}}>
-          {
-            allCountries.map(country => {
-              if (country.isAreaCode) { return null }
-              return (
-                <option key={country.iso2} value={country.iso2}>
-                  {`${country.iso2} - ${country.name}`}
-                </option>
-              )
-            })
-          }
-        </select>
+      <div className="phone-input">
+        <button onClick={this.toggleList}>
+          <ReactCountryFlag
+            code={selectedCountry.iso2 || 'de'}
+            styleProps={{
+              width: '13px',
+            }}
+            svg
+          />
+        </button>
         <input type="tel" value={phoneNumber} onChange={this.handleChange} ref={this.phoneInput} maxLength="20"/>
+        {
+          showCountries && (
+            <ul onClick={this.handleSelect} className="countryList">
+              {
+                allCountries.map((c, i)=> {
+                  if (c.isAreaCode) { return null }
+                  return (
+                    <li
+                      key={c.iso2}
+                      onClick={this.handleCountrySelect(c.iso2)}
+                    >
+                      <ReactCountryFlag
+                        styleProps={{
+                          width: '13px',
+                        }}
+                        code={c.iso2}
+                        svg
+                      />
+                      {` - ${c.name}`}
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          )
+        }
       </div>
     )
   }

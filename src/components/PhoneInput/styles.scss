@@ -1,0 +1,35 @@
+.phone-input {
+  button,
+  input {
+    border: 1px solid #ccc;
+    outline: none;
+  }
+  button {
+    border-right: none;
+    border-radius: 0px;
+    padding: 1px 7px 1px;
+  }
+  input {
+    padding: 1px 5px;
+  }
+  ul {
+    border: 1px solid #ccc;
+    border-top-width: 0;
+    list-style: none;
+    margin-top: 0;
+    overflow-y: auto;
+    padding-left: 0;
+    li {
+      padding: 0.5rem;
+      &:not(:last-of-type) {
+        border-bottom: 1px solid #ccc;
+      }
+      &:hover,
+      &.country-active {
+        background-color: #ddd;
+        color: currentColor;
+        cursor: pointer;
+      }
+    }
+  }
+}

@@ -3,8 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "classnames": "^2.2.6",
     "libphonenumber-js": "^1.7.9",
     "react": "^16.8.3",
+    "react-country-flag": "^1.0.2",
     "react-dom": "^16.8.3",
     "react-scripts": "2.1.5"
   },
@@ -22,5 +24,8 @@
     "not dead",
     "not ie <= 11",
     "not op_mini all"
-  ]
+  ],
+  "devDependencies": {
+    "node-sass": "^4.11.0"
+  }
 }
