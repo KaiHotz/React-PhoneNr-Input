@@ -4577,20 +4577,12 @@ class Countries {
     ];
   }
 
-  getAll = () => {
-    return this.allCountries
-  }
-
-  filterBy = (identifyer, item) => {
-    return this.allCountries.filter(country => country[identifyer] === item)
-  }
-
   findBy = (identifyer, item) => {
     return this.allCountries.find(country => country[identifyer] === item)
   }
 
   guess = phoneNumber => {
-    return this.allCountries.find(country => country.dialCode.startsWith(phoneNumber.substring(0, 20)))
+    return this.allCountries.find(country => country.dialCode.startsWith(phoneNumber.substring(0, 4)))
   }
 
   getRegions = regions => {

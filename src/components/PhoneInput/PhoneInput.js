@@ -15,6 +15,7 @@ class PhoneInput extends Component {
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
     ]),
+    format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
   }
@@ -24,6 +25,7 @@ class PhoneInput extends Component {
     preferredCountries: [],
     excludeCountries: null,
     regions: null,
+    format: 'INTERNATIONAL',
     placeholder: '+1 702 123 4567',
     disabled: false,
   }
@@ -81,9 +83,7 @@ class PhoneInput extends Component {
 
     if (value.slice(dialCode.length).length > 2) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
-      phoneNumber = parsedPhoneNumber.formatInternational()
-
-      console.log('isValid', parsedPhoneNumber.isValid() ); // eslint-disable-line
+      phoneNumber = parsedPhoneNumber.format(this.props.format)
     }
 
     this.setState({
