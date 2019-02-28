@@ -82,6 +82,8 @@ class PhoneInput extends Component {
     if (value.slice(dialCode.length).length > 2) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
       phoneNumber = parsedPhoneNumber.formatInternational()
+
+      console.log('isValid', parsedPhoneNumber.isValid() ); // eslint-disable-line
     }
 
     this.setState({
