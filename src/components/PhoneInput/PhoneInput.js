@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside';
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag';
-import { allCountries } from '../../utils'
+import { allCountries, Countries } from '../../utils'
+
 import './styles.scss'
 
 class PhoneInput extends Component {
@@ -29,9 +30,10 @@ class PhoneInput extends Component {
 
   constructor(props) {
     super(props)
+    const { defaultCountry, preferredCountries } = props
 
     this.state = {
-      selectedCountry: this.getInitialCountry(),
+      selectedCountry: Countries.getInitial(defaultCountry, preferredCountries),
       phoneNumber: '',
       showCountries: false,
     }
@@ -39,12 +41,15 @@ class PhoneInput extends Component {
     this.phoneInput = createRef()
   }
 
-  getInitialCountry = () => {
-    const { defaultCountry, preferredCountries } = this.props
-
-    return (preferredCountries.length || defaultCountry)
-      ? allCountries.find(c => c.iso2 === (preferredCountries[0] || defaultCountry ))
-      : {}
+  componentDidMount() {
+    console.log('getAllCountries', Countries.getAll()); // eslint-disable-line
+    console.log('filterBy', Countries.filterBy('iso2', 'de')); // eslint-disable-line
+    console.log('guess', Countries.guess('+49')); // eslint-disable-line
+    console.log('getRegions str', Countries.getRegions('oceania') ); // eslint-disable-line
+    console.log('getRegions arr', Countries.getRegions(['oceania', 'africa'])); // eslint-disable-line
+    console.log('getPreferred', Countries.getPreferred(['us', 'de', 'ar'])); // eslint-disable-line
+    console.log('getInitial default', Countries.getInitial('at', [])); // eslint-disable-line
+    console.log('getInitial arr', Countries.getInitial('br', ['ar', 'de', 'us'])); // eslint-disable-line
   }
 
   handleClickOutside() {
@@ -92,7 +97,7 @@ class PhoneInput extends Component {
   getCountryList = () => {
     const { preferredCountries, regions } = this.props
 
-    return preferredCountries.length ? this.filterCountries() : regions ? this.filterRegions() : allCountries
+    return preferredCountries.length ? this.filterCountries() : regions ? Countries.getRegions(regions) : allCountries
   }
 
   handleChange = e => {
@@ -109,9 +114,9 @@ class PhoneInput extends Component {
 
     const { iso2, dialCode } = selectedCountry
 
-    if (value.lenght || (dialCode && value.slice(dialCode.length).length > 2)) {
+    if (value.slice(dialCode.length).length > 2) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
-      phoneNumber = phoneNumber.length > 4 ? parsedPhoneNumber.formatInternational() : phoneNumber
+      phoneNumber = parsedPhoneNumber.formatInternational()
     }
 
     this.setState({
