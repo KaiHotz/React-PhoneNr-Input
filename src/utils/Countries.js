@@ -4611,8 +4611,16 @@ class Countries {
     return preferredCountries.length
       ? this.findBy('iso2', preferredCountries[0])
       : defaultCountry
-      ? this.findBy('iso2', defaultCountry)
-      : {}
+        ? this.findBy('iso2', defaultCountry)
+        : {}
+  }
+
+  getList = (preferredCountries, regions) => {
+    return preferredCountries.length
+      ? this.getPreferred(preferredCountries)
+      : regions
+        ? this.getRegions(regions)
+        : this.allCountries
   }
 }
 

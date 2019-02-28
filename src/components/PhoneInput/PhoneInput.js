@@ -41,17 +41,6 @@ class PhoneInput extends Component {
     this.phoneInput = createRef()
   }
 
-  componentDidMount() {
-    console.log('getAllCountries', Countries.getAll()); // eslint-disable-line
-    console.log('filterBy', Countries.filterBy('iso2', 'de')); // eslint-disable-line
-    console.log('guess', Countries.guess('+49')); // eslint-disable-line
-    console.log('getRegions str', Countries.getRegions('oceania') ); // eslint-disable-line
-    console.log('getRegions arr', Countries.getRegions(['oceania', 'africa'])); // eslint-disable-line
-    console.log('getPreferred', Countries.getPreferred(['us', 'de', 'ar'])); // eslint-disable-line
-    console.log('getInitial default', Countries.getInitial('at', [])); // eslint-disable-line
-    console.log('getInitial arr', Countries.getInitial('br', ['ar', 'de', 'us'])); // eslint-disable-line
-  }
-
   handleClickOutside() {
     this.setState({
       showCountries: false,
@@ -76,40 +65,16 @@ class PhoneInput extends Component {
     }))
   }
 
-  filterRegions = () => {
-    const { regions } = this.props
-
-    if (typeof regions === 'string') {
-      return allCountries.filter(country => country.regions.includes(regions))
-    }
-
-    return allCountries.filter(country =>
-      regions.map(region =>
-        country.regions.includes(region)).some(el => el));
-  }
-
-  filterCountries = () => {
-    const { preferredCountries } = this.props
-
-    return preferredCountries.map(prefCountry => allCountries.find(country => country.iso2 === prefCountry))
-  }
-
-  getCountryList = () => {
-    const { preferredCountries, regions } = this.props
-
-    return preferredCountries.length ? this.filterCountries() : regions ? Countries.getRegions(regions) : allCountries
-  }
-
   handleChange = e => {
+    const { defaultCountry, preferredCountries } = this.props
     const { value } = e.target
     let phoneNumber = value === '+' || value.startsWith('0') ? '' : `+${value.replace(/[^0-9.]+/g, '')}`
 
-    let selectedCountry = allCountries.find(c =>
-      c.dialCode.startsWith(phoneNumber.substring(0, 20))) || this.state.selectedCountry
+    let selectedCountry = Countries.guess(phoneNumber) || this.state.selectedCountry
 
     if (value === '+' || value.startsWith('0')) {
       phoneNumber = ''
-      selectedCountry = this.getInitialCountry()
+      selectedCountry = Countries.getInitial(defaultCountry, preferredCountries)
     }
 
     const { iso2, dialCode } = selectedCountry
@@ -127,7 +92,7 @@ class PhoneInput extends Component {
 
   render() {
     const { selectedCountry, phoneNumber, showCountries } = this.state
-    const { placeholder, disabled } = this.props
+    const { placeholder, disabled, preferredCountries, regions } = this.props
 
     return (
       <div className="phone-input">
@@ -155,7 +120,7 @@ class PhoneInput extends Component {
           showCountries && (
             <ul className="countryList">
               {
-                this.getCountryList().map((c, i)=> {
+                Countries.getList(preferredCountries, regions).map((c, i)=> {
                   if (c.isAreaCode) { return null }
                   return (
                     <li
