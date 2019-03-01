@@ -53,7 +53,7 @@ class PhoneInput extends Component {
 
     this.setState({
       selectedCountry,
-      phoneNumber: `+${selectedCountry.dialCode}`,
+      phoneNumber: selectedCountry.dialCode,
       showCountries: false,
     })
 
