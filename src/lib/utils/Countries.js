@@ -4059,7 +4059,7 @@ class Countries {
 
   findBy = (identifyer, item) => this.allCountries.find(country => country[identifyer] === item)
 
-  guess = phoneNumber => this.allCountries.find(country => country.dialCode.startsWith(phoneNumber.substring(1, 4)))
+  guess = phoneNumber => this.allCountries.find(country => country.dialCode.startsWith(phoneNumber.substring(0, 4)))
 
   getRegions = regions => {
     if (typeof regions === 'string') {
