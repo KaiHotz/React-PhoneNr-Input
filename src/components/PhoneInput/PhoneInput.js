@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside';
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag';
-import { allCountries, Countries } from '../../utils'
+import { Countries } from '../../utils'
 
 import './styles.scss'
 
@@ -15,7 +15,6 @@ class PhoneInput extends Component {
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string)
     ]),
-    format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
   }
@@ -25,17 +24,16 @@ class PhoneInput extends Component {
     preferredCountries: [],
     excludeCountries: null,
     regions: null,
-    format: 'INTERNATIONAL',
     placeholder: '+1 702 123 4567',
     disabled: false,
   }
 
   constructor(props) {
     super(props)
-    const { defaultCountry, preferredCountries } = props
+    const { defaultCountry, preferredCountries, regions } = props
 
     this.state = {
-      selectedCountry: Countries.getInitial(defaultCountry, preferredCountries),
+      selectedCountry: Countries.getInitial(defaultCountry, preferredCountries, regions),
       phoneNumber: '',
       showCountries: false,
     }
@@ -50,11 +48,11 @@ class PhoneInput extends Component {
   }
 
   handleClick = code => () => {
-    const selectedCountry = allCountries.find(c => c.iso2 === code)
+    const selectedCountry = Countries.findBy('iso2', code)
 
     this.setState({
       selectedCountry,
-      phoneNumber: selectedCountry.dialCode,
+      phoneNumber: `+${selectedCountry.dialCode}`,
       showCountries: false,
     })
 
@@ -68,7 +66,7 @@ class PhoneInput extends Component {
   }
 
   handleChange = e => {
-    const { defaultCountry, preferredCountries } = this.props
+    const { defaultCountry, preferredCountries, regions } = this.props
     const { value } = e.target
     let phoneNumber = value === '+' || value.startsWith('0') ? '' : `+${value.replace(/[^0-9.]+/g, '')}`
 
@@ -76,14 +74,14 @@ class PhoneInput extends Component {
 
     if (value === '+' || value.startsWith('0')) {
       phoneNumber = ''
-      selectedCountry = Countries.getInitial(defaultCountry, preferredCountries)
+      selectedCountry = Countries.getInitial(defaultCountry, preferredCountries, regions)
     }
 
     const { iso2, dialCode } = selectedCountry
 
-    if (value.slice(dialCode.length).length > 2) {
+    if (value.slice(dialCode.length).length > 4) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
-      phoneNumber = parsedPhoneNumber.format(this.props.format)
+      phoneNumber = parsedPhoneNumber.formatInternational()
     }
 
     this.setState({
