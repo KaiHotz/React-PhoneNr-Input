@@ -1,11 +1,19 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
-import enhanceWithClickOutside from 'react-click-outside';
+import enhanceWithClickOutside from 'react-click-outside'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
-import ReactCountryFlag from 'react-country-flag';
+import ReactCountryFlag from 'react-country-flag'
 import { Countries } from '../../utils'
+// import useCountries from './useCountries'
 
 import './styles.scss'
+
+// const [
+//   findBy,
+//   guess,
+//   getInitial,
+//   getList,
+// ] = useCountries
 
 class PhoneInput extends Component {
   static propTypes = {
@@ -13,16 +21,15 @@ class PhoneInput extends Component {
     preferredCountries: PropTypes.arrayOf(PropTypes.string),
     regions: PropTypes.oneOfType([
       PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string)
+      PropTypes.arrayOf(PropTypes.string),
     ]),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
   }
 
   static defaultProps = {
-    defaultCountry: 'us',
+    defaultCountry: null,
     preferredCountries: [],
-    excludeCountries: null,
     regions: null,
     placeholder: '+1 702 123 4567',
     disabled: false,
@@ -41,12 +48,6 @@ class PhoneInput extends Component {
     this.phoneInput = createRef()
   }
 
-  handleClickOutside() {
-    this.setState({
-      showCountries: false,
-    })
-  }
-
   handleClick = code => () => {
     const selectedCountry = Countries.findBy('iso2', code)
 
@@ -61,14 +62,24 @@ class PhoneInput extends Component {
 
   toggleList = () => {
     this.setState(prevState => ({
-      showCountries: !prevState.showCountries
+      showCountries: !prevState.showCountries,
     }))
   }
+
+  // handleChange = e => {
+  //   const { value } = e.target
+
+  //   const selectedCountry = Countries.guess(value)
+
+  //   this.setState({
+  //     phoneNumber,
+  //   })
+  // }
 
   handleChange = e => {
     const { defaultCountry, preferredCountries, regions } = this.props
     const { value } = e.target
-    let phoneNumber = value === '+' || value.startsWith('0') ? '' : `+${value.replace(/[^0-9.]+/g, '')}`
+    let phoneNumber = value === '+' || value.startsWith('0') ? '' : `${value.replace(/[^0-9.]+/g, '')}`
 
     let selectedCountry = Countries.guess(phoneNumber) || this.state.selectedCountry
 
@@ -86,17 +97,25 @@ class PhoneInput extends Component {
 
     this.setState({
       selectedCountry,
-      phoneNumber
+      phoneNumber,
+    })
+  }
+
+  handleClickOutside() {
+    this.setState({
+      showCountries: false,
     })
   }
 
   render() {
     const { selectedCountry, phoneNumber, showCountries } = this.state
-    const { placeholder, disabled, preferredCountries, regions } = this.props
+    const {
+      placeholder, disabled, preferredCountries, regions,
+    } = this.props
 
     return (
       <div className="phone-input">
-        <button onClick={this.toggleList} disabled={disabled}>
+        <button onClick={this.toggleList} disabled={disabled} type="button">
           <ReactCountryFlag
             code={selectedCountry.iso2 || ''}
             styleProps={{
@@ -120,12 +139,14 @@ class PhoneInput extends Component {
           showCountries && (
             <ul className="countryList">
               {
-                Countries.getList(preferredCountries, regions).map((c, i)=> {
+                Countries.getList(preferredCountries, regions).map(c => {
                   if (c.isAreaCode) { return null }
+
                   return (
                     <li
                       key={c.iso2}
                       onClick={this.handleClick(c.iso2)}
+                      onKeyPress={this.handleClick(c.iso2)}
                     >
                       <ReactCountryFlag
                         styleProps={{

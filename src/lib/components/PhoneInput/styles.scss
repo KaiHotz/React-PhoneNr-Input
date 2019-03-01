@@ -1,4 +1,5 @@
 .phone-input {
+  display: flex;
   max-width: 320px;;
   position: relative;
   button,
@@ -37,16 +38,17 @@
     width: 200px;
     max-height: 290px;
     position: absolute;
-    top: 20px;
+    top: 25px;
     border: 1px solid #ccc;
-    border-top-width: 0;
     list-style: none;
     margin-top: 0;
     overflow-y: auto;
     padding-left: 0;
+    background-color: #fff;
+    z-index: 999;
     li {
-      font-size: 10px;
-      line-height: 10px;
+      font-size: 12px;
+      line-height: 12px;
       padding: 3px 0.5rem;
       &:not(:last-of-type) {
         padding-top: 5px;

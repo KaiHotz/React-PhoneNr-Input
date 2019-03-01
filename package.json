@@ -1,33 +1,146 @@
 {
   "name": "react-phone-input",
-  "version": "0.1.0",
-  "private": true,
+  "version": "1.1.0",
+  "description": "An automated phone input field",
+  "author": "Kai Hotz",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:KaiHotz/react-phone-input.git"
+  },
+  "homepage": "https://github.com/KaiHotz/recat-phone-input",
+  "main": "dist/index.js",
+  "module": "dist/index.es.js",
+  "jsnext:main": "dist/index.es.js",
+  "engines": {
+    "node": ">=8",
+    "npm": ">=5"
+  },
+  "scripts": {
+    "dev": "run-p build:watch start",
+    "start": "styleguidist server --open",
+    "styleguide:build": "styleguidist build",
+    "build": "rollup -c",
+    "build:watch": "rollup -c -w",
+    "test": "jest",
+    "test:coverage": "jest --coverage --forceExit --colors",
+    "lint": "esw --ext .jsx --ext .js --color",
+    "lint:fix": "npm run lint --fix",
+    "prepare": "npm run build",
+    "prerelease": "npm run lint:fix && npm run test:coverage && npm run build",
+    "release": "npm publish",
+    "predeploy": "npm run styleguide:build",
+    "deploy": "gh-pages -d styleguide"
+  },
   "dependencies": {
     "classnames": "^2.2.6",
     "libphonenumber-js": "^1.7.9",
-    "react": "^16.8.3",
     "react-click-outside": "^3.0.1",
-    "react-country-flag": "^1.0.2",
-    "react-dom": "^16.8.3",
-    "react-scripts": "2.1.5"
+    "react-country-flag": "^1.0.2"
   },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+  "peerDependencies": {
+    "react": "^16.8.3",
+    "react-dom": "^16.8.3"
   },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
   "devDependencies": {
+    "@babel/core": "^7.3.4",
+    "@babel/plugin-proposal-class-properties": "^7.3.4",
+    "@babel/plugin-proposal-object-rest-spread": "^7.3.4",
+    "@babel/plugin-proposal-optional-chaining": "^7.2.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
+    "@babel/preset-env": "^7.3.4",
+    "@babel/preset-react": "^7.0.0",
+    "@svgr/rollup": "^4.1.0",
+    "babel-core": "^7.0.0-bridge.0",
+    "babel-eslint": "^10.0.1",
+    "babel-jest": "^24.1.0",
+    "babel-plugin-transform-react-remove-prop-types": "^0.4.24",
+    "babel-preset-react-app": "^7.0.1",
+    "cross-env": "^5.2.0",
+    "enzyme": "^3.9.0",
+    "enzyme-adapter-react-16": "^1.10.0",
+    "eslint": "^5.14.1",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-plugin-flowtype": "^3.4.2",
+    "eslint-plugin-import": "^2.16.0",
+    "eslint-plugin-jest": "^22.3.0",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-react": "^7.12.4",
+    "eslint-plugin-react-hooks": "^1.3.0",
+    "eslint-watch": "^4.0.2",
+    "gh-pages": "^2.0.1",
+    "jasmine-expect": "^4.0.1",
+    "jest": "^24.1.0",
+    "jest-pnp-resolver": "^1.2.0",
+    "jest-resolve": "^24.1.0",
     "node-sass": "^4.11.0",
-    "prop-types": "^15.7.2"
+    "npm-run-all": "^4.1.5",
+    "prop-types": "^15.7.2",
+    "react": "^16.8.3",
+    "react-app-polyfill": "^0.2.1",
+    "react-dom": "^16.8.3",
+    "react-styleguidist": "^9.0.1",
+    "react-test-renderer": "^16.8.3",
+    "rollup": "^1.4.0",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-commonjs": "^9.2.1",
+    "rollup-plugin-json": "^3.1.0",
+    "rollup-plugin-node-resolve": "^4.0.1",
+    "rollup-plugin-peer-deps-external": "^2.2.0",
+    "rollup-plugin-postcss": "^2.0.3",
+    "rollup-plugin-terser": "^4.0.4",
+    "rollup-plugin-url": "^2.2.0",
+    "webpack": "^4.29.6",
+    "webpack-blocks": "^2.0.0-rc"
+  },
+  "files": [
+    "dist"
+  ],
+  "jest": {
+    "collectCoverageFrom": [
+      "src/**/*.{js,jsx,ts,tsx}",
+      "!src/**/*.d.ts",
+      "!src/**/index.js"
+    ],
+    "resolver": "jest-pnp-resolver",
+    "setupFiles": [
+      "react-app-polyfill/jsdom",
+      "<rootDir>/scripts/enzymeConfig.js"
+    ],
+    "testMatch": [
+      "**/__tests__/**/*.[jt]s?(x)",
+      "**/?(*.)+(spec|test).[jt]s?(x)"
+    ],
+    "testEnvironment": "jsdom",
+    "testURL": "http://localhost",
+    "transform": {
+      "^.+\\.(js|jsx|ts|tsx)$": "<rootDir>/node_modules/babel-jest",
+      "^.+\\.css$": "<rootDir>/scripts/cssTransform.js",
+      "^(?!.*\\.(js|jsx|ts|tsx|css|json)$)": "<rootDir>/scripts/fileTransform.js"
+    },
+    "transformIgnorePatterns": [
+      "[/\\\\]node_modules[/\\\\].+\\.(js|jsx|ts|tsx)$",
+      "^.+\\.module\\.(css|sass|scss)$"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "src"
+    ],
+    "moduleNameMapper": {
+      "^react-native$": "react-native-web",
+      "^.+\\.module\\.(css|sass|scss)$": "identity-obj-proxy"
+    },
+    "moduleFileExtensions": [
+      "web.js",
+      "js",
+      "web.ts",
+      "ts",
+      "web.tsx",
+      "tsx",
+      "json",
+      "web.jsx",
+      "jsx",
+      "node"
+    ]
   }
 }
