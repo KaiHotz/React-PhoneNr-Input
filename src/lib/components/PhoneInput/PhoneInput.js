@@ -39,7 +39,7 @@ class PhoneInput extends Component {
     const { defaultCountry, preferredCountries, regions } = props
 
     this.state = {
-      selectedCountry: getInitial(defaultCountry, preferredCountries, regions),
+      country: getInitial(defaultCountry, preferredCountries, regions),
       phoneNumber: getInitial(defaultCountry, preferredCountries, regions).dialCode,
       showCountries: false,
     }
@@ -48,11 +48,11 @@ class PhoneInput extends Component {
   }
 
   handleClick = code => () => {
-    const selectedCountry = findBy('iso2', code)
+    const country = findBy('iso2', code)
 
     this.setState({
-      selectedCountry,
-      phoneNumber: selectedCountry.dialCode,
+      country,
+      phoneNumber: country.dialCode,
       showCountries: false,
     })
 
@@ -68,13 +68,13 @@ class PhoneInput extends Component {
   handleChange = e => {
     const { value } = e.target
     const { defaultCountry, preferredCountries, regions } = this.props
-    const { selectedCountry: { iso2, dialCode } } = this.state
+    const { country: { iso2, dialCode } } = this.state
 
     let phoneNumber = value
 
     if (!phoneNumber.length) {
       this.setState({
-        selectedCountry: getInitial(defaultCountry, preferredCountries, regions),
+        country: getInitial(defaultCountry, preferredCountries, regions),
         phoneNumber: '',
       })
 
@@ -89,7 +89,7 @@ class PhoneInput extends Component {
     }
 
     this.setState(prevState => ({
-      selectedCountry: guess(value) || prevState.selectedCountry,
+      country: guess(value) || prevState.country,
       phoneNumber,
     }))
   }
@@ -101,7 +101,7 @@ class PhoneInput extends Component {
   }
 
   render() {
-    const { selectedCountry, phoneNumber, showCountries } = this.state
+    const { country, phoneNumber, showCountries } = this.state
     const {
       placeholder, disabled, preferredCountries, regions,
     } = this.props
@@ -110,7 +110,7 @@ class PhoneInput extends Component {
       <div className="phone-input">
         <button onClick={this.toggleList} disabled={disabled} type="button">
           <ReactCountryFlag
-            code={selectedCountry.iso2 || ''}
+            code={country.iso2 || ''}
             styleProps={{
               display: 'inline-block',
               width: '13px',
