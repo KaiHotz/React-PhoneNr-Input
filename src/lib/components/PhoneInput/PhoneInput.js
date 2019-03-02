@@ -68,8 +68,7 @@ class PhoneInput extends Component {
   handleChange = e => {
     const { value } = e.target
     const { defaultCountry, preferredCountries, regions } = this.props
-    const { selectedCountry } = this.state
-    const { iso2, dialCode } = selectedCountry
+    const { selectedCountry: { iso2, dialCode } } = this.state
 
     let phoneNumber = value
 
