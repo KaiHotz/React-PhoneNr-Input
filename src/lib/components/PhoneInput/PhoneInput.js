@@ -72,11 +72,6 @@ class PhoneInput extends Component {
 
     let phoneNumber = value
 
-    if (phoneNumber.slice(dialCode.length).length > 4) {
-      const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
-      phoneNumber = parsedPhoneNumber.formatInternational()
-    }
-
     if (!phoneNumber.length) {
       this.setState({
         selectedCountry: getInitial(defaultCountry, preferredCountries, regions),
@@ -85,6 +80,14 @@ class PhoneInput extends Component {
 
       return
     }
+
+    if (!(/^[\d ()+-]+$/).test(value)) return
+
+    if (phoneNumber.slice(dialCode.length).length > 4) {
+      const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
+      phoneNumber = parsedPhoneNumber.formatInternational()
+    }
+
     this.setState(prevState => ({
       selectedCountry: guess(value) || prevState.selectedCountry,
       phoneNumber,
