@@ -1,19 +1,18 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
-// import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
-import { Countries } from '../../utils'
-// import useCountries from './useCountries'
+import useCountries from './useCountries'
 
 import './styles.scss'
 
-// const [
-//   findBy,
-//   guess,
-//   getInitial,
-//   getList,
-// ] = useCountries()
+const [
+  findBy,
+  guess,
+  getInitial,
+  getList,
+] = useCountries()
 
 class PhoneInput extends Component {
   static propTypes = {
@@ -40,8 +39,8 @@ class PhoneInput extends Component {
     const { defaultCountry, preferredCountries, regions } = props
 
     this.state = {
-      selectedCountry: Countries.getInitial(defaultCountry, preferredCountries, regions),
-      phoneNumber: '',
+      selectedCountry: getInitial(defaultCountry, preferredCountries, regions),
+      phoneNumber: getInitial(defaultCountry, preferredCountries, regions).dialCode,
       showCountries: false,
     }
 
@@ -49,7 +48,7 @@ class PhoneInput extends Component {
   }
 
   handleClick = code => () => {
-    const selectedCountry = Countries.findBy('iso2', code)
+    const selectedCountry = findBy('iso2', code)
 
     this.setState({
       selectedCountry,
@@ -69,48 +68,29 @@ class PhoneInput extends Component {
   handleChange = e => {
     const { value } = e.target
     const { defaultCountry, preferredCountries, regions } = this.props
-    // const { selectedCountry } = this.state
-    // const { iso2, dialCode } = selectedCountry
+    const { selectedCountry } = this.state
+    const { iso2, dialCode } = selectedCountry
 
-    if (!value.length) {
+    let phoneNumber = value
+
+    if (phoneNumber.slice(dialCode.length).length > 4) {
+      const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
+      phoneNumber = parsedPhoneNumber.formatInternational()
+    }
+
+    if (!phoneNumber.length) {
       this.setState({
-        selectedCountry: Countries.getInitial(defaultCountry, preferredCountries, regions),
+        selectedCountry: getInitial(defaultCountry, preferredCountries, regions),
         phoneNumber: '',
       })
 
       return
     }
-
     this.setState(prevState => ({
-      selectedCountry: Countries.guess(value) || prevState.selectedCountry,
-      phoneNumber: value,
+      selectedCountry: guess(value) || prevState.selectedCountry,
+      phoneNumber,
     }))
   }
-
-  // handleChange = e => {
-  //   const { defaultCountry, preferredCountries, regions } = this.props
-  //   const { value } = e.target
-  //   let phoneNumber = value === '+' || value.startsWith('0') ? '' : `${value.replace(/[^0-9.]+/g, '')}`
-
-  //   let selectedCountry = Countries.guess(phoneNumber) || this.state.selectedCountry
-
-  //   if (value === '+' || value.startsWith('0')) {
-  //     phoneNumber = ''
-  //     selectedCountry = Countries.getInitial(defaultCountry, preferredCountries, regions)
-  //   }
-
-  //   const { iso2, dialCode } = selectedCountry
-
-  //   if (value.slice(dialCode.length).length > 4) {
-  //     const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
-  //     phoneNumber = parsedPhoneNumber.formatInternational()
-  //   }
-
-  //   this.setState({
-  //     selectedCountry,
-  //     phoneNumber,
-  //   })
-  // }
 
   handleClickOutside() {
     this.setState({
@@ -150,7 +130,7 @@ class PhoneInput extends Component {
           showCountries && (
             <ul className="countryList">
               {
-                Countries.getList(preferredCountries, regions).map(c => {
+                getList(preferredCountries, regions).map(c => {
                   if (c.isAreaCode) { return null }
 
                   return (

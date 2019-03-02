@@ -4057,7 +4057,18 @@ const allCountries = [
 const useCountries = () => {
   const findBy = (identifyer, item) => allCountries.find(country => country[identifyer] === item)
 
-  const guess = phoneNumber => allCountries.find(country => country.dialCode.startsWith(phoneNumber.substring(0, 4)))
+  const guess = phoneNumber => {
+    let tel
+    if (phoneNumber.startsWith('+')) {
+      tel = phoneNumber.substring(1, 4)
+    } else if (phoneNumber.startsWith('00')) {
+      tel = phoneNumber.substring(2, 4)
+    } else {
+      tel = phoneNumber.substring(0, 4)
+    }
+
+    return allCountries.find(country => country.dialCode.startsWith(tel))
+  }
 
   const getRegions = regions => {
     if (typeof regions === 'string') {
