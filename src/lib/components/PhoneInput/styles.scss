@@ -47,6 +47,9 @@
     z-index: 999;
     li {
       display: flex;
+      align-items: center;
+      align-content: space-between;
+      font-size: 1rem;
       padding: 3px 0.5rem;
       &:not(:last-of-type) {
         padding-top: 5px;
@@ -57,6 +60,9 @@
         background-color: #ddd;
         color: currentColor;
         cursor: pointer;
+      }
+      span {
+        margin-right: 10px;
       }
     }
     /* width */

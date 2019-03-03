@@ -153,12 +153,12 @@ class PhoneInput extends Component {
                     >
                       <ReactCountryFlag
                         styleProps={{
-                          width: '18px',
+                          width: '20px',
                         }}
                         code={c.iso2}
                         svg
                       />
-                      {` - ${c.name}`}
+                      {` ${c.name}`}
                     </li>
                   )
                 })
