@@ -136,7 +136,7 @@ class PhoneInput extends Component {
           ref={this.phoneInput}
           placeholder={placeholder}
           disabled={disabled}
-          maxLength="20"
+          maxLength="21"
         />
         {
           showCountries && format === 'INTERNATIONAL' && (
@@ -153,8 +153,7 @@ class PhoneInput extends Component {
                     >
                       <ReactCountryFlag
                         styleProps={{
-                          width: '13px',
-                          height: '10px',
+                          width: '18px',
                         }}
                         code={c.iso2}
                         svg

@@ -7,7 +7,6 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     outline: none;
-    height: 20px;
   }
   button {
     position: relative;
@@ -47,8 +46,7 @@
     background-color: #fff;
     z-index: 999;
     li {
-      font-size: 12px;
-      line-height: 12px;
+      display: flex;
       padding: 3px 0.5rem;
       &:not(:last-of-type) {
         padding-top: 5px;
