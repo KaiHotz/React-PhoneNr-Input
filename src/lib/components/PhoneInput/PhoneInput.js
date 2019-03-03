@@ -89,7 +89,7 @@ class PhoneInput extends Component {
 
     if (!(/^[\d ()+-]+$/).test(value)) return
 
-    if (phoneNumber.slice(dialCode.length).length > 4) {
+    if (phoneNumber.slice(dialCode.length).length > 5) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
       phoneNumber = parsedPhoneNumber.format(format)
     }

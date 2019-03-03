@@ -34,7 +34,7 @@ import { PhoneInput } from 'react-phone-input';
 ```js
 import { PhoneInput } from 'react-phone-input';
 
-<PhoneInput format='NATIONAL' defaultCountry='de'/>
+<PhoneInput format='NATIONAL' defaultCountry='us' placeholder='(234) 567-8952'/>
 ```
 
 
