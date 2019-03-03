@@ -22,6 +22,7 @@ class PhoneInput extends Component {
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string),
     ]),
+    format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
   }
@@ -30,17 +31,20 @@ class PhoneInput extends Component {
     defaultCountry: null,
     preferredCountries: [],
     regions: null,
+    format: 'INTERNATIONAL',
     placeholder: '+1 702 123 4567',
     disabled: false,
   }
 
   constructor(props) {
     super(props)
-    const { defaultCountry, preferredCountries, regions } = props
+    const {
+      defaultCountry, preferredCountries, regions, format,
+    } = props
 
     this.state = {
       country: getInitial(defaultCountry, preferredCountries, regions),
-      phoneNumber: getInitial(defaultCountry, preferredCountries, regions).dialCode,
+      phoneNumber: format === 'INTERNATIONAL' ? getInitial(defaultCountry, preferredCountries, regions).dialCode : '',
       showCountries: false,
     }
 
@@ -67,7 +71,9 @@ class PhoneInput extends Component {
 
   handleChange = e => {
     const { value } = e.target
-    const { defaultCountry, preferredCountries, regions } = this.props
+    const {
+      defaultCountry, preferredCountries, regions, format,
+    } = this.props
     const { country: { iso2, dialCode } } = this.state
 
     let phoneNumber = value
@@ -84,8 +90,8 @@ class PhoneInput extends Component {
     if (!(/^[\d ()+-]+$/).test(value)) return
 
     if (phoneNumber.slice(dialCode.length).length > 4) {
-      const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, `${iso2.toUpperCase()}`)
-      phoneNumber = parsedPhoneNumber.formatInternational()
+      const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
+      phoneNumber = parsedPhoneNumber.format(format)
     }
 
     this.setState(prevState => ({
@@ -103,22 +109,26 @@ class PhoneInput extends Component {
   render() {
     const { country, phoneNumber, showCountries } = this.state
     const {
-      placeholder, disabled, preferredCountries, regions,
+      placeholder, disabled, preferredCountries, regions, format,
     } = this.props
 
     return (
       <div className="phone-input">
-        <button onClick={this.toggleList} disabled={disabled} type="button">
-          <ReactCountryFlag
-            code={country.iso2 || ''}
-            styleProps={{
-              display: 'inline-block',
-              width: '13px',
-              backgroundPosition: 'top center',
-            }}
-            svg
-          />
-        </button>
+        {
+          format === 'INTERNATIONAL' && (
+            <button onClick={this.toggleList} disabled={disabled} type="button">
+              <ReactCountryFlag
+                code={country.iso2 || ''}
+                styleProps={{
+                  display: 'inline-block',
+                  width: '13px',
+                  backgroundPosition: 'top center',
+                }}
+                svg
+              />
+            </button>
+          )
+        }
         <input
           type="tel"
           value={phoneNumber}
@@ -129,7 +139,7 @@ class PhoneInput extends Component {
           maxLength="20"
         />
         {
-          showCountries && (
+          showCountries && format === 'INTERNATIONAL' && (
             <ul className="countryList">
               {
                 getList(preferredCountries, regions).map(c => {

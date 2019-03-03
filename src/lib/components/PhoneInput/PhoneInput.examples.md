@@ -30,3 +30,11 @@ import { PhoneInput } from 'react-phone-input';
 <PhoneInput regions={['carribean', 'oceania']}/>
 ```
 
+###### Format National
+```js
+import { PhoneInput } from 'react-phone-input';
+
+<PhoneInput format='NATIONAL' defaultCountry='de'/>
+```
+
+
