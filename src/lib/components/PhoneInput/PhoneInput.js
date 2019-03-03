@@ -95,7 +95,7 @@ class PhoneInput extends Component {
     }
 
     this.setState(prevState => ({
-      country: guess(value) || prevState.country,
+      country: (format === 'INTERNATIONAL' && guess(value)) || prevState.country,
       phoneNumber,
     }))
   }
