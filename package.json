@@ -1,14 +1,14 @@
 {
-  "name": "react-phone-input",
-  "version": "1.1.0",
+  "name": "react-phone-picker",
+  "version": "1.0.0",
   "description": "An automated phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:KaiHotz/react-phone-input.git"
+    "url": "git@github.com:KaiHotz/react-phone-picker.git"
   },
-  "homepage": "https://github.com/KaiHotz/recat-phone-input",
+  "homepage": "https://github.com/KaiHotz/recat-phone-picker",
   "main": "dist/index.js",
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
