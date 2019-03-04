@@ -95,7 +95,6 @@ class PhoneInput extends Component {
         if (phoneNumber.startsWith('00')) {
           phoneNumber = phoneNumber.replace('00', '+')
         }
-
         if (!phoneNumber.startsWith('+')) {
           phoneNumber = `+${phoneNumber}`
         }
@@ -103,7 +102,11 @@ class PhoneInput extends Component {
 
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
 
-      phoneNumber = parsedPhoneNumber.format(format)
+      try {
+        phoneNumber = parsedPhoneNumber.format(format)
+      } catch (e) {
+        phoneNumber = value.replace(/\((()+-)\)/g, '')
+      }
     }
 
     this.setState(prevState => ({
