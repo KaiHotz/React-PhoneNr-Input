@@ -45,7 +45,7 @@ class PhoneInput extends Component {
 
     this.state = {
       country: getInitial(defaultCountry, preferredCountries, regions),
-      phoneNumber: format === 'INTERNATIONAL' ? getInitial(defaultCountry, preferredCountries, regions).dialCode : '',
+      phoneNumber: format === 'INTERNATIONAL' ? `+${getInitial(defaultCountry, preferredCountries, regions).dialCode}` : '',
       showCountries: false,
     }
 
@@ -57,7 +57,7 @@ class PhoneInput extends Component {
 
     this.setState({
       country,
-      phoneNumber: country.dialCode,
+      phoneNumber: `+${country.dialCode}`,
       showCountries: false,
     }, () => this.props.onChange(this.state.phoneNumber))
 
@@ -90,7 +90,7 @@ class PhoneInput extends Component {
 
     if (!(/^[\d ()+-]+$/).test(value)) return
 
-    if (phoneNumber.slice(dialCode.length).length > 1) {
+    if (phoneNumber.slice(dialCode.length).length > 4) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
       phoneNumber = parsedPhoneNumber.format(format)
     }
