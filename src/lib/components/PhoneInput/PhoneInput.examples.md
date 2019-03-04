@@ -9,33 +9,42 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 <PhoneInput onChange={handleChange}/>
 ```
 
-###### with defaultCountry
+###### With DefaultCountry
 ```js
 import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
-<PhoneInput onChange={handleChange} defaultCountry='de' />
+<PhoneInput
+  onChange={handleChange}
+  defaultCountry='de'
+/>
 ```
 
 
-###### with preferredCountries
+###### With PreferredCountries
 ```js
 import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
-<PhoneInput onChange={handleChange} preferredCountries={['cl', 'ar', 'br', 'co']} />
+<PhoneInput
+  onChange={handleChange}
+  preferredCountries={['cl', 'ar', 'br', 'co']}
+/>
 ```
 
 
-###### with regions
+###### With Regions
 ```js
 import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
-<PhoneInput onChange={handleChange} regions={['carribean', 'oceania']} />
+<PhoneInput
+  onChange={handleChange}
+  regions={['carribean', 'oceania']}
+/>
 ```
 
 ###### Format National
@@ -44,7 +53,12 @@ import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
-<PhoneInput onChange={handleChange} format='NATIONAL' defaultCountry='us' placeholder='(234) 567-8952' />
+<PhoneInput
+  onChange={handleChange}
+  format='NATIONAL'
+  defaultCountry='us'
+  placeholder='(234) 567-8952'
+/>
 ```
 
 
