@@ -3,16 +3,14 @@ import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
-import useCountries from './useCountries'
-
-import './styles.scss'
-
-const [
+import {
   findBy,
   guess,
   getInitial,
   getList,
-] = useCountries()
+} from './useCountries'
+
+import './styles.scss'
 
 class PhoneInput extends Component {
   static propTypes = {
