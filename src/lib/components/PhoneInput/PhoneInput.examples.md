@@ -2,7 +2,7 @@ PhoneInput examples:
 
 ###### Default
 ```js
-import { PhoneInput } from 'react-phone-input';
+import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
@@ -11,7 +11,7 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 
 ###### with defaultCountry
 ```js
-import { PhoneInput } from 'react-phone-input';
+import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
@@ -21,7 +21,7 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 
 ###### with preferredCountries
 ```js
-import { PhoneInput } from 'react-phone-input';
+import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
@@ -31,7 +31,7 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 
 ###### with regions
 ```js
-import { PhoneInput } from 'react-phone-input';
+import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
@@ -40,7 +40,7 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 
 ###### Format National
 ```js
-import { PhoneInput } from 'react-phone-input';
+import { PhoneInput } from 'react-phone-picker';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 

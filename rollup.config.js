@@ -27,9 +27,9 @@ export default {
   plugins: [
     json({
       exclude: ['node_modules/foo/**', 'node_modules/bar/**'],
-      preferConst: true, // Default: false
+      preferConst: true,
       indent: '  ',
-      compact: true, // Default: false
+      compact: true,
       namedExports: true,
     }),
     postcss({
