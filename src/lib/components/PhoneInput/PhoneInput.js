@@ -4,10 +4,10 @@ import enhanceWithClickOutside from 'react-click-outside'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
 import {
-  findBy,
-  guess,
-  getInitial,
-  getList,
+  findCountryBy,
+  getCountry,
+  getInitialCountry,
+  getCountryList,
 } from '../../utils/countries-fn'
 
 import './styles.scss'
@@ -42,8 +42,8 @@ class PhoneInput extends Component {
     } = props
 
     this.state = {
-      country: getInitial(defaultCountry, preferredCountries, regions),
-      phoneNumber: format === 'INTERNATIONAL' ? `+${getInitial(defaultCountry, preferredCountries, regions).dialCode}` : '',
+      country: getInitialCountry(defaultCountry, preferredCountries, regions),
+      phoneNumber: format === 'INTERNATIONAL' ? `+${getInitialCountry(defaultCountry, preferredCountries, regions).dialCode}` : '',
       showCountries: false,
     }
 
@@ -51,7 +51,7 @@ class PhoneInput extends Component {
   }
 
   handleClick = code => () => {
-    const country = findBy('iso2', code)
+    const country = findCountryBy('iso2', code)
 
     this.setState({
       country,
@@ -104,7 +104,7 @@ class PhoneInput extends Component {
 
     if (!value.length) {
       this.setState({
-        country: getInitial(defaultCountry, preferredCountries, regions),
+        country: getInitialCountry(defaultCountry, preferredCountries, regions),
         phoneNumber: '',
       }, () => onChange(this.state.phoneNumber))
 
@@ -114,7 +114,7 @@ class PhoneInput extends Component {
     if (!(/^[\d ()+-]+$/).test(value)) return
 
     this.setState(prevState => ({
-      country: (format === 'INTERNATIONAL' && guess(value)) || prevState.country,
+      country: (format === 'INTERNATIONAL' && getCountry(value)) || prevState.country,
       phoneNumber: this.formatNumber(value),
     }), () => onChange(this.state.phoneNumber))
   }
@@ -165,7 +165,7 @@ class PhoneInput extends Component {
           showCountries && format === 'INTERNATIONAL' && (
             <ul className="countryList">
               {
-                getList(preferredCountries, regions).map(c => {
+                getCountryList(preferredCountries, regions).map(c => {
                   if (c.isAreaCode) { return null }
 
                   return (
