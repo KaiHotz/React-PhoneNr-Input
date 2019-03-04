@@ -91,12 +91,23 @@ class PhoneInput extends Component {
     if (!(/^[\d ()+-]+$/).test(value)) return
 
     if (phoneNumber.slice(dialCode.length).length > 4) {
+      if (format === 'INTERNATIONAL') {
+        if (phoneNumber.startsWith('00')) {
+          phoneNumber = phoneNumber.replace('00', '+')
+        }
+
+        if (!phoneNumber.startsWith('+')) {
+          phoneNumber = `+${phoneNumber}`
+        }
+      }
+
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
+
       phoneNumber = parsedPhoneNumber.format(format)
     }
 
     this.setState(prevState => ({
-      country: (format === 'INTERNATIONAL' && guess(value, dialCode)) || prevState.country,
+      country: (format === 'INTERNATIONAL' && guess(value)) || prevState.country,
       phoneNumber,
     }), () => onChange(this.state.phoneNumber))
   }
