@@ -25,6 +25,7 @@ class PhoneInput extends Component {
     format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
     placeholder: PropTypes.string,
     disabled: PropTypes.bool,
+    onChange: PropTypes.func.isRequired,
   }
 
   static defaultProps = {
@@ -58,7 +59,7 @@ class PhoneInput extends Component {
       country,
       phoneNumber: country.dialCode,
       showCountries: false,
-    })
+    }, () => this.props.onChange(this.state.phoneNumber))
 
     this.phoneInput.current.focus()
   }
@@ -72,7 +73,7 @@ class PhoneInput extends Component {
   handleChange = e => {
     const { value } = e.target
     const {
-      defaultCountry, preferredCountries, regions, format,
+      defaultCountry, preferredCountries, regions, format, onChange,
     } = this.props
     const { country: { iso2, dialCode } } = this.state
 
@@ -82,22 +83,22 @@ class PhoneInput extends Component {
       this.setState({
         country: getInitial(defaultCountry, preferredCountries, regions),
         phoneNumber: '',
-      })
+      }, () => onChange(this.state.phoneNumber))
 
       return
     }
 
     if (!(/^[\d ()+-]+$/).test(value)) return
 
-    if (phoneNumber.slice(dialCode.length).length > 5) {
+    if (phoneNumber.slice(dialCode.length).length > 1) {
       const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
       phoneNumber = parsedPhoneNumber.format(format)
     }
 
     this.setState(prevState => ({
-      country: (format === 'INTERNATIONAL' && guess(value)) || prevState.country,
+      country: (format === 'INTERNATIONAL' && guess(value, dialCode)) || prevState.country,
       phoneNumber,
-    }))
+    }), () => onChange(this.state.phoneNumber))
   }
 
   handleClickOutside() {
@@ -116,7 +117,11 @@ class PhoneInput extends Component {
       <div className="phone-input">
         {
           format === 'INTERNATIONAL' && (
-            <button onClick={this.toggleList} disabled={disabled} type="button">
+            <button
+              onClick={this.toggleList}
+              disabled={disabled}
+              type="button"
+            >
               <ReactCountryFlag
                 code={country.iso2 || ''}
                 styleProps={{

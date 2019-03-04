@@ -4057,14 +4057,15 @@ const allCountries = [
 const useCountries = () => {
   const findBy = (identifyer, item) => allCountries.find(country => country[identifyer] === item)
 
-  const guess = phoneNumber => {
+  const guess = (phoneNumber, dialCode) => {
+    const { length } = dialCode
     let tel
     if (phoneNumber.startsWith('+')) {
-      tel = phoneNumber.substring(1, 4)
+      tel = phoneNumber.substring(1, length)
     } else if (phoneNumber.startsWith('00')) {
-      tel = phoneNumber.substring(2, 4)
+      tel = phoneNumber.substring(2, length)
     } else {
-      tel = phoneNumber.substring(0, 4)
+      tel = phoneNumber.substring(0, length)
     }
 
     return allCountries.find(country => country.dialCode.startsWith(`+${tel}`))

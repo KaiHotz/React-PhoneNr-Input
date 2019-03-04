@@ -4,14 +4,18 @@ PhoneInput examples:
 ```js
 import { PhoneInput } from 'react-phone-input';
 
-<PhoneInput />
+const handleChange = phoneNumber => console.log(phoneNumber);
+
+<PhoneInput onChange={handleChange}/>
 ```
 
 ###### with defaultCountry
 ```js
 import { PhoneInput } from 'react-phone-input';
 
-<PhoneInput defaultCountry='de'/>
+const handleChange = phoneNumber => console.log(phoneNumber);
+
+<PhoneInput onChange={handleChange} defaultCountry='de' />
 ```
 
 
@@ -19,7 +23,9 @@ import { PhoneInput } from 'react-phone-input';
 ```js
 import { PhoneInput } from 'react-phone-input';
 
-<PhoneInput preferredCountries={['cl', 'ar', 'br', 'co']}/>
+const handleChange = phoneNumber => console.log(phoneNumber);
+
+<PhoneInput onChange={handleChange} preferredCountries={['cl', 'ar', 'br', 'co']} />
 ```
 
 
@@ -27,14 +33,18 @@ import { PhoneInput } from 'react-phone-input';
 ```js
 import { PhoneInput } from 'react-phone-input';
 
-<PhoneInput regions={['carribean', 'oceania']}/>
+const handleChange = phoneNumber => console.log(phoneNumber);
+
+<PhoneInput onChange={handleChange} regions={['carribean', 'oceania']} />
 ```
 
 ###### Format National
 ```js
 import { PhoneInput } from 'react-phone-input';
 
-<PhoneInput format='NATIONAL' defaultCountry='us' placeholder='(234) 567-8952'/>
+const handleChange = phoneNumber => console.log(phoneNumber);
+
+<PhoneInput onChange={handleChange} format='NATIONAL' defaultCountry='us' placeholder='(234) 567-8952' />
 ```
 
 

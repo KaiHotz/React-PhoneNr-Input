@@ -12,7 +12,8 @@
     position: relative;
     border-right: none;
     border-radius: 3px 0px 0px 3px;
-    padding: 1px 7px 1px 2px;
+    padding-right: 7px;
+    padding-left: 2px;
     width: 30px;
     background-color: #ddd;
     &::after {
@@ -22,15 +23,14 @@
       border: 2.8px solid transparent;
       border-color: #000 transparent transparent transparent;
       position: absolute;
-      right: 1px;
+      right: 2px;
       top: 42%;
       pointer-events: none;
     }
   }
   input {
     width: 170px;
-    border-radius: 0px 3px 3px 0px;
-    padding: 1px 5px;
+    padding: 0px 5px;
   }
   ul {
     box-sizing: border-box;
