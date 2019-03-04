@@ -8,7 +8,7 @@ import {
   guess,
   getInitial,
   getList,
-} from './useCountries'
+} from '../../utils/countries-fn'
 
 import './styles.scss'
 
