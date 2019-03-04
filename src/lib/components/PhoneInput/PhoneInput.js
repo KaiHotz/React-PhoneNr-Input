@@ -68,24 +68,11 @@ class PhoneInput extends Component {
     }))
   }
 
-  handleChange = e => {
-    const {
-      defaultCountry, preferredCountries, regions, format, onChange,
-    } = this.props
+  formatNumber = number => {
+    const { format } = this.props
     const { country: { iso2, dialCode } } = this.state
 
-    let phoneNumber = e.target.value
-
-    if (!phoneNumber.length) {
-      this.setState({
-        country: getInitial(defaultCountry, preferredCountries, regions),
-        phoneNumber: '',
-      }, () => onChange(this.state.phoneNumber))
-
-      return
-    }
-
-    if (!(/^[\d ()+-]+$/).test(phoneNumber)) return
+    let phoneNumber = number
 
     if (phoneNumber.slice(dialCode.length).length > 4) {
       if (format === 'INTERNATIONAL') {
@@ -106,9 +93,29 @@ class PhoneInput extends Component {
       }
     }
 
+    return phoneNumber
+  }
+
+  handleChange = e => {
+    const { value } = e.target
+    const {
+      defaultCountry, preferredCountries, regions, format, onChange,
+    } = this.props
+
+    if (!value.length) {
+      this.setState({
+        country: getInitial(defaultCountry, preferredCountries, regions),
+        phoneNumber: '',
+      }, () => onChange(this.state.phoneNumber))
+
+      return
+    }
+
+    if (!(/^[\d ()+-]+$/).test(value)) return
+
     this.setState(prevState => ({
-      country: (format === 'INTERNATIONAL' && guess(phoneNumber)) || prevState.country,
-      phoneNumber,
+      country: (format === 'INTERNATIONAL' && guess(value)) || prevState.country,
+      phoneNumber: this.formatNumber(value),
     }), () => onChange(this.state.phoneNumber))
   }
 
