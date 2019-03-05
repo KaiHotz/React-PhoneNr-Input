@@ -74,7 +74,7 @@ class PhoneInput extends Component {
 
     let phoneNumber = number
 
-    if (phoneNumber.slice(dialCode.length).length > 4) {
+    if (phoneNumber.slice(dialCode.length).length) {
       if (format === 'INTERNATIONAL') {
         if (phoneNumber.startsWith('00')) {
           phoneNumber = phoneNumber.replace('00', '+')
@@ -89,7 +89,7 @@ class PhoneInput extends Component {
       try {
         phoneNumber = parsedPhoneNumber.format(format)
       } catch (e) {
-        phoneNumber = phoneNumber.replace(/\((()+-)\)/g, '')
+        phoneNumber = phoneNumber.replace(/\(+-()\)/g, '')
       }
     }
 
