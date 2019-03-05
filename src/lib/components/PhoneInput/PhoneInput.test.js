@@ -1,5 +1,5 @@
 import React from 'react'
-import { shallow } from 'enzyme'
+import { shallow, mount } from 'enzyme'
 import PhoneInput from './PhoneInput'
 
 describe('<PhoneInput />', () => {
@@ -13,9 +13,23 @@ describe('<PhoneInput />', () => {
     expect(wrapper).toBeDefined()
   })
 
+  it('should have the initial dialCode', () => {
+    const wrapper = mount(<PhoneInput {...baseProps} />)
+    const input = wrapper.find('input')
+
+    expect(input.prop('value')).toBe('+1')
+  })
+
+  it('should have default Country de', () => {
+    const wrapper = mount(<PhoneInput {...baseProps} defaultCountry="de" />)
+    const input = wrapper.find('input')
+
+    expect(input.prop('value')).toBe('+49')
+  })
+
   it('should call onChange', () => {
-    const wrapper = shallow(<PhoneInput {...baseProps} />)
-    wrapper.simulate('change', { value: '+56' })
+    const wrapper = mount(<PhoneInput {...baseProps} />)
+    wrapper.find('input').simulate('change', { target: { value: '+56' } })
 
     expect(baseProps.onChange).toHaveBeenCalled()
   })
