@@ -29,7 +29,7 @@ describe('<PhoneInput />', () => {
 
   it('should call onChange', () => {
     const wrapper = mount(<PhoneInput {...baseProps} />)
-    wrapper.find('input').simulate('change', { target: { value: '+56' } })
+    wrapper.find('input').simulate('change', { target: { value: '907' } })
 
     expect(baseProps.onChange).toHaveBeenCalled()
   })
