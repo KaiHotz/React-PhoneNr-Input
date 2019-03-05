@@ -1,6 +1,7 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
+import cx from 'classnames'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
 import {
@@ -22,6 +23,7 @@ class PhoneInput extends Component {
     ]),
     format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
     placeholder: PropTypes.string,
+    className: PropTypes.string,
     disabled: PropTypes.bool,
     onChange: PropTypes.func.isRequired,
   }
@@ -32,6 +34,7 @@ class PhoneInput extends Component {
     regions: null,
     format: 'INTERNATIONAL',
     placeholder: '+1 702 123 4567',
+    className: null,
     disabled: false,
   }
 
@@ -128,11 +131,11 @@ class PhoneInput extends Component {
   render() {
     const { country, phoneNumber, showCountries } = this.state
     const {
-      placeholder, disabled, preferredCountries, regions, format,
+      placeholder, disabled, preferredCountries, regions, format, className,
     } = this.props
 
     return (
-      <div className="phone-input">
+      <div className={cx('phone-input', className)}>
         {
           format === 'INTERNATIONAL' && (
             <button
