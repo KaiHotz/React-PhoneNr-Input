@@ -47,7 +47,7 @@ export class PhoneInput extends Component {
 
     this.state = {
       country: getInitialCountry(defaultCountry, preferredCountries, regions),
-      phoneNumber: format === 'INTERNATIONAL' ? `+${getInitialCountry(defaultCountry, preferredCountries, regions).dialCode}` : '',
+      phoneNumber: format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '',
       showCountries: false,
     }
 
@@ -59,7 +59,7 @@ export class PhoneInput extends Component {
 
     this.setState({
       country,
-      phoneNumber: `+${country.dialCode}`,
+      phoneNumber: country.dialCode,
       showCountries: false,
     }, () => this.props.onChange(this.state.phoneNumber))
 
@@ -74,27 +74,26 @@ export class PhoneInput extends Component {
 
   formatNumber = number => {
     const { format } = this.props
-    const { country: { iso2, dialCode } } = this.state
+    const { country: { iso2 } } = this.state
 
     let phoneNumber = number
 
-    if (phoneNumber.slice(dialCode.length).length) {
-      if (format === 'INTERNATIONAL') {
-        if (phoneNumber.startsWith('00')) {
-          phoneNumber = phoneNumber.replace('00', '+')
-        }
-        if (!phoneNumber.startsWith('+')) {
-          phoneNumber = `+${phoneNumber}`
-        }
+    if (format === 'INTERNATIONAL') {
+      if (!phoneNumber.startsWith('+')) {
+        phoneNumber = `+${phoneNumber}`
       }
-
-      const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
-
-      try {
-        phoneNumber = parsedPhoneNumber.format(format)
-      } catch (e) {
-        phoneNumber = phoneNumber.replace(/\(+-()\)/g, '')
+      if (phoneNumber.startsWith('+00')) {
+        phoneNumber = phoneNumber.replace('00', '')
       }
+    }
+
+    const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
+
+    try {
+      phoneNumber = parsedPhoneNumber.format(format)
+        console.log('phoneNumber', phoneNumber); // eslint-disable-line
+    } catch (e) {
+      phoneNumber = phoneNumber.replace(/\(+-()\)/g, '')
     }
 
     return phoneNumber

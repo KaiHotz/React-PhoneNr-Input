@@ -57,7 +57,7 @@ const handleChange = phoneNumber => console.log(phoneNumber);
   onChange={handleChange}
   format='NATIONAL'
   defaultCountry='us'
-  placeholder='(234) 567-8952'
+  placeholder='(555) 123-4567'
 />
 ```
 

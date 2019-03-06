@@ -3,16 +3,9 @@ import allCountries from './allCountries'
 export const findCountryBy = (identifyer, item) => allCountries.find(country => country[identifyer] === item)
 
 export const getCountry = phoneNumber => {
-  let tel
-  if (phoneNumber.startsWith('+')) {
-    tel = phoneNumber.substring(1, 5)
-  } else if (phoneNumber.startsWith('00')) {
-    tel = phoneNumber.substring(2, 6)
-  } else {
-    tel = phoneNumber.substring(0, 4)
-  }
+  const tel = phoneNumber.startsWith('+') ? phoneNumber.substring(1, 6) : phoneNumber.substring(0, 5)
 
-  return allCountries.find(country => country.dialCode.startsWith(tel))
+  return allCountries.find(country => country.dialCode.startsWith(`+${tel.replace(' ', '')}`))
 }
 
 export const getCountriesByRegions = regions => {
