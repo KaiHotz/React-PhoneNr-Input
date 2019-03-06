@@ -3,7 +3,7 @@ const allCountries = [
     name: 'International',
     regions: [],
     iso2: 'intl',
-    dialCode: '+',
+    dialCode: '',
     isAreaCode: true,
     hasAreaCodes: false,
   },
