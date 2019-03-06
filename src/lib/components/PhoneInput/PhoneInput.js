@@ -4,7 +4,7 @@ import enhanceWithClickOutside from 'react-click-outside'
 import cx from 'classnames'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
-import World from '../../utils/globe.svg'
+import World from '../../utils/globe2.svg'
 import {
   findCountryBy,
   getCountry,
@@ -141,7 +141,7 @@ export class PhoneInput extends Component {
         <ReactCountryFlag
           code={country.iso2 || ''}
           styleProps={{
-            display: 'inline-block',
+            display: 'block',
             width: '30px',
             height: '15px',
             backgroundPosition: 'top center',

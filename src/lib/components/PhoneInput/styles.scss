@@ -10,6 +10,10 @@
   }
   button {
     position: relative;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    align-items: center;
     border-right: none;
     border-radius: 3px 0px 0px 3px;
     padding-right: 7px;
