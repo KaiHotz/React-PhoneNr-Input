@@ -91,7 +91,6 @@ export class PhoneInput extends Component {
 
     try {
       phoneNumber = parsedPhoneNumber.format(format)
-        console.log('phoneNumber', phoneNumber); // eslint-disable-line
     } catch (e) {
       phoneNumber = phoneNumber.replace(/\(+-()\)/g, '')
     }
