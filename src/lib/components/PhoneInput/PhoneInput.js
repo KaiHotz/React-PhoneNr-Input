@@ -134,15 +134,15 @@ export class PhoneInput extends Component {
     } = this.props
 
     const flag = country.iso2 === 'intl'
-      ? <img src={globe} alt="world" width="20" />
+      ? <img src={globe} alt="world" />
       : (
         <ReactCountryFlag
           code={country.iso2 || ''}
           styleProps={{
             display: 'block',
-            width: '30px',
-            height: '15px',
-            backgroundPosition: 'top center',
+            width: '2em',
+            height: '1.5em',
+            backgroundPosition: 'center center',
           }}
           svg
         />

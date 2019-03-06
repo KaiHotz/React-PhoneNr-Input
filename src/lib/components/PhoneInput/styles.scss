@@ -20,6 +20,9 @@
     padding-left: 2px;
     width: 40px;
     background-color: #ddd;
+    img {
+      width: 2em;
+    }
     &::after {
       content: "";
       width: 0;
