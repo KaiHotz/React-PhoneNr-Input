@@ -22,7 +22,11 @@ describe('<PhoneInput />', () => {
   })
 
   it('should have default Country de', () => {
-    const wrapper = mount(<PhoneInput {...baseProps} defaultCountry="de" />)
+    const props = {
+      ...baseProps,
+      defaultCountry: 'de',
+    }
+    const wrapper = mount(<PhoneInput {...props} />)
     const input = wrapper.find('input')
 
     expect(wrapper.state().country.iso2).toBe('de')
