@@ -1,6 +1,6 @@
 import React from 'react'
 import { shallow, mount } from 'enzyme'
-import PhoneInput from './PhoneInput'
+import { PhoneInput } from './PhoneInput'
 
 describe('<PhoneInput />', () => {
   const baseProps = {
@@ -34,10 +34,10 @@ describe('<PhoneInput />', () => {
     expect(baseProps.onChange).toHaveBeenCalled()
   })
 
-  it('should be disableable', () => {
+  it('should be disabled', () => {
     const wrapper = shallow(<PhoneInput disabled {...baseProps} />)
 
-    expect(wrapper.prop('disabled')).toBe(true)
+    expect(wrapper.find('input').prop('disabled')).toBe(true)
   })
 
   it('should allow custom className', () => {

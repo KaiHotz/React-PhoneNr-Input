@@ -13,7 +13,7 @@ import {
 
 import './styles.scss'
 
-class PhoneInput extends Component {
+export class PhoneInput extends Component {
   static propTypes = {
     defaultCountry: PropTypes.string,
     preferredCountries: PropTypes.arrayOf(PropTypes.string),
