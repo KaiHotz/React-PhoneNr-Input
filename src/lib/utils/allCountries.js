@@ -1,5 +1,13 @@
 const allCountries = [
   {
+    name: 'International',
+    regions: [],
+    iso2: 'intl',
+    dialCode: '',
+    isAreaCode: true,
+    hasAreaCodes: false,
+  },
+  {
     name: 'Afghanistan (‫افغانستان‬‎)',
     regions: ['asia'],
     iso2: 'af',

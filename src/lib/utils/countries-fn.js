@@ -32,7 +32,7 @@ export const getInitialCountry = (defaultCountry, preferredCountries, regions) =
       ? findCountryBy('iso2', preferredCountries[0])
       : regions
         ? getCountriesByRegions(regions)[0]
-        : findCountryBy('iso2', 'us')
+        : findCountryBy('iso2', 'intl')
 )
 
 export const getCountryList = (preferredCountries, regions) => (
