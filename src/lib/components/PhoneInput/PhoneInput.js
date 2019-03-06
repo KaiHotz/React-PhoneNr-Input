@@ -4,7 +4,7 @@ import enhanceWithClickOutside from 'react-click-outside'
 import cx from 'classnames'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
-import World from '../../utils/globe2.svg'
+import World from '../../utils/globe.svg'
 import {
   findCountryBy,
   getCountry,
