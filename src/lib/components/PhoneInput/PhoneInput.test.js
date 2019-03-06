@@ -17,13 +17,15 @@ describe('<PhoneInput />', () => {
     const wrapper = mount(<PhoneInput {...baseProps} />)
     const input = wrapper.find('input')
 
-    expect(input.prop('value')).toBe('+1')
+    expect(wrapper.state().country.iso2).toBe('intl')
+    expect(input.prop('value')).toBe('')
   })
 
   it('should have default Country de', () => {
     const wrapper = mount(<PhoneInput {...baseProps} defaultCountry="de" />)
     const input = wrapper.find('input')
 
+    expect(wrapper.state().country.iso2).toBe('de')
     expect(input.prop('value')).toBe('+49')
   })
 
