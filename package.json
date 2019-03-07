@@ -1,7 +1,7 @@
 {
   "name": "react-phonenr-input",
   "version": "1.0.0",
-  "description": "An automated phone input field",
+  "description": "An automated and intuitive international and national phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
   "repository": {

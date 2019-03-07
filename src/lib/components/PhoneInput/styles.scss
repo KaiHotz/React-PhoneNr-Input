@@ -1,12 +1,17 @@
-.phone-input {
+.react-phonenr-input {
   display: flex;
   max-width: 320px;;
   position: relative;
   button,
   input {
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
     box-sizing: border-box;
     border: 1px solid #ccc;
     outline: none;
+    border-radius: 0px;
+    height: calc(0.3rem * 6);
   }
   button {
     position: relative;
@@ -23,6 +28,16 @@
     img {
       width: 2em;
     }
+    select {
+      width: '100%';
+      position: absolute;
+      height: '100%';
+      padding: 0;
+      margin: 0;
+      border: none;
+      border-radius: 0px;
+      opacity: 0,
+    }
     &::after {
       content: "";
       width: 0;
@@ -38,7 +53,6 @@
   }
   input {
     width: 280px;
-    height: calc(0.3rem * 6);
     font-size: inherit;
     padding: 0px 5px;
   }

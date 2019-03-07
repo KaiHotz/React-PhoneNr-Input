@@ -1,9 +1,9 @@
 import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
-import cx from 'classnames'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
+import detectMobile from '../../utils/detectMobile'
 import globe from '../../utils/globe.svg'
 import {
   findCountryBy,
@@ -54,8 +54,8 @@ export class PhoneInput extends Component {
     this.phoneInput = createRef()
   }
 
-  handleClick = code => () => {
-    const country = findCountryBy('iso2', code)
+  handleClick = code => e => {
+    const country = findCountryBy('iso2', code || e.target.value)
 
     this.setState({
       country,
@@ -121,23 +121,12 @@ export class PhoneInput extends Component {
     }), () => onChange(this.state.phoneNumber))
   }
 
-  handleClickOutside() {
-    this.setState({
-      showCountries: false,
-    })
-  }
-
-  render() {
-    const { country, phoneNumber, showCountries } = this.state
-    const {
-      placeholder, disabled, preferredCountries, regions, format, className,
-    } = this.props
-
-    const flag = country.iso2 === 'intl'
+  handleFlag = iso2 => (
+    iso2 === 'intl'
       ? <img src={globe} alt="world" />
       : (
         <ReactCountryFlag
-          code={country.iso2 || ''}
+          code={iso2 || ''}
           styleProps={{
             display: 'block',
             width: '2em',
@@ -147,9 +136,23 @@ export class PhoneInput extends Component {
           svg
         />
       )
+  )
+
+  handleClickOutside() {
+    this.setState({
+      showCountries: false,
+    })
+  }
+
+  render() {
+    const { country: { iso2 }, phoneNumber, showCountries } = this.state
+    const {
+      placeholder, disabled, preferredCountries, regions, format, className,
+    } = this.props
+    const isMobile = detectMobile.any()
 
     return (
-      <div className={cx('phone-input', className)}>
+      <div className={`react-phonenr-input ${className}`}>
         {
           format === 'INTERNATIONAL' && (
             <button
@@ -157,7 +160,22 @@ export class PhoneInput extends Component {
               disabled={disabled}
               type="button"
             >
-              {flag}
+              {this.handleFlag(iso2)}
+              {
+                isMobile && (
+                  <select onChange={this.handleClick()}>
+                    {
+                      getCountryList(preferredCountries, regions).map(c => {
+                        if (c.isAreaCode) { return null }
+
+                        return (
+                          <option key={c.iso2} value={c.iso2}>{c.name}</option>
+                        )
+                      })
+                    }
+                  </select>
+                )
+              }
             </button>
           )
         }
@@ -171,7 +189,7 @@ export class PhoneInput extends Component {
           maxLength="21"
         />
         {
-          showCountries && format === 'INTERNATIONAL' && (
+          showCountries && format === 'INTERNATIONAL' && !isMobile && (
             <ul className="countryList">
               {
                 getCountryList(preferredCountries, regions).map(c => {
