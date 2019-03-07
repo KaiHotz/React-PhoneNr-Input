@@ -3,6 +3,7 @@ import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
+import omit from 'lodash.omit'
 import detectMobile from '../../utils/detectMobile'
 import globe from '../../utils/globe.svg'
 import {
@@ -16,20 +17,37 @@ import './styles.scss'
 
 export class PhoneInput extends Component {
   static propTypes = {
+    /** Sets the Name of the Phone Nr. Input Field */
+    name: PropTypes.string.isRequired,
+    /** Sets an Id for the Phone Nr. Input Field, if not passed, the id will be the name */
+    id: PropTypes.string,
+    /** Sets the default country */
     defaultCountry: PropTypes.string,
+    /** Lets you restrict the country dropdown to a specific list of countries */
     preferredCountries: PropTypes.arrayOf(PropTypes.string),
+    /** Lets you restrict the country dropdown to a list of countries in the specified regions */
     regions: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.arrayOf(PropTypes.string),
     ]),
+    /** Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set */
     format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
+    /** Sets the Placeholder text */
     placeholder: PropTypes.string,
+    /** Adds a custom class to the Phone Nr. Input Field wrapper div */
     className: PropTypes.string,
+    /** Disables the Phone Nr. Input Field */
     disabled: PropTypes.bool,
+    /** The function/method that returns the entered Phone Nr. */
     onChange: PropTypes.func.isRequired,
+    /** Style object that overrides the styles of the Flag shown in the button */
+    buttonFlagStyles: PropTypes.instanceOf(Object),
+    /** Style object that overrides the styles of the Flag shown in the country dropdown */
+    listFlagStyles: PropTypes.instanceOf(Object),
   }
 
   static defaultProps = {
+    id: null,
     defaultCountry: null,
     preferredCountries: [],
     regions: null,
@@ -37,6 +55,8 @@ export class PhoneInput extends Component {
     placeholder: '+1 702 123 4567',
     className: null,
     disabled: false,
+    buttonFlagStyles: null,
+    listFlagStyles: null,
   }
 
   constructor(props) {
@@ -54,7 +74,7 @@ export class PhoneInput extends Component {
     this.phoneInput = createRef()
   }
 
-  handleClick = code => e => {
+  handleSelect = code => e => {
     const country = findCountryBy('iso2', code || e.target.value)
 
     this.setState({
@@ -132,6 +152,7 @@ export class PhoneInput extends Component {
             width: '2em',
             height: '1.5em',
             backgroundPosition: 'center center',
+            ...this.props.buttonFlagStyles,
           }}
           svg
         />
@@ -147,8 +168,17 @@ export class PhoneInput extends Component {
   render() {
     const { country: { iso2 }, phoneNumber, showCountries } = this.state
     const {
-      placeholder, disabled, preferredCountries, regions, format, className,
+      name, id, placeholder, disabled, preferredCountries, regions, format, className, listFlagStyles,
     } = this.props
+    const passableProps = omit(this.props, [
+      'className',
+      'format',
+      'regions',
+      'defaultCountry',
+      'preferredCountries',
+      'buttonFlagStyles',
+      'listFlagStyles',
+    ])
     const isMobile = detectMobile.any()
 
     return (
@@ -163,13 +193,17 @@ export class PhoneInput extends Component {
               {this.handleFlag(iso2)}
               {
                 isMobile && (
-                  <select onChange={this.handleClick()}>
+                  <select onChange={this.handleSelect()} disabled={disabled}>
                     {
                       getCountryList(preferredCountries, regions).map(c => {
-                        if (c.isAreaCode) { return null }
+                        if (c.isAreaCode) {
+                          return null
+                        }
 
                         return (
-                          <option key={c.iso2} value={c.iso2}>{c.name}</option>
+                          <option key={c.iso2} value={c.iso2}>
+                            {c.name}
+                          </option>
                         )
                       })
                     }
@@ -180,6 +214,9 @@ export class PhoneInput extends Component {
           )
         }
         <input
+          {...passableProps}
+          id={id || name}
+          name={name}
           type="tel"
           value={phoneNumber}
           onChange={this.handleChange}
@@ -193,17 +230,20 @@ export class PhoneInput extends Component {
             <ul className="countryList">
               {
                 getCountryList(preferredCountries, regions).map(c => {
-                  if (c.isAreaCode) { return null }
+                  if (c.isAreaCode) {
+                    return null
+                  }
 
                   return (
                     <li
                       key={c.iso2}
-                      onClick={this.handleClick(c.iso2)}
-                      onKeyPress={this.handleClick(c.iso2)}
+                      onClick={this.handleSelect(c.iso2)}
+                      onKeyPress={this.handleSelect(c.iso2)}
                     >
                       <ReactCountryFlag
                         styleProps={{
                           width: '20px',
+                          ...listFlagStyles,
                         }}
                         code={c.iso2}
                         svg

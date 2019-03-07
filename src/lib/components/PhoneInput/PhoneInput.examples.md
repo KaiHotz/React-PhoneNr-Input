@@ -6,29 +6,31 @@ import { PhoneInput } from 'react-phonenr-input';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
-<PhoneInput onChange={handleChange}/>
+<PhoneInput name='phoneInput' onChange={handleChange}/>
 ```
 
-###### With DefaultCountry
+###### With Default Country
 ```js
 import { PhoneInput } from 'react-phonenr-input';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
+  name='phoneInput'
   onChange={handleChange}
   defaultCountry='de'
 />
 ```
 
 
-###### With PreferredCountries
+###### With Preferred Countries
 ```js
 import { PhoneInput } from 'react-phonenr-input';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
+  name='phoneInput'
   onChange={handleChange}
   preferredCountries={['cl', 'ar', 'br', 'co']}
 />
@@ -42,6 +44,7 @@ import { PhoneInput } from 'react-phonenr-input';
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
+  name='phoneInput'
   onChange={handleChange}
   regions={['carribean', 'oceania']}
 />
@@ -54,6 +57,7 @@ import { PhoneInput } from 'react-phonenr-input';
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
+  name='phoneInput'
   onChange={handleChange}
   format='NATIONAL'
   defaultCountry='us'

@@ -16,13 +16,13 @@ export const getCountriesByRegions = regions => {
   return allCountries.filter(country => regions.map(region => country.regions.includes(region.toLowerCase())).some(el => el))
 }
 
-export const getPreferredCountries = preferredCountries => preferredCountries.map(prefCountry => findCountryBy('iso2', prefCountry))
+export const getPreferredCountries = preferredCountries => preferredCountries.map(prefCountry => findCountryBy('iso2', prefCountry.toLowerCase()))
 
 export const getInitialCountry = (defaultCountry, preferredCountries, regions) => (
   defaultCountry
-    ? findCountryBy('iso2', defaultCountry)
+    ? findCountryBy('iso2', defaultCountry.toLowerCase())
     : preferredCountries.length
-      ? findCountryBy('iso2', preferredCountries[0])
+      ? findCountryBy('iso2', preferredCountries[0].toLowerCase())
       : regions
         ? getCountriesByRegions(regions)[0]
         : findCountryBy('iso2', 'intl')
