@@ -4,6 +4,7 @@ import { PhoneInput } from './PhoneInput'
 
 describe('<PhoneInput />', () => {
   const baseProps = {
+    nape: 'phoneInput',
     onChange: jest.fn(),
   }
 
