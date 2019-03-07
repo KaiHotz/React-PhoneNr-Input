@@ -128,7 +128,7 @@ class Example extends Component {
   render () {
     return (
       <div>
-        <PhoneInput name='phoneInput' onChange={handleChange}/>
+        <PhoneInput name='phoneInput' onChange={this.handleChange}/>
       </div>
     )
   }
