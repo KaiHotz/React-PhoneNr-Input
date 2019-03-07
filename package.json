@@ -33,7 +33,6 @@
     "deploy": "gh-pages -d styleguide"
   },
   "dependencies": {
-    "classnames": "^2.2.6",
     "libphonenumber-js": "^1.7.9",
     "react-click-outside": "^3.0.1",
     "react-country-flag": "^1.0.2"
