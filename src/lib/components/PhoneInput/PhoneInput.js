@@ -18,11 +18,6 @@ import './styles.scss'
 
 export class PhoneInput extends Component {
   static propTypes = {
-    /** In addition to the here listed Props you can pass all other properties that can be used on a normal Html input filed  */
-    /** Sets the Name of the Phone Nr. Input Field */
-    name: PropTypes.string.isRequired,
-    /** Sets an Id for the Phone Nr. Input Field, if not passed, the id will be the name */
-    id: PropTypes.string,
     /** Sets the default country */
     defaultCountry: PropTypes.string,
     /** Lets you restrict the country dropdown to a specific list of countries */
@@ -49,7 +44,6 @@ export class PhoneInput extends Component {
   }
 
   static defaultProps = {
-    id: null,
     defaultCountry: null,
     preferredCountries: [],
     regions: null,
@@ -170,7 +164,7 @@ export class PhoneInput extends Component {
   render() {
     const { country: { iso2 }, phoneNumber, showCountries } = this.state
     const {
-      name, id, placeholder, disabled, preferredCountries, regions, format, className, listFlagStyles,
+      placeholder, disabled, preferredCountries, regions, format, className, listFlagStyles,
     } = this.props
     const passableProps = omit(this.props, [
       'className',
@@ -217,8 +211,6 @@ export class PhoneInput extends Component {
         }
         <input
           {...passableProps}
-          id={id || name}
-          name={name}
           type="tel"
           value={phoneNumber}
           onChange={this.handleChange}

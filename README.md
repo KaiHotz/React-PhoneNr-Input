@@ -38,12 +38,6 @@ yarn add react-phonenr-input
     <th>Default</th>
     <th>Description</th>
   </tr>
-    <tr>
-    <td>name</td>
-    <td>string</td>
-    <td>Required</td>
-    <td>Sets the Name of the Phone Nr. Input Field</td>
-  </tr>
   <tr>
     <td>onChange</td>
     <td>function</td>
@@ -81,12 +75,6 @@ yarn add react-phonenr-input
     <td>Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set</td>
   </tr>
   <tr>
-    <td>id</td>
-    <td>string</td>
-    <td>null</td>
-    <td>Sets an Id for the Phone Nr. Input Field, if not passed, the id will be the name</td>
-  </tr>
-  <tr>
     <td>listFlagStyles</td>
     <td>object</td>
     <td>null</td>
@@ -112,7 +100,7 @@ yarn add react-phonenr-input
   </tr>
 </table>
 
-###### In addition to the here listed Props you can pass all other properties that can be used on a normal Html input filed
+###### In addition to the here listed Props you can pass all other properties that can be used on a normal Html input field
 
 
 
@@ -130,7 +118,7 @@ class Example extends Component {
   render () {
     return (
       <div>
-        <PhoneInput name='phoneInput' onChange={this.handleChange}/>
+        <PhoneInput onChange={this.handleChange}/>
       </div>
     )
   }

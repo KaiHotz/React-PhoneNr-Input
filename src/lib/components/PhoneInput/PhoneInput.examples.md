@@ -1,4 +1,5 @@
-PhoneInput examples:
+
+#### In addition to the here listed Props you can pass all other properties that can be used on a normal Html input field
 
 ###### Default
 ```js
@@ -6,7 +7,7 @@ import { PhoneInput } from 'react-phonenr-input';
 
 const handleChange = phoneNumber => console.log(phoneNumber);
 
-<PhoneInput name='phoneInput' onChange={handleChange}/>
+<PhoneInput onChange={handleChange}/>
 ```
 
 ###### With Default Country
@@ -16,7 +17,6 @@ import { PhoneInput } from 'react-phonenr-input';
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
-  name='phoneInput'
   onChange={handleChange}
   defaultCountry='de'
 />
@@ -30,7 +30,6 @@ import { PhoneInput } from 'react-phonenr-input';
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
-  name='phoneInput'
   onChange={handleChange}
   preferredCountries={['cl', 'ar', 'br', 'co']}
 />
@@ -44,7 +43,6 @@ import { PhoneInput } from 'react-phonenr-input';
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
-  name='phoneInput'
   onChange={handleChange}
   regions={['carribean', 'oceania']}
 />
@@ -57,7 +55,6 @@ import { PhoneInput } from 'react-phonenr-input';
 const handleChange = phoneNumber => console.log(phoneNumber);
 
 <PhoneInput
-  name='phoneInput'
   onChange={handleChange}
   format='NATIONAL'
   defaultCountry='us'
