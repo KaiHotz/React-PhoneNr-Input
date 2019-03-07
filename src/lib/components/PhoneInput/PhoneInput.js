@@ -5,7 +5,8 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import ReactCountryFlag from 'react-country-flag'
 import omit from 'lodash.omit'
 import detectMobile from '../../utils/detectMobile'
-import globe from '../../utils/globe.svg'
+import globe from './globe.png'
+
 import {
   findCountryBy,
   getCountry,
@@ -143,7 +144,7 @@ export class PhoneInput extends Component {
 
   handleFlag = iso2 => (
     iso2 === 'intl'
-      ? <img src={globe} alt="world" />
+      ? <img src={globe} alt="globe" />
       : (
         <ReactCountryFlag
           code={iso2 || ''}
