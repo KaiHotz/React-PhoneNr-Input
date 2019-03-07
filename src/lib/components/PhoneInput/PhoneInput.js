@@ -18,6 +18,7 @@ import './styles.scss'
 
 export class PhoneInput extends Component {
   static propTypes = {
+    /** In addition to the here listed Props you can pass all other properties that can be used on a normal Html input filed  */
     /** Sets the Name of the Phone Nr. Input Field */
     name: PropTypes.string.isRequired,
     /** Sets an Id for the Phone Nr. Input Field, if not passed, the id will be the name */

@@ -112,6 +112,8 @@ yarn add react-phonenr-input
   </tr>
 </table>
 
+###### In addition to the here listed Props you can pass all other properties that can be used on a normal Html input filed
+
 
 
 #### Code example:
