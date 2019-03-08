@@ -5,7 +5,8 @@ import postcss from 'rollup-plugin-postcss'
 import resolve from 'rollup-plugin-node-resolve'
 import url from 'rollup-plugin-url'
 import svgr from '@svgr/rollup'
-import image from 'rollup-plugin-img'; import json from 'rollup-plugin-json'
+import image from 'rollup-plugin-img'
+import json from 'rollup-plugin-json'
 import pkg from './package.json'
 
 export default {
@@ -34,11 +35,11 @@ export default {
       includeDependencies: false,
     }),
     url(),
-    svgr(),
     image({
       extensions: /\.(png|jpg|jpeg|gif|svg)$/, // support png|jpg|jpeg|gif|svg, and it's alse the default value
       exclude: 'node_modules/**',
     }),
+    svgr(),
     resolve(),
     babel({
       plugins: [
