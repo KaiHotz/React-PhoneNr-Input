@@ -77,9 +77,10 @@ export class PhoneInput extends Component {
       country,
       phoneNumber: country.dialCode,
       showCountries: false,
-    }, () => this.props.onChange(this.state.phoneNumber))
-
-    this.phoneInput.current.focus()
+    }, () => {
+      this.props.onChange(this.state.phoneNumber)
+      this.phoneInput.current.focus()
+    })
   }
 
   toggleList = () => {
@@ -189,7 +190,11 @@ export class PhoneInput extends Component {
               {this.handleFlag(iso2)}
               {
                 isMobile && (
-                  <select onChange={this.handleSelect()} disabled={disabled}>
+                  <select
+                    onChange={this.handleSelect()}
+                    onKeyPress={this.handleSelect()}
+                    disabled={disabled}
+                  >
                     {
                       getCountryList(preferredCountries, regions).map(c => {
                         if (c.isAreaCode) {
