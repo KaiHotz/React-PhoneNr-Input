@@ -13,17 +13,17 @@
     border-radius: 0px;
     height: calc(0.3rem * 6);
   }
-  button {
+  .flag-wrapper {
     position: relative;
     display: flex;
     align-content: center;
     justify-content: center;
     align-items: center;
-    border-right: none;
-    border-radius: 3px 0px 0px 3px;
     padding-right: 7px;
     padding-left: 2px;
-    width: 40px;
+    width: 30px;
+    border: 1px solid #ccc;
+    border-right: none;
     background-color: #ddd;
     img {
       width: 20px;
@@ -33,8 +33,11 @@
       z-index: 5;
     }
     select {
-      width: 100%;
       position: absolute;
+      appearance: none;
+      -moz-appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
       height: 100%;
       padding: 0;
       margin: 0;

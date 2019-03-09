@@ -146,9 +146,11 @@ export class PhoneInput extends Component {
           code={iso2 || ''}
           styleProps={{
             display: 'block',
-            width: '2em',
-            height: '1.5em',
+            position: 'absolute',
+            width: '20px',
+            height: '15px',
             backgroundPosition: 'center center',
+            zIndex: 7,
             ...this.props.buttonFlagStyles,
           }}
           svg
@@ -183,10 +185,11 @@ export class PhoneInput extends Component {
       <div className={`react-phonenr-input ${className}`}>
         {
           format === 'INTERNATIONAL' && (
-            <button
+            <div
               onClick={toggleList}
-              disabled={disabled}
-              type="button"
+              onKeyPress={toggleList}
+              className="flag-wrapper"
+              role="none"
             >
               {this.handleFlag(iso2)}
               {
@@ -194,6 +197,7 @@ export class PhoneInput extends Component {
                   <select
                     onChange={this.handleSelect()}
                     onKeyPress={this.handleSelect()}
+                    on
                     disabled={disabled}
                   >
                     {
@@ -212,7 +216,7 @@ export class PhoneInput extends Component {
                   </select>
                 )
               }
-            </button>
+            </div>
           )
         }
         <input
