@@ -58,10 +58,10 @@
   }
   ul {
     box-sizing: border-box;
-    width: 320px;
+    width: 100%;
     max-height: 290px;
     position: absolute;
-    top: 30px;
+    top: 35px;
     border: 1px solid #ccc;
     list-style: none;
     margin-top: 0;
@@ -70,14 +70,12 @@
     background-color: #fff;
     z-index: 999;
     li {
+      position: relative;
       display: flex;
       align-items: center;
       align-content: space-between;
       font-size: 1rem;
-      padding: 3px 0.5rem;
-      &:not(:last-of-type) {
-        padding-top: 5px;
-      }
+      padding: 3px 0.5rem 3px 35px;
       &:hover,
       &.country-active {
         background-color: #ddd;
@@ -85,7 +83,11 @@
         cursor: pointer;
       }
       span {
-        margin-right: 10px;
+        position: absolute !important;
+        top: 50% !important;
+        left: 3px !important;
+        transform: translateY(-50%) !important;
+        margin: 0px 5px;
       }
     }
     /* width */
