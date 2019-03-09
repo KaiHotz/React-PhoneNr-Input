@@ -77,10 +77,9 @@ export class PhoneInput extends Component {
       country,
       phoneNumber: country.dialCode,
       showCountries: false,
-    }, () => {
-      this.props.onChange(this.state.phoneNumber)
-      this.phoneInput.current.focus()
-    })
+    }, () => this.props.onChange(this.state.phoneNumber))
+
+    this.phoneInput.current.focus()
   }
 
   toggleList = () => {
@@ -187,7 +186,6 @@ export class PhoneInput extends Component {
           format === 'INTERNATIONAL' && (
             <div
               onClick={toggleList}
-              onKeyPress={toggleList}
               className="flag-wrapper"
               role="none"
             >
@@ -196,8 +194,6 @@ export class PhoneInput extends Component {
                 isMobile && (
                   <select
                     onChange={this.handleSelect()}
-                    onKeyPress={this.handleSelect()}
-                    on
                     disabled={disabled}
                   >
                     {
@@ -224,9 +220,9 @@ export class PhoneInput extends Component {
           type="tel"
           value={phoneNumber}
           onChange={this.handleChange}
-          ref={this.phoneInput}
           placeholder={placeholder}
           disabled={disabled}
+          ref={this.phoneInput}
           maxLength="21"
         />
         {
