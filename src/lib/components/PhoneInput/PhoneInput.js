@@ -177,13 +177,14 @@ export class PhoneInput extends Component {
       'listFlagStyles',
     ])
     const isMobile = detectMobile.any()
+    const toggleList = !isMobile ? this.toggleList : undefined
 
     return (
       <div className={`react-phonenr-input ${className}`}>
         {
           format === 'INTERNATIONAL' && (
             <button
-              onClick={this.toggleList}
+              onClick={toggleList}
               disabled={disabled}
               type="button"
             >
