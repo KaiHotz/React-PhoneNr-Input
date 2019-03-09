@@ -26,7 +26,10 @@
     width: 40px;
     background-color: #ddd;
     img {
-      width: 2em;
+      width: 20px;
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
     }
     select {
       width: '100%';
@@ -64,9 +67,9 @@
     top: 35px;
     border: 1px solid #ccc;
     list-style: none;
-    margin-top: 0;
+    margin: 0;
     overflow-y: auto;
-    padding-left: 0;
+    padding: 0;
     background-color: #fff;
     z-index: 999;
     li {
