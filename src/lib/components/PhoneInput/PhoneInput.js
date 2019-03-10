@@ -5,7 +5,7 @@ import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import cx from 'classnames'
 import ReactCountryFlag from 'react-country-flag'
 import omit from 'lodash.omit'
-import { detectMobile, hasWindowObj } from '../../utils/detectMobile'
+import { detectMobile } from '../../utils/detectMobile'
 import globe from './globe.png'
 
 import {
@@ -70,6 +70,7 @@ export class PhoneInput extends Component {
 
     this.phoneInput = createRef()
     this.countryList = createRef()
+    this.activeCountry = createRef()
   }
 
   handleSelect = code => e => {
@@ -86,10 +87,8 @@ export class PhoneInput extends Component {
 
   scrollToCountry = () => {
     const { showCountries, country: { iso2 } } = this.state
-    if (hasWindowObj && showCountries && iso2 !== 'intl') {
-      const activeCountry = document.querySelector('.active-country')
-
-      this.countryList.current.scrollTop = (activeCountry.offsetTop - 50)
+    if (showCountries && iso2 !== 'intl') {
+      this.countryList.current.scrollTop = (this.activeCountry.current.offsetTop - 50)
     }
   }
 
@@ -254,6 +253,7 @@ export class PhoneInput extends Component {
                       onClick={this.handleSelect(c.iso2)}
                       onKeyPress={this.handleSelect(c.iso2)}
                       className={cx('country-list-item', { 'active-country': c.iso2 === iso2 })}
+                      ref={c.iso2 === iso2 ? this.activeCountry : null}
                     >
                       <ReactCountryFlag
                         styleProps={{
