@@ -69,6 +69,7 @@ export class PhoneInput extends Component {
     }
 
     this.phoneInput = createRef()
+    this.countryList = createRef()
   }
 
   handleSelect = code => e => {
@@ -84,12 +85,11 @@ export class PhoneInput extends Component {
   }
 
   scrollToCountry = () => {
-    const { showCountries } = this.state
-    if (hasWindowObj && showCountries) {
+    const { showCountries, country: { iso2 } } = this.state
+    if (hasWindowObj && showCountries && iso2 !== 'intl') {
       const activeCountry = document.querySelector('.active-country')
-      if (activeCountry) {
-        activeCountry.scrollIntoView()
-      }
+
+      this.countryList.current.scrollTop = (activeCountry.offsetTop - 50)
     }
   }
 
@@ -241,7 +241,7 @@ export class PhoneInput extends Component {
         />
         {
           showCountries && format === 'INTERNATIONAL' && !isMobile && (
-            <ul className="country-list">
+            <ul className="country-list" ref={this.countryList}>
               {
                 getCountryList(preferredCountries, regions).map(c => {
                   if (c.isAreaCode) {
