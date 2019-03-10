@@ -2,9 +2,10 @@ import React, { Component, createRef } from 'react'
 import PropTypes from 'prop-types'
 import enhanceWithClickOutside from 'react-click-outside'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
+import cx from 'classnames'
 import ReactCountryFlag from 'react-country-flag'
 import omit from 'lodash.omit'
-import detectMobile from '../../utils/detectMobile'
+import { detectMobile, hasWindowObj } from '../../utils/detectMobile'
 import globe from './globe.png'
 
 import {
@@ -82,10 +83,20 @@ export class PhoneInput extends Component {
     this.phoneInput.current.focus()
   }
 
+  scrollToCountry = () => {
+    const { showCountries } = this.state
+    if (hasWindowObj && showCountries) {
+      const activeCountry = document.querySelector('.active-country')
+      if (activeCountry) {
+        activeCountry.scrollIntoView()
+      }
+    }
+  }
+
   toggleList = () => {
     this.setState(prevState => ({
       showCountries: !prevState.showCountries,
-    }))
+    }), () => this.scrollToCountry())
   }
 
   formatNumber = number => {
@@ -134,7 +145,10 @@ export class PhoneInput extends Component {
     this.setState(prevState => ({
       country: (format === 'INTERNATIONAL' && getCountry(value)) || prevState.country,
       phoneNumber: this.formatNumber(value),
-    }), () => onChange(this.state.phoneNumber))
+    }), () => {
+      this.scrollToCountry()
+      onChange(this.state.phoneNumber)
+    })
   }
 
   handleFlag = iso2 => (
@@ -227,7 +241,7 @@ export class PhoneInput extends Component {
         />
         {
           showCountries && format === 'INTERNATIONAL' && !isMobile && (
-            <ul className="countryList">
+            <ul className="country-list">
               {
                 getCountryList(preferredCountries, regions).map(c => {
                   if (c.isAreaCode) {
@@ -239,6 +253,7 @@ export class PhoneInput extends Component {
                       key={c.iso2}
                       onClick={this.handleSelect(c.iso2)}
                       onKeyPress={this.handleSelect(c.iso2)}
+                      className={cx('country-list-item', { 'active-country': c.iso2 === iso2 })}
                     >
                       <ReactCountryFlag
                         styleProps={{

@@ -1,6 +1,6 @@
-const hasWindowObj = typeof window !== 'undefined'
+export const hasWindowObj = typeof window !== 'undefined'
 
-const detectMobile = {
+export const detectMobile = {
   Android: () => hasWindowObj && window.navigator.userAgent.match(/Android/i),
   BlackBerry: () => hasWindowObj && window.navigator.userAgent.match(/BlackBerry/i),
   iOS: () => hasWindowObj && window.navigator.userAgent.match(/iPhone|iPad|iPod/i),
@@ -8,5 +8,3 @@ const detectMobile = {
   Windows: () => hasWindowObj && window.navigator.userAgent.match(/IEMobile/i),
   any: () => (detectMobile.Android() || detectMobile.BlackBerry() || detectMobile.iOS() || detectMobile.Opera() || detectMobile.Windows()),
 }
-
-export default detectMobile
