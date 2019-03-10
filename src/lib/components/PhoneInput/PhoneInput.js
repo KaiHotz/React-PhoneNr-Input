@@ -194,7 +194,7 @@ export class PhoneInput extends Component {
     const toggleList = !isMobile ? this.toggleList : undefined
 
     return (
-      <div className={`react-phonenr-input ${className}`}>
+      <div className={cx('react-phonenr-input', className)}>
         {
           format === 'INTERNATIONAL' && (
             <div
