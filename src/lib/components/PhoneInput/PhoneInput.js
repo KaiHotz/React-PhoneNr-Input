@@ -88,7 +88,7 @@ export class PhoneInput extends Component {
   scrollToCountry = () => {
     const { showCountries, country: { iso2 } } = this.state
     if (showCountries && iso2 !== 'intl') {
-      this.countryList.current.scrollTop = (this.activeCountry.current.offsetTop - 50)
+      this.countryList.current.scrollTop = (this.activeCountry.current?.offsetTop - 50)
     }
   }
 
