@@ -5,7 +5,9 @@
 ```js
 import { PhoneInput } from 'react-phonenr-input';
 
-const handleChange = phoneNumber => console.log(phoneNumber);
+const handleChange = phoneNumber => {
+  /* Do something with the phoneNumber */
+}
 
 <PhoneInput onChange={handleChange}/>
 ```
@@ -14,7 +16,9 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 ```js
 import { PhoneInput } from 'react-phonenr-input';
 
-const handleChange = phoneNumber => console.log(phoneNumber);
+const handleChange = phoneNumber => {
+  /* Do something with the phoneNumber */
+}
 
 <PhoneInput
   onChange={handleChange}
@@ -27,7 +31,9 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 ```js
 import { PhoneInput } from 'react-phonenr-input';
 
-const handleChange = phoneNumber => console.log(phoneNumber);
+const handleChange = phoneNumber => {
+  /* Do something with the phoneNumber */
+}
 
 <PhoneInput
   onChange={handleChange}
@@ -40,7 +46,9 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 ```js
 import { PhoneInput } from 'react-phonenr-input';
 
-const handleChange = phoneNumber => console.log(phoneNumber);
+const handleChange = phoneNumber => {
+  /* Do something with the phoneNumber */
+}
 
 <PhoneInput
   onChange={handleChange}
@@ -52,7 +60,9 @@ const handleChange = phoneNumber => console.log(phoneNumber);
 ```js
 import { PhoneInput } from 'react-phonenr-input';
 
-const handleChange = phoneNumber => console.log(phoneNumber);
+const handleChange = phoneNumber => {
+  /* Do something with the phoneNumber */
+}
 
 <PhoneInput
   onChange={handleChange}
