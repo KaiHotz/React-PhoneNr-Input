@@ -32,7 +32,9 @@ yarn add react-phonenr-input
 
 #### Optimized for Mobile usage
 
-![mobile](https://github.com/KaiHotz/React-PhoneNr-Input/blob/master/styleguide/mobile.png)
+<p align="left">
+  <img src="https://github.com/KaiHotz/React-PhoneNr-Input/blob/master/styleguide/mobile.png" width="200" alt="mobile">
+</p>
 
 #### Props:
 <table style="font-size: 12px">
