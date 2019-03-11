@@ -30,12 +30,6 @@ yarn:
 yarn add react-phonenr-input
 ```
 
-#### Optimized for Mobile usage
-
-<p align="left">
-  <img src="https://github.com/KaiHotz/React-PhoneNr-Input/blob/master/styleguide/mobile.png" width="200" alt="mobile">
-</p>
-
 #### Props:
 <table style="font-size: 12px">
   <tr>
@@ -108,8 +102,6 @@ yarn add react-phonenr-input
 
 ###### In addition to the here listed Props you can pass all other properties that can be used on a normal Html input field
 
-
-
 #### Code example:
 ```jsx
 import React, { Component } from 'react'
@@ -118,7 +110,7 @@ import { PhoneInput } from 'react-phonenr-input';
 class Example extends Component {
 
   handleChange = phoneNumber => {
-    // here you hanlde the returned Phone Nr.
+    // Do something with the phoneNumber
   }
 
   render () {
@@ -130,6 +122,13 @@ class Example extends Component {
   }
 }
 ```
+
+#### Optimized for Mobile usage
+
+<p align="left">
+  <img src="https://github.com/KaiHotz/React-PhoneNr-Input/blob/master/styleguide/mobile.png" width="200" alt="mobile">
+</p>
+
 
 ## Support
 If you like the project and want to support my work, you can buy me a coffee :)
