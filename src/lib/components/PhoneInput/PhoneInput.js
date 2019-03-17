@@ -93,9 +93,13 @@ export class PhoneInput extends Component {
   }
 
   toggleList = () => {
-    this.setState(prevState => ({
-      showCountries: !prevState.showCountries,
-    }), () => this.scrollToCountry())
+    const { disabled } = this.props
+
+    if (!disabled) {
+      this.setState(prevState => ({
+        showCountries: !prevState.showCountries,
+      }), () => this.scrollToCountry())
+    }
   }
 
   formatNumber = number => {
