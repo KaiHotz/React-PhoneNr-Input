@@ -60,7 +60,7 @@ yarn add react-phonenr-input
     <td>defaultCountry</td>
     <td>string</td>
     <td>null</td>
-    <td>Sets the default country</td>
+    <td>Sets the default country (use iso alpha-2 country code e.g 'us', 'gb', 'fr')</td>
   </tr>
   <tr>
     <td>disabled</td>
@@ -90,7 +90,7 @@ yarn add react-phonenr-input
     <td>preferredCountries</td>
     <td>Array</td>
     <td>null</td>
-    <td>Lets you restrict the country dropdown to a specific list of countries</td>
+    <td>Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'us', 'gb', 'fr')</td>
   </tr>
   <tr>
     <td>regions</td>
