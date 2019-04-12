@@ -45,6 +45,24 @@ yarn add react-phonenr-input
     <td>The function/method that returns the entered Phone Nr.</td>
   </tr>
   <tr>
+    <td>getCountry</td>
+    <td>boolean</td>
+    <td>false</td>
+    <td>
+      changes the retuned value into an Object that contains the phone number and the country information.
+      eg.:
+      <pre>
+        {
+          phoneNumber: "+49 176 12345678",
+          country: {
+            name: "Germany (Deutschland)"
+            iso2: "de"
+          }
+        }
+      </pre>
+    </td>
+  </tr>
+  <tr>
     <td>buttonFlagStyles</td>
     <td>object</td>
     <td>null</td>
@@ -125,9 +143,7 @@ class Example extends Component {
 
 #### Optimized for Mobile usage
 
-<p align="left">
-  <img src="https://github.com/KaiHotz/React-PhoneNr-Input/blob/master/styleguide/mobile.png" width="200" alt="mobile">
-</p>
+<img src="https://raw.githubusercontent.com/KaiHotz/React-PhoneNr-Input/master/styleguide/mobile.png" width="200" alt="mobile">
 
 
 ## Support

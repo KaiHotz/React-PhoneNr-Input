@@ -38,6 +38,18 @@ export class PhoneInput extends Component {
     disabled: PropTypes.bool,
     /** The function/method that returns the entered Phone Nr. */
     onChange: PropTypes.func.isRequired,
+    /**
+     * changes the retuned value into an Object that contains the phone number and country information
+     * eg.:
+      {
+        phoneNumber: "+49 176 12345678",
+        country: {
+          name: "Germany (Deutschland)"
+          iso2: "de"
+        }
+      }
+    */
+    getCountry: PropTypes.bool,
     /** Style object that overrides the styles of the Flag shown in the button */
     buttonFlagStyles: PropTypes.instanceOf(Object),
     /** Style object that overrides the styles of the Flag shown in the country dropdown */
@@ -52,6 +64,7 @@ export class PhoneInput extends Component {
     placeholder: '+1 702 123 4567',
     className: null,
     disabled: false,
+    getCountry: false,
     buttonFlagStyles: null,
     listFlagStyles: null,
   }
@@ -73,6 +86,20 @@ export class PhoneInput extends Component {
     this.activeCountry = createRef()
   }
 
+  componentDidMount() {
+    this.handleReturnValue()
+  }
+
+  handleReturnValue = () => {
+    const { getCountry, onChange } = this.props
+    const { phoneNumber, country } = this.state
+    const data = getCountry
+      ? { phoneNumber, country: omit(country, ['hasAreaCodes', 'isAreaCode', 'dialCode', 'regions']) }
+      : phoneNumber
+
+    onChange(data)
+  }
+
   handleSelect = code => e => {
     const country = findCountryBy('iso2', code || e.target.value)
 
@@ -80,7 +107,7 @@ export class PhoneInput extends Component {
       country,
       phoneNumber: country.dialCode,
       showCountries: false,
-    }, () => this.props.onChange(this.state.phoneNumber))
+    }, () => this.handleReturnValue())
 
     this.phoneInput.current.focus()
   }
@@ -131,14 +158,14 @@ export class PhoneInput extends Component {
   handleChange = e => {
     const { value } = e.target
     const {
-      defaultCountry, preferredCountries, regions, format, onChange,
+      defaultCountry, preferredCountries, regions, format,
     } = this.props
 
     if (!value.length) {
       this.setState({
         country: getInitialCountry(defaultCountry, preferredCountries, regions),
         phoneNumber: '',
-      }, () => onChange(this.state.phoneNumber))
+      }, () => this.handleReturnValue())
 
       return
     }
@@ -150,7 +177,7 @@ export class PhoneInput extends Component {
       phoneNumber: this.formatNumber(value),
     }), () => {
       this.scrollToCountry()
-      onChange(this.state.phoneNumber)
+      this.handleReturnValue()
     })
   }
 
@@ -193,6 +220,7 @@ export class PhoneInput extends Component {
       'preferredCountries',
       'buttonFlagStyles',
       'listFlagStyles',
+      'getCountry',
     ])
     const isMobile = detectMobile.any()
     const toggleList = !isMobile ? this.toggleList : undefined

@@ -18,6 +18,7 @@ module.exports = {
   },
   showSidebar: true,
   usageMode: 'expand',
+  exampleMode: 'collapse',
   skipComponentsWithoutExample: true,
   theme: {
     color: {
@@ -75,8 +76,4 @@ module.exports = {
 
     return `import { ${name} } from '${pkg.name}';`
   },
-  require: [
-    path.resolve(__dirname, 'styleguide/assets/globals.js'),
-  ],
-
 }
