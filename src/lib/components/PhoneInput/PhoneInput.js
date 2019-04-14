@@ -86,10 +86,6 @@ export class PhoneInput extends Component {
     this.activeCountry = createRef()
   }
 
-  componentDidMount() {
-    this.handleReturnValue()
-  }
-
   handleReturnValue = () => {
     const { getCountry, onChange } = this.props
     const { phoneNumber, country } = this.state
