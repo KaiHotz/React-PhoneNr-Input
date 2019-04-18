@@ -39,7 +39,7 @@ export class PhoneInput extends Component {
     /** The function/method that returns the entered Phone Nr. */
     onChange: PropTypes.func.isRequired,
     /**
-     * changes the retuned value into an Object that contains the phone number and country information
+     * changes the retuned value into an Object that contains the phone number and country meta information
      * eg.:
       {
         phoneNumber: "+49 176 12345678",
@@ -49,7 +49,7 @@ export class PhoneInput extends Component {
         }
       }
     */
-    getCountry: PropTypes.bool,
+    withCountryMeta: PropTypes.bool,
     /** Style object that overrides the styles of the Flag shown in the button */
     buttonFlagStyles: PropTypes.instanceOf(Object),
     /** Style object that overrides the styles of the Flag shown in the country dropdown */
@@ -64,7 +64,7 @@ export class PhoneInput extends Component {
     placeholder: '+1 702 123 4567',
     className: null,
     disabled: false,
-    getCountry: false,
+    withCountryMeta: false,
     buttonFlagStyles: null,
     listFlagStyles: null,
   }
@@ -87,9 +87,9 @@ export class PhoneInput extends Component {
   }
 
   handleReturnValue = () => {
-    const { getCountry, onChange } = this.props
+    const { withCountryMeta, onChange } = this.props
     const { phoneNumber, country } = this.state
-    const data = getCountry
+    const data = withCountryMeta
       ? { phoneNumber, country: omit(country, ['hasAreaCodes', 'isAreaCode', 'dialCode', 'regions']) }
       : phoneNumber
 
@@ -216,7 +216,7 @@ export class PhoneInput extends Component {
       'preferredCountries',
       'buttonFlagStyles',
       'listFlagStyles',
-      'getCountry',
+      'withCountryMeta',
     ])
     const isMobile = detectMobile.any()
     const toggleList = !isMobile ? this.toggleList : undefined

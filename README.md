@@ -45,7 +45,7 @@ yarn add react-phonenr-input
     <td>The function/method that returns the entered Phone Nr.</td>
   </tr>
   <tr>
-    <td>getCountry</td>
+    <td>withCountryMeta</td>
     <td>boolean</td>
     <td>false</td>
     <td>

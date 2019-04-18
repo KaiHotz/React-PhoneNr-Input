@@ -13,7 +13,7 @@ const handleChange = phoneNumber => {
 };
 
 <Fragment>
-  <p><cite>Enter a Phone number to see the retuned value</cite></p>
+  <p>Enter a Phone number to see the retuned value</p>
 
   <PhoneInput onChange={handleChange}/>
 
@@ -27,7 +27,7 @@ const handleChange = phoneNumber => {
 </Fragment>
 ```
 
-###### **Default example** _with phone number and country information as the return value_
+###### **Default example** _with phone number and country meta information as the return value_
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
@@ -42,7 +42,7 @@ const handleChange = phoneData => {
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
-    getCountry
+    withCountryMeta
     onChange={handleChange}
   />
 
@@ -190,7 +190,7 @@ const handleChange = phoneNumber => {
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
-    getCountry
+    withCountryMeta
     onChange={handleChange}
     format='NATIONAL'
     defaultCountry='us'
