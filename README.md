@@ -72,7 +72,7 @@ yarn add react-phonenr-input
     <td>className</td>
     <td>string</td>
     <td>null</td>
-    <td>Adds a custom class to the Phone Nr. Input Field wrapper div</td>
+    <td>Adds a custom class to the Phone Nr. Input Field</td>
   </tr>
   <tr>
     <td>defaultCountry</td>

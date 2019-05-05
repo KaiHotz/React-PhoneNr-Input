@@ -32,7 +32,7 @@ export class PhoneInput extends Component {
     format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
     /** Sets the Placeholder text */
     placeholder: PropTypes.string,
-    /** Adds a custom class to the Phone Nr. Input Field wrapper div */
+    /** Adds a custom class to the Phone Nr. Input Field */
     className: PropTypes.string,
     /** Disables the Phone Nr. Input Field */
     disabled: PropTypes.bool,
@@ -209,7 +209,6 @@ export class PhoneInput extends Component {
       placeholder, disabled, preferredCountries, regions, format, className, listFlagStyles,
     } = this.props
     const passableProps = omit(this.props, [
-      'className',
       'format',
       'regions',
       'defaultCountry',
@@ -222,7 +221,7 @@ export class PhoneInput extends Component {
     const toggleList = !isMobile ? this.toggleList : undefined
 
     return (
-      <div className={cx('react-phonenr-input', className)}>
+      <div className="react-phonenr-input">
         {
           format === 'INTERNATIONAL' && (
             <div
@@ -234,6 +233,7 @@ export class PhoneInput extends Component {
               {
                 isMobile && (
                   <select
+                    className={className}
                     onChange={this.handleSelect()}
                     disabled={disabled}
                   >
@@ -258,6 +258,7 @@ export class PhoneInput extends Component {
         }
         <input
           {...passableProps}
+          className={className}
           type="tel"
           value={phoneNumber}
           onChange={this.handleChange}

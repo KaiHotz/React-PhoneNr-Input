@@ -54,6 +54,6 @@ describe('<PhoneInput />', () => {
     }
     const wrapper = shallow(<PhoneInput {...props} />)
 
-    expect(wrapper.hasClass(props.className)).toBe(true)
+    expect(wrapper.find('input').prop('className')).toBe(props.className)
   })
 })
