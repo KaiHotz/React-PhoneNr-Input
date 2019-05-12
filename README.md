@@ -11,6 +11,8 @@
 ## Overview
 React-PhoneNr-Input is a simple to use phone number input field with country selection, that by default, intuitively guesses the country for- and formats the entered phone number
 
+For International phone numbers a dropdown menu is available to select ya country from.
+
 By passing the prop `format='NATIONAL'` and a default country e.g. `defaultCountry='de'`  a simple input field is shown that formats the entered phone number with the national format declared by the `defaultCountry` prop.
 
 All written with around 300 lines of code
@@ -90,7 +92,7 @@ yarn add react-phonenr-input
     <td>format</td>
     <td>string</td>
     <td>'INTERNATIONAL'</td>
-    <td>Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set</td>
+    <td>One of: 'INTERNATIONAL', 'NATIONAL'. Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set</td>
   </tr>
   <tr>
     <td>listFlagStyles</td>
