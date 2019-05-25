@@ -1,7 +1,7 @@
 const path = require('path')
 
 const {
-  createConfig, babel, css, sass, setOutput, match, file,
+  createConfig, babel, css, sass, match, file,
 } = require('webpack-blocks')
 
 const pkg = require('./package.json')
@@ -18,7 +18,6 @@ module.exports = {
   },
   showSidebar: true,
   usageMode: 'expand',
-  exampleMode: 'collapse',
   skipComponentsWithoutExample: true,
   theme: {
     color: {
@@ -57,7 +56,6 @@ module.exports = {
     },
   },
   webpackConfig: createConfig([
-    setOutput('./build/bundle.js'),
     babel(),
     css(),
     match(['*.scss', '!*node_modules*'], [
