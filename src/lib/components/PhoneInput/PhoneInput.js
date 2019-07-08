@@ -54,6 +54,8 @@ export class PhoneInput extends Component {
     buttonFlagStyles: PropTypes.instanceOf(Object),
     /** Style object that overrides the styles of the Flag shown in the country dropdown */
     listFlagStyles: PropTypes.instanceOf(Object),
+    /** sets the initial Value of the Phone number input. this is usefull for example in case you need toset a phone number stored in a database */
+    initialValue: PropTypes.string,
   }
 
   static defaultProps = {
@@ -67,6 +69,7 @@ export class PhoneInput extends Component {
     withCountryMeta: false,
     buttonFlagStyles: null,
     listFlagStyles: null,
+    initialValue: null,
   }
 
   constructor(props) {
@@ -84,6 +87,18 @@ export class PhoneInput extends Component {
     this.phoneInput = createRef()
     this.countryList = createRef()
     this.activeCountry = createRef()
+  }
+
+  componentDidMount() {
+    const { initialValue, format } = this.props
+
+    if (initialValue) {
+      const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
+      this.setState(prevState => ({
+        country: (format === 'INTERNATIONAL' && getCountry(tel)) || prevState.country,
+        phoneNumber: this.formatNumber(initialValue),
+      }), () => this.handleReturnValue())
+    }
   }
 
   handleReturnValue = () => {
@@ -216,6 +231,7 @@ export class PhoneInput extends Component {
       'buttonFlagStyles',
       'listFlagStyles',
       'withCountryMeta',
+      'initialValue',
     ])
     const isMobile = detectMobile.any()
     const toggleList = !isMobile ? this.toggleList : undefined
