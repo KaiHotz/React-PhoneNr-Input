@@ -54,7 +54,7 @@ export class PhoneInput extends Component {
     buttonFlagStyles: PropTypes.instanceOf(Object),
     /** Style object that overrides the styles of the Flag shown in the country dropdown */
     listFlagStyles: PropTypes.instanceOf(Object),
-    /** sets the initial Value of the Phone number input. this is usefull for example in case you need toset a phone number stored in a database */
+    /** Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database */
     initialValue: PropTypes.string,
   }
 

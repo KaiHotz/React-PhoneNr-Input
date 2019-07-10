@@ -98,7 +98,7 @@ yarn add react-phonenr-input
     <td>initialValue</td>
     <td>string</td>
     <td>null</td>
-    <td>sets the initial Value of the Phone number input. this is usefull for example in case you need toset a phone number stored in a database</td>
+    <td>Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database</td>
   </tr>
   <tr>
     <td>listFlagStyles</td>
