@@ -18,60 +18,6 @@ import {
 import './styles.scss'
 
 export class PhoneInput extends Component {
-  static propTypes = {
-    /** Sets the default country (use iso alpha-2 country code e.g 'us', 'gb', 'fr') */
-    defaultCountry: PropTypes.string,
-    /** Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'us', 'gb', 'fr') */
-    preferredCountries: PropTypes.arrayOf(PropTypes.string),
-    /** Lets you restrict the country dropdown to a list of countries in the specified regions */
-    regions: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.arrayOf(PropTypes.string),
-    ]),
-    /** Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set */
-    format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
-    /** Sets the Placeholder text */
-    placeholder: PropTypes.string,
-    /** Adds a custom class to the Phone Nr. Input Field */
-    className: PropTypes.string,
-    /** Disables the Phone Nr. Input Field */
-    disabled: PropTypes.bool,
-    /** The function/method that returns the entered Phone Nr. */
-    onChange: PropTypes.func.isRequired,
-    /**
-     * changes the retuned value into an Object that contains the phone number and country meta information
-     * eg.:
-      {
-        phoneNumber: "+49 176 12345678",
-        country: {
-          name: "Germany (Deutschland)"
-          iso2: "de"
-        }
-      }
-    */
-    withCountryMeta: PropTypes.bool,
-    /** Style object that overrides the styles of the Flag shown in the button */
-    buttonFlagStyles: PropTypes.instanceOf(Object),
-    /** Style object that overrides the styles of the Flag shown in the country dropdown */
-    listFlagStyles: PropTypes.instanceOf(Object),
-    /** Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database */
-    initialValue: PropTypes.string,
-  }
-
-  static defaultProps = {
-    defaultCountry: null,
-    preferredCountries: [],
-    regions: null,
-    format: 'INTERNATIONAL',
-    placeholder: '+1 702 123 4567',
-    className: null,
-    disabled: false,
-    withCountryMeta: false,
-    buttonFlagStyles: null,
-    listFlagStyles: null,
-    initialValue: null,
-  }
-
   constructor(props) {
     super(props)
     const {
@@ -319,6 +265,60 @@ export class PhoneInput extends Component {
       </div>
     )
   }
+}
+
+PhoneInput.propTypes = {
+  /** Sets the default country (use iso alpha-2 country code e.g 'us', 'gb', 'fr') */
+  defaultCountry: PropTypes.string,
+  /** Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'us', 'gb', 'fr') */
+  preferredCountries: PropTypes.arrayOf(PropTypes.string),
+  /** Lets you restrict the country dropdown to a list of countries in the specified regions */
+  regions: PropTypes.oneOfType([
+    PropTypes.string,
+    PropTypes.arrayOf(PropTypes.string),
+  ]),
+  /** Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set */
+  format: PropTypes.oneOf(['INTERNATIONAL', 'NATIONAL']),
+  /** Sets the Placeholder text */
+  placeholder: PropTypes.string,
+  /** Adds a custom class to the Phone Nr. Input Field */
+  className: PropTypes.string,
+  /** Disables the Phone Nr. Input Field */
+  disabled: PropTypes.bool,
+  /** The function/method that returns the entered Phone Nr. */
+  onChange: PropTypes.func.isRequired,
+  /**
+   * changes the retuned value into an Object that contains the phone number and country meta information
+   * eg.:
+    {
+      phoneNumber: "+49 176 12345678",
+      country: {
+        name: "Germany (Deutschland)"
+        iso2: "de"
+      }
+    }
+  */
+  withCountryMeta: PropTypes.bool,
+  /** Style object that overrides the styles of the Flag shown in the button */
+  buttonFlagStyles: PropTypes.instanceOf(Object),
+  /** Style object that overrides the styles of the Flag shown in the country dropdown */
+  listFlagStyles: PropTypes.instanceOf(Object),
+  /** Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database */
+  initialValue: PropTypes.string,
+}
+
+PhoneInput.defaultProps = {
+  defaultCountry: null,
+  preferredCountries: [],
+  regions: null,
+  format: 'INTERNATIONAL',
+  placeholder: '+1 702 123 4567',
+  className: null,
+  disabled: false,
+  withCountryMeta: false,
+  buttonFlagStyles: null,
+  listFlagStyles: null,
+  initialValue: null,
 }
 
 export default enhanceWithClickOutside(PhoneInput)
