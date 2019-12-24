@@ -67,14 +67,26 @@ const PhoneInput = ({
     return fromatedPhoneNumber
   }
 
+  const clickOutside = e => {
+    if (!countryList.current.contains(e.target)) {
+      setShowCountries(false)
+    }
+  }
+
   useEffect(() => {
+    document.addEventListener('mousedown', clickOutside)
+
     if (initialValue) {
       const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
       setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(tel)) || prevCountry)
       setPhoneNumber(formatNumber(initialValue))
       handleReturnValue()
     }
-  })
+
+    return () => {
+      document.removeEventListener('mousedown', clickOutside)
+    }
+  }, [])
 
   const handleSelect = code => e => {
     const country = findCountryBy('iso2', code || e.target.value)
@@ -82,6 +94,7 @@ const PhoneInput = ({
     setCountry(country)
     setPhoneNumber(country.dialCode)
     handleReturnValue()
+    setShowCountries(false)
 
     phoneInput.current.focus()
   }
