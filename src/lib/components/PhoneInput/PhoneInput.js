@@ -32,9 +32,16 @@ const PhoneInput = ({
   const [phoneNumber, setPhoneNumber] = useState(format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '')
   const [showCountries, setShowCountries] = useState(false)
 
+  const phoneInputWrapper = useRef(null)
   const phoneInput = useRef(null)
   const countryList = useRef(null)
   const activeCountry = useRef(null)
+
+  const clickOutside = e => {
+    if (phoneInputWrapper.current && !phoneInputWrapper.current.contains(e.target)) {
+      setShowCountries(false)
+    }
+  }
 
   useEffect(() => {
     const data = withCountryMeta
@@ -69,12 +76,6 @@ const PhoneInput = ({
     return fromatedPhoneNumber
   }, [country])
 
-  const clickOutside = e => {
-    if (countryList.current && !countryList.current.contains(e.target)) {
-      setShowCountries(false)
-    }
-  }
-
   useEffect(() => {
     document.addEventListener('mousedown', clickOutside)
 
@@ -103,7 +104,7 @@ const PhoneInput = ({
   const scrollToCountry = useCallback(() => {
     const { iso2 } = country
 
-    if (showCountries && iso2 !== 'intl') {
+    if (showCountries && iso2 !== 'intl' && countryList.current) {
       countryList.current.scrollTop = (activeCountry.current?.offsetTop - 50)
     }
   }, [country])
@@ -117,6 +118,7 @@ const PhoneInput = ({
 
   const handleChange = e => {
     const { value } = e.target
+
     if (!value.length) {
       setCountry(getInitialCountry(defaultCountry, preferredCountries, regions))
       setPhoneNumber('')
@@ -155,7 +157,7 @@ const PhoneInput = ({
   const toggleList = !isMobile ? handleToggleList : undefined
 
   return (
-    <div className="react-phonenr-input">
+    <div className="react-phonenr-input" ref={phoneInputWrapper}>
       {
         format === 'INTERNATIONAL' && (
           <div
