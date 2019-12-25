@@ -1,4 +1,6 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, {
+  useRef, useState, useEffect, useCallback, memo,
+} from 'react'
 import PropTypes from 'prop-types'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import cx from 'classnames'
@@ -42,7 +44,7 @@ const PhoneInput = ({
     onChange(data)
   }, [country, phoneNumber, showCountries])
 
-  const formatNumber = number => {
+  const formatNumber = useCallback(number => {
     const { iso2 } = country
 
     let fromatedPhoneNumber = number
@@ -65,7 +67,7 @@ const PhoneInput = ({
     }
 
     return fromatedPhoneNumber
-  }
+  }, [country])
 
   const clickOutside = e => {
     if (countryList.current && !countryList.current.contains(e.target)) {
@@ -88,23 +90,23 @@ const PhoneInput = ({
   }, [])
 
   const handleSelect = code => e => {
-    const country = findCountryBy('iso2', code || e.target.value)
+    const selectedCountry = findCountryBy('iso2', code || e.target.value)
 
-    setCountry(country)
-    setPhoneNumber(country.dialCode)
+    setCountry(selectedCountry)
+    setPhoneNumber(selectedCountry.dialCode)
 
     setShowCountries(false)
 
     phoneInput.current.focus()
   }
 
-  const scrollToCountry = () => {
+  const scrollToCountry = useCallback(() => {
     const { iso2 } = country
 
     if (showCountries && iso2 !== 'intl') {
       countryList.current.scrollTop = (activeCountry.current?.offsetTop - 50)
     }
-  }
+  }, [country])
 
   const handleToggleList = () => {
     if (!disabled) {
@@ -289,4 +291,4 @@ PhoneInput.defaultProps = {
   initialValue: null,
 }
 
-export default PhoneInput
+export default memo(PhoneInput)
