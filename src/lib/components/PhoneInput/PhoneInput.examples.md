@@ -9,7 +9,7 @@ initialState = { phoneNumber: '' };
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber})
+  setState({ phoneNumber })
 };
 
 <Fragment>
@@ -35,7 +35,7 @@ initialState = { phoneNumber: '+49 1761234112' };
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber})
+  setState({ phoneNumber })
 };
 
 <Fragment>
@@ -94,7 +94,7 @@ initialState = { phoneNumber: '' };
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber})
+  setState({ phoneNumber })
 };
 
 <Fragment>
@@ -124,7 +124,7 @@ initialState = { phoneNumber: '' };
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber})
+  setState({ phoneNumber })
 };
 
 <Fragment>
@@ -153,7 +153,7 @@ initialState = { phoneNumber: '' };
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber})
+  setState({ phoneNumber })
 };
 
 <Fragment>
@@ -182,7 +182,7 @@ initialState = { phoneNumber: '' };
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber})
+  setState({ phoneNumber })
 };
 
 <Fragment>
@@ -213,7 +213,7 @@ initialState = { phoneData: '' };
 
 const handleChange = phoneData => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneData})
+  setState({ phoneData })
 };
 
 <Fragment>

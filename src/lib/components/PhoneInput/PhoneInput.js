@@ -34,13 +34,13 @@ const PhoneInput = ({
   const countryList = useRef(null)
   const activeCountry = useRef(null)
 
-  const handleReturnValue = () => {
+  useEffect(() => {
     const data = withCountryMeta
       ? { phoneNumber, country: omit(country, ['hasAreaCodes', 'isAreaCode', 'dialCode', 'regions']) }
       : phoneNumber
 
     onChange(data)
-  }
+  }, [country, phoneNumber, showCountries])
 
   const formatNumber = number => {
     const { iso2 } = country
@@ -68,7 +68,7 @@ const PhoneInput = ({
   }
 
   const clickOutside = e => {
-    if (!countryList.current.contains(e.target)) {
+    if (countryList.current && !countryList.current.contains(e.target)) {
       setShowCountries(false)
     }
   }
@@ -80,7 +80,6 @@ const PhoneInput = ({
       const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
       setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(tel)) || prevCountry)
       setPhoneNumber(formatNumber(initialValue))
-      handleReturnValue()
     }
 
     return () => {
@@ -93,7 +92,7 @@ const PhoneInput = ({
 
     setCountry(country)
     setPhoneNumber(country.dialCode)
-    handleReturnValue()
+
     setShowCountries(false)
 
     phoneInput.current.focus()
@@ -119,7 +118,6 @@ const PhoneInput = ({
     if (!value.length) {
       setCountry(getInitialCountry(defaultCountry, preferredCountries, regions))
       setPhoneNumber('')
-      handleReturnValue()
 
       return
     }
@@ -129,7 +127,6 @@ const PhoneInput = ({
     setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(value)) || prevCountry)
     setPhoneNumber(formatNumber(value))
     scrollToCountry()
-    handleReturnValue()
   }
 
   const handleFlag = iso2 => (
