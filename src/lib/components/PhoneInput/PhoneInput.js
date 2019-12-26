@@ -34,11 +34,13 @@ export const PhoneInput = ({
   const [country, setCountry] = useState(getInitialCountry(defaultCountry, preferredCountries, regions))
   const [phoneNumber, setPhoneNumber] = useState(format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '')
   const [showCountries, setShowCountries] = useState(false)
-  const { iso2 } = country
   const phoneInputWrapper = useRef(null)
   const phoneInput = useRef(null)
   const countryList = useRef(null)
   const activeCountry = useRef(null)
+
+  const { iso2 } = country
+  const isMobile = detectMobile.any()
 
   const clickOutside = e => {
     if (phoneInputWrapper.current && !phoneInputWrapper.current.contains(e.target)) {
@@ -106,15 +108,12 @@ export const PhoneInput = ({
     setPhoneNumber(formatNumber(value, format, iso2))
   }
 
-  const isMobile = detectMobile.any()
-  const toggleList = !isMobile ? handleToggleList : undefined
-
   return (
     <div className="react-phonenr-input" ref={phoneInputWrapper}>
       {
         format === 'INTERNATIONAL' && (
           <div
-            onClick={toggleList}
+            onClick={!isMobile ? handleToggleList : undefined}
             className="flag-wrapper"
             role="none"
           >
