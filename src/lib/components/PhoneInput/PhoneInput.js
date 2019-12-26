@@ -1,8 +1,7 @@
 import React, {
-  useRef, useState, useEffect,
+  useRef, useState, useEffect, memo,
 } from 'react'
 import PropTypes from 'prop-types'
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import cx from 'classnames'
 import ReactCountryFlag from 'react-country-flag'
 import omit from 'lodash.omit'
@@ -10,6 +9,7 @@ import { detectMobile } from '../../utils/detectMobile'
 import globe from './globe.png'
 import {
   findCountryBy,
+  formatNumber,
   getCountry,
   getInitialCountry,
   getCountryList,
@@ -17,7 +17,7 @@ import {
 
 import './styles.scss'
 
-const PhoneInput = ({
+export const PhoneInput = ({
   className,
   defaultCountry,
   preferredCountries,
@@ -34,7 +34,6 @@ const PhoneInput = ({
   const [country, setCountry] = useState(getInitialCountry(defaultCountry, preferredCountries, regions))
   const [phoneNumber, setPhoneNumber] = useState(format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '')
   const [showCountries, setShowCountries] = useState(false)
-
   const { iso2 } = country
   const phoneInputWrapper = useRef(null)
   const phoneInput = useRef(null)
@@ -59,38 +58,13 @@ const PhoneInput = ({
     onChange(data)
   }, [country, phoneNumber, showCountries])
 
-  const formatNumber = number => {
-    const { iso2 } = country
-
-    let fromatedPhoneNumber = number
-
-    if (format === 'INTERNATIONAL') {
-      if (!fromatedPhoneNumber.startsWith('+')) {
-        fromatedPhoneNumber = `+${fromatedPhoneNumber}`
-      }
-      if (fromatedPhoneNumber.startsWith('+00')) {
-        fromatedPhoneNumber = fromatedPhoneNumber.replace('00', '')
-      }
-    }
-
-    const parsedPhoneNumber = parsePhoneNumberFromString(fromatedPhoneNumber, iso2.toUpperCase())
-
-    try {
-      fromatedPhoneNumber = parsedPhoneNumber.format(format)
-    } catch (e) {
-      fromatedPhoneNumber = fromatedPhoneNumber.replace(/\(+-()\)/g, '')
-    }
-
-    return fromatedPhoneNumber
-  }
-
   useEffect(() => {
     document.addEventListener('mousedown', clickOutside)
 
     if (initialValue) {
       const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
       setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(tel) ? getCountry(tel) : prevCountry))
-      setPhoneNumber(formatNumber(initialValue))
+      setPhoneNumber(formatNumber(initialValue, format, iso2))
     }
 
     return () => {
@@ -129,28 +103,8 @@ const PhoneInput = ({
     if (!(/^[\d ()+-]+$/).test(value)) return
 
     setCountry(prevCountry => (format === 'INTERNATIONAL' && selectedCountry ? selectedCountry : prevCountry))
-    setPhoneNumber(formatNumber(value))
+    setPhoneNumber(formatNumber(value, format, iso2))
   }
-
-  const handleFlag = () => (
-    iso2 === 'intl'
-      ? <img src={globe} alt="globe" />
-      : (
-        <ReactCountryFlag
-          code={iso2 || ''}
-          styleProps={{
-            display: 'block',
-            position: 'absolute',
-            width: '20px',
-            height: '15px',
-            backgroundPosition: 'center center',
-            zIndex: 7,
-            ...buttonFlagStyles,
-          }}
-          svg
-        />
-      )
-  )
 
   const isMobile = detectMobile.any()
   const toggleList = !isMobile ? handleToggleList : undefined
@@ -164,7 +118,25 @@ const PhoneInput = ({
             className="flag-wrapper"
             role="none"
           >
-            {handleFlag()}
+            {
+              iso2 === 'intl'
+                ? <img src={globe} alt="globe" />
+                : (
+                  <ReactCountryFlag
+                    code={iso2 || ''}
+                    styleProps={{
+                      display: 'block',
+                      position: 'absolute',
+                      width: '20px',
+                      height: '15px',
+                      backgroundPosition: 'center center',
+                      zIndex: 7,
+                      ...buttonFlagStyles,
+                    }}
+                    svg
+                  />
+                )
+            }
             {
               isMobile && (
                 <select
@@ -292,4 +264,4 @@ PhoneInput.defaultProps = {
   initialValue: null,
 }
 
-export default PhoneInput
+export default memo(PhoneInput)

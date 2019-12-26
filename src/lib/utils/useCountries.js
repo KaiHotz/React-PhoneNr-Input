@@ -1,3 +1,4 @@
+import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import allCountries from './allCountries'
 
 const useCountries = () => {
@@ -37,7 +38,30 @@ const useCountries = () => {
         : allCountries
   )
 
-  return [findCountryBy, getCountry, getInitialCountry, getCountryList]
+  const formatNumber = (number, format, iso2) => {
+    let fromatedPhoneNumber = number
+
+    if (format === 'INTERNATIONAL') {
+      if (!fromatedPhoneNumber.startsWith('+')) {
+        fromatedPhoneNumber = `+${fromatedPhoneNumber}`
+      }
+      if (fromatedPhoneNumber.startsWith('+00')) {
+        fromatedPhoneNumber = fromatedPhoneNumber.replace('00', '')
+      }
+    }
+
+    const parsedPhoneNumber = parsePhoneNumberFromString(fromatedPhoneNumber, iso2.toUpperCase())
+
+    try {
+      fromatedPhoneNumber = parsedPhoneNumber.format(format)
+    } catch (e) {
+      fromatedPhoneNumber = fromatedPhoneNumber.replace(/\(+-()\)/g, '')
+    }
+
+    return fromatedPhoneNumber
+  }
+
+  return [findCountryBy, formatNumber, getCountry, getInitialCountry, getCountryList]
 }
 
 export default useCountries
