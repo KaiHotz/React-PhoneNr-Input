@@ -1,5 +1,5 @@
 import React, {
-  useRef, useState, useEffect, useCallback, memo,
+  useRef, useState, useEffect,
 } from 'react'
 import PropTypes from 'prop-types'
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
@@ -8,8 +8,12 @@ import ReactCountryFlag from 'react-country-flag'
 import omit from 'lodash.omit'
 import { detectMobile } from '../../utils/detectMobile'
 import globe from './globe.png'
-
-import useCountries from '../../utils/useCountries'
+import {
+  findCountryBy,
+  getCountry,
+  getInitialCountry,
+  getCountryList,
+} from '../../utils/countries-fn'
 
 import './styles.scss'
 
@@ -27,11 +31,11 @@ const PhoneInput = ({
   listFlagStyles,
   placeholder,
 }) => {
-  const [findCountryBy, getCountry, getInitialCountry, getCountryList] = useCountries()
   const [country, setCountry] = useState(getInitialCountry(defaultCountry, preferredCountries, regions))
   const [phoneNumber, setPhoneNumber] = useState(format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '')
   const [showCountries, setShowCountries] = useState(false)
 
+  const { iso2 } = country
   const phoneInputWrapper = useRef(null)
   const phoneInput = useRef(null)
   const countryList = useRef(null)
@@ -51,7 +55,7 @@ const PhoneInput = ({
     onChange(data)
   }, [country, phoneNumber, showCountries])
 
-  const formatNumber = useCallback(number => {
+  const formatNumber = number => {
     const { iso2 } = country
 
     let fromatedPhoneNumber = number
@@ -74,14 +78,14 @@ const PhoneInput = ({
     }
 
     return fromatedPhoneNumber
-  }, [country])
+  }
 
   useEffect(() => {
     document.addEventListener('mousedown', clickOutside)
 
     if (initialValue) {
       const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
-      setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(tel)) || prevCountry)
+      setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(tel) ? getCountry(tel) : prevCountry))
       setPhoneNumber(formatNumber(initialValue))
     }
 
@@ -90,8 +94,8 @@ const PhoneInput = ({
     }
   }, [])
 
-  const handleSelect = code => e => {
-    const selectedCountry = findCountryBy('iso2', code || e.target.value)
+  const handleSelect = countryCode => e => {
+    const selectedCountry = findCountryBy('iso2', countryCode || e.target.value)
 
     setCountry(selectedCountry)
     setPhoneNumber(selectedCountry.dialCode)
@@ -101,23 +105,25 @@ const PhoneInput = ({
     phoneInput.current.focus()
   }
 
-  const scrollToCountry = useCallback(() => {
-    const { iso2 } = country
-
-    if (showCountries && iso2 !== 'intl' && countryList.current) {
+  const scrollToCountry = countryCode => {
+    console.log('countryCode ', countryCode)
+    if (showCountries && countryCode && countryCode !== 'intl') {
       countryList.current.scrollTop = (activeCountry.current?.offsetTop - 50)
     }
-  }, [country])
+    console.log(activeCountry.current)
+    console.log('scroll ', activeCountry.current?.offsetTop)
+  }
 
   const handleToggleList = () => {
     if (!disabled) {
       setShowCountries(prevShowCountries => !prevShowCountries)
-      scrollToCountry()
+      scrollToCountry(iso2)
     }
   }
 
   const handleChange = e => {
     const { value } = e.target
+    const selectedCountry = getCountry(value)
 
     if (!value.length) {
       setCountry(getInitialCountry(defaultCountry, preferredCountries, regions))
@@ -128,12 +134,12 @@ const PhoneInput = ({
 
     if (!(/^[\d ()+-]+$/).test(value)) return
 
-    setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(value)) || prevCountry)
+    setCountry(prevCountry => (format === 'INTERNATIONAL' && selectedCountry ? selectedCountry : prevCountry))
     setPhoneNumber(formatNumber(value))
-    scrollToCountry()
+    scrollToCountry(selectedCountry.iso2)
   }
 
-  const handleFlag = iso2 => (
+  const handleFlag = () => (
     iso2 === 'intl'
       ? <img src={globe} alt="globe" />
       : (
@@ -165,7 +171,7 @@ const PhoneInput = ({
             className="flag-wrapper"
             role="none"
           >
-            {handleFlag(country.iso2)}
+            {handleFlag()}
             {
               isMobile && (
                 <select
@@ -216,8 +222,8 @@ const PhoneInput = ({
                     key={c.iso2}
                     onClick={handleSelect(c.iso2)}
                     onKeyPress={handleSelect(c.iso2)}
-                    className={cx('country-list-item', { 'active-country': c.iso2 === country.iso2 })}
-                    ref={c.iso2 === country.iso2 ? activeCountry : null}
+                    className={cx('country-list-item', { 'active-country': c.iso2 === iso2 })}
+                    ref={c.iso2 === iso2 ? activeCountry : null}
                   >
                     <ReactCountryFlag
                       styleProps={{
@@ -293,4 +299,4 @@ PhoneInput.defaultProps = {
   initialValue: null,
 }
 
-export default memo(PhoneInput)
+export default PhoneInput
