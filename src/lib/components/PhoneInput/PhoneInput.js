@@ -1,5 +1,5 @@
 import React, {
-  useRef, useState, useEffect, memo,
+  useRef, useState, useEffect, memo, useCallback,
 } from 'react'
 import PropTypes from 'prop-types'
 import cx from 'classnames'
@@ -72,7 +72,7 @@ export const PhoneInput = ({
     }
   }, [])
 
-  const handleSelect = countryCode => e => {
+  const handleSelect = useCallback(countryCode => e => {
     const selectedCountry = findCountryBy('iso2', countryCode || e.target.value)
 
     setCountry(selectedCountry)
@@ -81,13 +81,13 @@ export const PhoneInput = ({
     setShowCountries(false)
 
     phoneInput.current.focus()
-  }
+  }, [country])
 
-  const handleToggleList = () => {
+  const handleToggleList = useCallback(() => {
     if (!disabled) {
       setShowCountries(prevShowCountries => !prevShowCountries)
     }
-  }
+  }, [showCountries])
 
   const handleChange = e => {
     const { value } = e.target
