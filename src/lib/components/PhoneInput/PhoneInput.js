@@ -34,13 +34,14 @@ export const PhoneInput = ({
   const [country, setCountry] = useState(getInitialCountry(defaultCountry, preferredCountries, regions))
   const [phoneNumber, setPhoneNumber] = useState(format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '')
   const [showCountries, setShowCountries] = useState(false)
+
   const phoneInputWrapper = useRef(null)
   const phoneInput = useRef(null)
   const countryList = useRef(null)
   const activeCountry = useRef(null)
 
-  const { iso2 } = country
   const isMobile = detectMobile.any()
+  const { iso2 } = country
 
   const clickOutside = e => {
     if (phoneInputWrapper.current && !phoneInputWrapper.current.contains(e.target)) {
