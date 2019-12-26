@@ -1,15 +1,15 @@
-import React, { Component, createRef } from 'react'
+import React, {
+  useRef, useState, useEffect, memo, useCallback,
+} from 'react'
 import PropTypes from 'prop-types'
-import enhanceWithClickOutside from 'react-click-outside'
-import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import cx from 'classnames'
 import ReactCountryFlag from 'react-country-flag'
 import omit from 'lodash.omit'
 import { detectMobile } from '../../utils/detectMobile'
 import globe from './globe.png'
-
 import {
   findCountryBy,
+  formatNumber,
   getCountry,
   getInitialCountry,
   getCountryList,
@@ -17,254 +17,197 @@ import {
 
 import './styles.scss'
 
-export class PhoneInput extends Component {
-  constructor(props) {
-    super(props)
-    const {
-      defaultCountry, preferredCountries, regions, format,
-    } = props
+export const PhoneInput = ({
+  className,
+  defaultCountry,
+  preferredCountries,
+  regions,
+  format,
+  initialValue,
+  withCountryMeta,
+  onChange,
+  disabled,
+  buttonFlagStyles,
+  listFlagStyles,
+  placeholder,
+}) => {
+  const [country, setCountry] = useState(getInitialCountry(defaultCountry, preferredCountries, regions))
+  const [phoneNumber, setPhoneNumber] = useState(format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '')
+  const [showCountries, setShowCountries] = useState(false)
 
-    this.state = {
-      country: getInitialCountry(defaultCountry, preferredCountries, regions),
-      phoneNumber: format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '',
-      showCountries: false,
+  const phoneInputWrapper = useRef(null)
+  const phoneInput = useRef(null)
+  const countryList = useRef(null)
+  const activeCountry = useRef(null)
+
+  const isMobile = detectMobile.any()
+  const { iso2 } = country
+
+  const clickOutside = e => {
+    if (phoneInputWrapper.current && !phoneInputWrapper.current.contains(e.target)) {
+      setShowCountries(false)
     }
-
-    this.phoneInput = createRef()
-    this.countryList = createRef()
-    this.activeCountry = createRef()
   }
 
-  componentDidMount() {
-    const { initialValue, format } = this.props
-
-    if (initialValue) {
-      const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
-      this.setState(prevState => ({
-        country: (format === 'INTERNATIONAL' && getCountry(tel)) || prevState.country,
-        phoneNumber: this.formatNumber(initialValue),
-      }), () => this.handleReturnValue())
-    }
-  }
-
-  handleReturnValue = () => {
-    const { withCountryMeta, onChange } = this.props
-    const { phoneNumber, country } = this.state
+  useEffect(() => {
     const data = withCountryMeta
       ? { phoneNumber, country: omit(country, ['hasAreaCodes', 'isAreaCode', 'dialCode', 'regions']) }
       : phoneNumber
 
+    if (showCountries && iso2 && iso2 !== 'intl') {
+      countryList.current.scrollTop = (activeCountry.current?.offsetTop - 50)
+    }
+
     onChange(data)
-  }
+  }, [country, phoneNumber, showCountries])
 
-  handleSelect = code => e => {
-    const country = findCountryBy('iso2', code || e.target.value)
+  useEffect(() => {
+    document.addEventListener('mousedown', clickOutside)
 
-    this.setState({
-      country,
-      phoneNumber: country.dialCode,
-      showCountries: false,
-    }, () => this.handleReturnValue())
-
-    this.phoneInput.current.focus()
-  }
-
-  scrollToCountry = () => {
-    const { showCountries, country: { iso2 } } = this.state
-    if (showCountries && iso2 !== 'intl') {
-      this.countryList.current.scrollTop = (this.activeCountry.current?.offsetTop - 50)
+    if (initialValue) {
+      const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
+      setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(tel) ? getCountry(tel) : prevCountry))
+      setPhoneNumber(formatNumber(initialValue, format, iso2))
     }
-  }
 
-  toggleList = () => {
-    const { disabled } = this.props
+    return () => {
+      document.removeEventListener('mousedown', clickOutside)
+    }
+  }, [])
 
+  const handleSelect = useCallback(countryCode => e => {
+    const selectedCountry = findCountryBy('iso2', countryCode || e.target.value)
+
+    setCountry(selectedCountry)
+    setPhoneNumber(selectedCountry.dialCode)
+
+    setShowCountries(false)
+
+    phoneInput.current.focus()
+  }, [country])
+
+  const handleToggleList = useCallback(() => {
     if (!disabled) {
-      this.setState(prevState => ({
-        showCountries: !prevState.showCountries,
-      }), () => this.scrollToCountry())
+      setShowCountries(prevShowCountries => !prevShowCountries)
     }
-  }
+  }, [showCountries])
 
-  formatNumber = number => {
-    const { format } = this.props
-    const { country: { iso2 } } = this.state
-
-    let phoneNumber = number
-
-    if (format === 'INTERNATIONAL') {
-      if (!phoneNumber.startsWith('+')) {
-        phoneNumber = `+${phoneNumber}`
-      }
-      if (phoneNumber.startsWith('+00')) {
-        phoneNumber = phoneNumber.replace('00', '')
-      }
-    }
-
-    const parsedPhoneNumber = parsePhoneNumberFromString(phoneNumber, iso2.toUpperCase())
-
-    try {
-      phoneNumber = parsedPhoneNumber.format(format)
-    } catch (e) {
-      phoneNumber = phoneNumber.replace(/\(+-()\)/g, '')
-    }
-
-    return phoneNumber
-  }
-
-  handleChange = e => {
+  const handleChange = e => {
     const { value } = e.target
-    const {
-      defaultCountry, preferredCountries, regions, format,
-    } = this.props
+    const selectedCountry = getCountry(value)
 
     if (!value.length) {
-      this.setState({
-        country: getInitialCountry(defaultCountry, preferredCountries, regions),
-        phoneNumber: '',
-      }, () => this.handleReturnValue())
+      setCountry(getInitialCountry(defaultCountry, preferredCountries, regions))
+      setPhoneNumber('')
 
       return
     }
 
     if (!(/^[\d ()+-]+$/).test(value)) return
 
-    this.setState(prevState => ({
-      country: (format === 'INTERNATIONAL' && getCountry(value)) || prevState.country,
-      phoneNumber: this.formatNumber(value),
-    }), () => {
-      this.scrollToCountry()
-      this.handleReturnValue()
-    })
+    setCountry(prevCountry => (format === 'INTERNATIONAL' && selectedCountry ? selectedCountry : prevCountry))
+    setPhoneNumber(formatNumber(value, format, iso2))
   }
 
-  handleFlag = iso2 => (
-    iso2 === 'intl'
-      ? <img src={globe} alt="globe" />
-      : (
-        <ReactCountryFlag
-          code={iso2 || ''}
-          styleProps={{
-            display: 'block',
-            position: 'absolute',
-            width: '20px',
-            height: '15px',
-            backgroundPosition: 'center center',
-            zIndex: 7,
-            ...this.props.buttonFlagStyles,
-          }}
-          svg
-        />
-      )
-  )
-
-  handleClickOutside() {
-    this.setState({
-      showCountries: false,
-    })
-  }
-
-  render() {
-    const { country: { iso2 }, phoneNumber, showCountries } = this.state
-    const {
-      placeholder, disabled, preferredCountries, regions, format, className, listFlagStyles,
-    } = this.props
-    const passableProps = omit(this.props, [
-      'format',
-      'regions',
-      'defaultCountry',
-      'preferredCountries',
-      'buttonFlagStyles',
-      'listFlagStyles',
-      'withCountryMeta',
-      'initialValue',
-    ])
-    const isMobile = detectMobile.any()
-    const toggleList = !isMobile ? this.toggleList : undefined
-
-    return (
-      <div className="react-phonenr-input">
-        {
-          format === 'INTERNATIONAL' && (
-            <div
-              onClick={toggleList}
-              className="flag-wrapper"
-              role="none"
-            >
-              {this.handleFlag(iso2)}
-              {
-                isMobile && (
-                  <select
-                    className={className}
-                    onChange={this.handleSelect()}
-                    disabled={disabled}
-                  >
-                    {
-                      getCountryList(preferredCountries, regions).map(c => {
-                        if (c.isAreaCode) {
-                          return null
-                        }
-
-                        return (
-                          <option key={c.iso2} value={c.iso2}>
-                            {c.name}
-                          </option>
-                        )
-                      })
-                    }
-                  </select>
+  return (
+    <div className="react-phonenr-input" ref={phoneInputWrapper}>
+      {
+        format === 'INTERNATIONAL' && (
+          <div
+            onClick={!isMobile ? handleToggleList : undefined}
+            className="flag-wrapper"
+            role="none"
+          >
+            {
+              iso2 === 'intl'
+                ? <img src={globe} alt="globe" />
+                : (
+                  <ReactCountryFlag
+                    code={iso2 || ''}
+                    styleProps={{
+                      display: 'block',
+                      position: 'absolute',
+                      width: '20px',
+                      height: '15px',
+                      backgroundPosition: 'center center',
+                      zIndex: 7,
+                      ...buttonFlagStyles,
+                    }}
+                    svg
+                  />
                 )
-              }
-            </div>
-          )
-        }
-        <input
-          {...passableProps}
-          className={className}
-          type="tel"
-          value={phoneNumber}
-          onChange={this.handleChange}
-          placeholder={placeholder}
-          disabled={disabled}
-          ref={this.phoneInput}
-          maxLength="21"
-        />
-        {
-          showCountries && format === 'INTERNATIONAL' && !isMobile && (
-            <ul className="country-list" ref={this.countryList}>
-              {
-                getCountryList(preferredCountries, regions).map(c => {
-                  if (c.isAreaCode) {
-                    return null
-                  }
+            }
+            {
+              isMobile && (
+                <select
+                  className={className}
+                  onChange={handleSelect()}
+                  disabled={disabled}
+                >
+                  {
+                    getCountryList(preferredCountries, regions).map(c => {
+                      if (c.isAreaCode) {
+                        return null
+                      }
 
-                  return (
-                    <li
-                      key={c.iso2}
-                      onClick={this.handleSelect(c.iso2)}
-                      onKeyPress={this.handleSelect(c.iso2)}
-                      className={cx('country-list-item', { 'active-country': c.iso2 === iso2 })}
-                      ref={c.iso2 === iso2 ? this.activeCountry : null}
-                    >
-                      <ReactCountryFlag
-                        styleProps={{
-                          width: '20px',
-                          ...listFlagStyles,
-                        }}
-                        code={c.iso2}
-                        svg
-                      />
-                      {` ${c.name}`}
-                    </li>
-                  )
-                })
-              }
-            </ul>
-          )
-        }
-      </div>
-    )
-  }
+                      return (
+                        <option key={c.iso2} value={c.iso2}>
+                          {c.name}
+                        </option>
+                      )
+                    })
+                  }
+                </select>
+              )
+            }
+          </div>
+        )
+      }
+      <input
+        className={className}
+        type="tel"
+        value={phoneNumber}
+        onChange={handleChange}
+        placeholder={placeholder}
+        disabled={disabled}
+        ref={phoneInput}
+        maxLength="21"
+      />
+      {
+        showCountries && format === 'INTERNATIONAL' && !isMobile && (
+          <ul className="country-list" ref={countryList}>
+            {
+              getCountryList(preferredCountries, regions).map(c => {
+                if (c.isAreaCode) {
+                  return null
+                }
+
+                return (
+                  <li
+                    key={c.iso2}
+                    onClick={handleSelect(c.iso2)}
+                    onKeyPress={handleSelect(c.iso2)}
+                    className={cx('country-list-item', { 'active-country': c.iso2 === iso2 })}
+                    ref={c.iso2 === iso2 ? activeCountry : null}
+                  >
+                    <ReactCountryFlag
+                      styleProps={{
+                        width: '20px',
+                        ...listFlagStyles,
+                      }}
+                      code={c.iso2}
+                      svg
+                    />
+                    {` ${c.name}`}
+                  </li>
+                )
+              })
+            }
+          </ul>
+        )
+      }
+    </div>
+  )
 }
 
 PhoneInput.propTypes = {
@@ -321,4 +264,4 @@ PhoneInput.defaultProps = {
   initialValue: null,
 }
 
-export default enhanceWithClickOutside(PhoneInput)
+export default memo(PhoneInput)

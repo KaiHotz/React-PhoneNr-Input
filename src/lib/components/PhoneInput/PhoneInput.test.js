@@ -18,7 +18,6 @@ describe('<PhoneInput />', () => {
     const wrapper = mount(<PhoneInput {...baseProps} />)
     const input = wrapper.find('input')
 
-    expect(wrapper.state().country.iso2).toBe('intl')
     expect(input.prop('value')).toBe('')
   })
 
@@ -30,7 +29,6 @@ describe('<PhoneInput />', () => {
     const wrapper = mount(<PhoneInput {...props} />)
     const input = wrapper.find('input')
 
-    expect(wrapper.state().country.iso2).toBe('de')
     expect(input.prop('value')).toBe('+49')
   })
 
