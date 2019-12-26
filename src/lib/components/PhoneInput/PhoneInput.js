@@ -52,6 +52,10 @@ const PhoneInput = ({
       ? { phoneNumber, country: omit(country, ['hasAreaCodes', 'isAreaCode', 'dialCode', 'regions']) }
       : phoneNumber
 
+    if (showCountries && iso2 && iso2 !== 'intl') {
+      countryList.current.scrollTop = (activeCountry.current?.offsetTop - 50)
+    }
+
     onChange(data)
   }, [country, phoneNumber, showCountries])
 
@@ -105,19 +109,9 @@ const PhoneInput = ({
     phoneInput.current.focus()
   }
 
-  const scrollToCountry = countryCode => {
-    console.log('countryCode ', countryCode)
-    if (showCountries && countryCode && countryCode !== 'intl') {
-      countryList.current.scrollTop = (activeCountry.current?.offsetTop - 50)
-    }
-    console.log(activeCountry.current)
-    console.log('scroll ', activeCountry.current?.offsetTop)
-  }
-
   const handleToggleList = () => {
     if (!disabled) {
       setShowCountries(prevShowCountries => !prevShowCountries)
-      scrollToCountry(iso2)
     }
   }
 
@@ -136,7 +130,6 @@ const PhoneInput = ({
 
     setCountry(prevCountry => (format === 'INTERNATIONAL' && selectedCountry ? selectedCountry : prevCountry))
     setPhoneNumber(formatNumber(value))
-    scrollToCountry(selectedCountry.iso2)
   }
 
   const handleFlag = () => (
