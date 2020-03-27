@@ -1,7 +1,7 @@
 import { parsePhoneNumberFromString } from 'libphonenumber-js'
 import allCountries from './allCountries'
 
-export const findCountryBy = (identifyer, item) => allCountries.find(country => country[identifyer] === item)
+export const findCountryBy = (identifyer, item) => allCountries.find(country => country[identifyer] === item || country[identifyer].toLowerCase().startsWith(item.toLowerCase()))
 
 export const getCountry = phoneNumber => {
   const tel = phoneNumber.startsWith('+') ? phoneNumber.slice(1, 6) : phoneNumber.slice(0, 5)

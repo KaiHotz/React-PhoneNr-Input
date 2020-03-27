@@ -31,8 +31,12 @@ export const PhoneInput = ({
   listFlagStyles,
   placeholder,
 }) => {
-  const [country, setCountry] = useState(getInitialCountry(defaultCountry, preferredCountries, regions))
-  const [phoneNumber, setPhoneNumber] = useState(format === 'INTERNATIONAL' ? getInitialCountry(defaultCountry, preferredCountries, regions).dialCode : '')
+  const initialCountry = getInitialCountry(defaultCountry, preferredCountries, regions)
+  const isInternational = format === 'INTERNATIONAL'
+  const isMobile = detectMobile.any()
+
+  const [country, setCountry] = useState(initialCountry)
+  const [phoneNumber, setPhoneNumber] = useState(isInternational ? initialCountry.dialCode : '')
   const [showCountries, setShowCountries] = useState(false)
 
   const phoneInputWrapper = useRef(null)
@@ -40,12 +44,33 @@ export const PhoneInput = ({
   const countryList = useRef(null)
   const activeCountry = useRef(null)
 
-  const isMobile = detectMobile.any()
   const { iso2 } = country
+
+  let buffer = []
+  let lastKeyTime = Date.now()
 
   const clickOutside = e => {
     if (phoneInputWrapper.current && !phoneInputWrapper.current.contains(e.target)) {
       setShowCountries(false)
+    }
+  }
+
+  const searchCountryByName = e => {
+    const key = e.key.toLowerCase()
+    const selectedCountry = findCountryBy('name', buffer.join('')) || initialCountry
+
+    if ((/^[a-zA-Z \s]+$/).test(key) && phoneInputWrapper.current && phoneInputWrapper.current.contains(e.target)) {
+      e.preventDefault()
+      const currentTime = Date.now()
+      if (currentTime - lastKeyTime > 1000) {
+        buffer = []
+      }
+
+      buffer.push(key)
+      lastKeyTime = currentTime
+
+      setCountry(isInternational && selectedCountry)
+      setPhoneNumber(isInternational ? selectedCountry?.dialCode : '')
     }
   }
 
@@ -63,15 +88,17 @@ export const PhoneInput = ({
 
   useEffect(() => {
     document.addEventListener('mousedown', clickOutside)
+    document.addEventListener('keydown', searchCountryByName)
 
     if (initialValue) {
       const tel = initialValue.startsWith('+') ? initialValue.slice(1, 4) : initialValue.slice(0, 3)
-      setCountry(prevCountry => (format === 'INTERNATIONAL' && getCountry(tel) ? getCountry(tel) : prevCountry))
+      setCountry(prevCountry => (isInternational && getCountry(tel) ? getCountry(tel) : prevCountry))
       setPhoneNumber(formatNumber(initialValue, format, iso2))
     }
 
     return () => {
       document.removeEventListener('mousedown', clickOutside)
+      document.removeEventListener('keydown', searchCountryByName)
     }
   }, [])
 
@@ -97,7 +124,7 @@ export const PhoneInput = ({
     const selectedCountry = getCountry(value)
 
     if (!value.length) {
-      setCountry(getInitialCountry(defaultCountry, preferredCountries, regions))
+      setCountry(initialCountry)
       setPhoneNumber('')
 
       return
@@ -105,14 +132,14 @@ export const PhoneInput = ({
 
     if (!(/^[\d ()+-]+$/).test(value)) return
 
-    setCountry(prevCountry => (format === 'INTERNATIONAL' && selectedCountry ? selectedCountry : prevCountry))
+    setCountry(prevCountry => (isInternational && selectedCountry ? selectedCountry : prevCountry))
     setPhoneNumber(formatNumber(value, format, iso2))
   }
 
   return (
     <div className="react-phonenr-input" ref={phoneInputWrapper}>
       {
-        format === 'INTERNATIONAL' && (
+        isInternational && (
           <div
             onClick={!isMobile ? handleToggleList : undefined}
             className="flag-wrapper"
@@ -174,7 +201,7 @@ export const PhoneInput = ({
         maxLength="21"
       />
       {
-        showCountries && format === 'INTERNATIONAL' && !isMobile && (
+        showCountries && isInternational && !isMobile && (
           <ul className="country-list" ref={countryList}>
             {
               getCountryList(preferredCountries, regions).map(c => {
