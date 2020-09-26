@@ -57,7 +57,7 @@ export interface IPhoneInputProps {
 export const PhoneInput: FC<IPhoneInputProps> = ({
   className,
   defaultCountry,
-  preferredCountries = [],
+  preferredCountries,
   regions,
   format = 'INTERNATIONAL',
   initialValue,
