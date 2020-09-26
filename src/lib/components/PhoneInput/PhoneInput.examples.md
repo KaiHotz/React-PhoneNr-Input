@@ -5,11 +5,12 @@
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneNumber: '' };
+
+const [value, setValue] = React.useState('')
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber })
+  setValue(phoneNumber)
 };
 
 <Fragment>
@@ -20,7 +21,7 @@ const handleChange = phoneNumber => {
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneNumber && JSON.stringify(state.phoneNumber, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 
@@ -31,11 +32,11 @@ const handleChange = phoneNumber => {
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneNumber: '+49 1761234112' };
+const [value, setValue] = React.useState('+491761234112')
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber })
+  setValue(phoneNumber)
 };
 
 <Fragment>
@@ -43,13 +44,13 @@ const handleChange = phoneNumber => {
 
   <PhoneInput
     onChange={handleChange}
-    initialValue={state.phoneNumber}
+    initialValue={value}
   />
 
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneNumber && JSON.stringify(state.phoneNumber, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 
@@ -61,11 +62,11 @@ const handleChange = phoneNumber => {
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneData: null };
+const [value, setValue] = React.useState('')
 
-const handleChange = phoneData => {
-  /* Do something with the data eg.: setting state */
-  setState({ phoneData })
+const handleChange = phoneNumber => {
+  /* Do something with the phoneNumber eg.: setting state */
+  setValue(phoneNumber)
 };
 
 <Fragment>
@@ -79,7 +80,7 @@ const handleChange = phoneData => {
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneData && JSON.stringify(state.phoneData, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 
@@ -90,11 +91,11 @@ const handleChange = phoneData => {
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneNumber: '' };
+const [value, setValue] = React.useState('')
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber })
+  setValue(phoneNumber)
 };
 
 <Fragment>
@@ -102,13 +103,13 @@ const handleChange = phoneNumber => {
 
   <PhoneInput
     onChange={handleChange}
-    defaultCountry='de'
+    defaultCountry='DE'
   />
 
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneNumber && JSON.stringify(state.phoneNumber, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 
@@ -120,25 +121,24 @@ const handleChange = phoneNumber => {
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneNumber: '' };
+const [value, setValue] = React.useState('')
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber })
+  setValue(phoneNumber)
 };
-
 <Fragment>
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
     onChange={handleChange}
-    preferredCountries={['cl', 'ar', 'br', 'co']}
+    preferredCountries={['CL', 'AR', 'BR', 'CO']}
   />
 
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneNumber && JSON.stringify(state.phoneNumber, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 
@@ -149,11 +149,11 @@ const handleChange = phoneNumber => {
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneNumber: '' };
+const [value, setValue] = React.useState('')
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber })
+  setValue(phoneNumber)
 };
 
 <Fragment>
@@ -167,7 +167,7 @@ const handleChange = phoneNumber => {
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneNumber && JSON.stringify(state.phoneNumber, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 
@@ -178,11 +178,11 @@ const handleChange = phoneNumber => {
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneNumber: '' };
+const [value, setValue] = React.useState('')
 
 const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneNumber })
+  setValue(phoneNumber)
 };
 
 <Fragment>
@@ -191,14 +191,14 @@ const handleChange = phoneNumber => {
   <PhoneInput
     onChange={handleChange}
     format='NATIONAL'
-    defaultCountry='us'
+    defaultCountry='US'
     placeholder='(555) 123-4567'
   />
 
   <fieldset style={{maxWidth: 250, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneNumber && JSON.stringify(state.phoneNumber, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 
@@ -209,11 +209,11 @@ const handleChange = phoneNumber => {
 ```jsx
 import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
-initialState = { phoneData: '' };
+const [value, setValue] = React.useState('')
 
-const handleChange = phoneData => {
+const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
-  setState({ phoneData })
+  setValue(phoneNumber)
 };
 
 <Fragment>
@@ -223,14 +223,14 @@ const handleChange = phoneData => {
     withCountryMeta
     onChange={handleChange}
     format='NATIONAL'
-    defaultCountry='us'
+    defaultCountry='US'
     placeholder='(555) 123-4567'
   />
 
   <fieldset style={{maxWidth: 250, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
     <pre style={{margin: 0}}>
-      {state.phoneData && JSON.stringify(state.phoneData, null, 2)}
+      {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
 

@@ -1,4 +1,6 @@
-import babel from 'rollup-plugin-babel'
+import { DEFAULT_EXTENSIONS } from '@babel/core'
+import babel from '@rollup/plugin-babel'
+import typescript from 'rollup-plugin-typescript2'
 import commonjs from '@rollup/plugin-commonjs'
 import external from 'rollup-plugin-peer-deps-external'
 import postcss from 'rollup-plugin-postcss'
@@ -10,7 +12,7 @@ import { terser } from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 export default {
-  input: 'src/lib/index.js',
+  input: 'src/lib/index.ts',
   output: [
     {
       file: pkg.module,
@@ -27,12 +29,24 @@ export default {
     external({
       includeDependencies: true,
     }),
-    url(),
-    svgr(),
-    resolve(),
+    typescript({
+      typescript: require('typescript'),
+      include: ['*.js+(|x)', '**/*.js+(|x)'],
+      exclude: [
+        'dist',
+        'node_modules/**',
+        '*.test.{js+(|x), ts+(|x)}',
+        '**/*.test.{js+(|x), ts+(|x)}',
+      ],
+    }),
     babel({
       presets: [
         'react-app',
+      ],
+      extensions: [
+        ...DEFAULT_EXTENSIONS,
+        '.ts',
+        '.tsx',
       ],
       plugins: [
         '@babel/plugin-proposal-object-rest-spread',
@@ -42,8 +56,11 @@ export default {
         'transform-react-remove-prop-types',
       ],
       exclude: 'node_modules/**',
-      runtimeHelpers: true,
+      babelHelpers: 'runtime',
     }),
+    url(),
+    svgr(),
+    resolve(),
     commonjs(),
     terser(),
   ],
