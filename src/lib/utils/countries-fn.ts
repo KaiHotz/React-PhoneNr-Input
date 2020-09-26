@@ -42,7 +42,7 @@ export const getCountriesByRegions = (regions: Region[] | Region): ICountry[] =>
 
 export const getPreferredCountries: GetPreferredCountries = (preferredCountries: IsoCode[]) => preferredCountries.map(prefCountry => findCountryBy('iso2', prefCountry))
 
-export const getInitialCountry: GetInitialCountry = (defaultCountry?: string, preferredCountries?: IsoCode[], regions?: Region | Region[]) => {
+export const getInitialCountry: GetInitialCountry = (defaultCountry?: IsoCode, preferredCountries?: IsoCode[], regions?: Region | Region[]) => {
   if (defaultCountry) {
     return findCountryBy('iso2', defaultCountry)
   }
