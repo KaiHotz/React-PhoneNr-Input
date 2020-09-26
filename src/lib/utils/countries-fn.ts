@@ -10,6 +10,7 @@ import {
   NumberFormat,
   FormatNumber,
   IsoCode,
+  Region,
 } from '../types'
 import { allCountries } from './allCountries'
 
@@ -31,17 +32,17 @@ export const getCountry: GetCountry = (phoneNumber: string) => {
   return allCountries.find(country => country.dialCode.startsWith(`+${tel.replace(' ', '')}`))
 }
 
-export const getCountriesByRegions = (regions: string[] | string): ICountry[] => {
+export const getCountriesByRegions = (regions: Region[] | Region): ICountry[] => {
   if (typeof regions === 'string') {
-    return allCountries.filter(country => country.regions.includes(regions.toLowerCase()))
+    return allCountries.filter(country => country.regions.includes(regions))
   }
 
-  return allCountries.filter(country => regions.map(region => country.regions.includes(region.toLowerCase())).some(el => el))
+  return allCountries.filter(country => regions.map(region => country.regions.includes(region)).some(el => el))
 }
 
-export const getPreferredCountries: GetPreferredCountries = (preferredCountries: string[]) => preferredCountries.map(prefCountry => findCountryBy('iso2', prefCountry))
+export const getPreferredCountries: GetPreferredCountries = (preferredCountries: IsoCode[]) => preferredCountries.map(prefCountry => findCountryBy('iso2', prefCountry))
 
-export const getInitialCountry: GetInitialCountry = (defaultCountry?: string, preferredCountries?: string[], regions?: string | string[]) => {
+export const getInitialCountry: GetInitialCountry = (defaultCountry?: string, preferredCountries?: string[], regions?: Region | Region[]) => {
   if (defaultCountry) {
     return findCountryBy('iso2', defaultCountry)
   }
@@ -50,14 +51,14 @@ export const getInitialCountry: GetInitialCountry = (defaultCountry?: string, pr
     return findCountryBy('iso2', preferredCountries[0])
   }
 
-  if (regions) {
+  if (regions?.length) {
     return getCountriesByRegions(regions)[0]
   }
 
   return allCountries[0]
 }
 
-export const getCountryList: GetCountryList = (preferredCountries?: string[], regions?: string | string[]) => {
+export const getCountryList: GetCountryList = (preferredCountries?: IsoCode[], regions?: Region | Region[]) => {
   if (preferredCountries?.length) {
     return getPreferredCountries(preferredCountries)
   }

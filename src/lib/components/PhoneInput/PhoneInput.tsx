@@ -6,17 +6,21 @@ import { CountryCode, findPhoneNumbersInText } from 'libphonenumber-js'
 import cx from 'classnames'
 import omit from 'lodash.omit'
 import FlagIconFactory from 'react-flag-icon-css'
-import { detectMobile } from '../../utils/detectMobile'
 import {
-  ICountry, NumberFormat, IReturnValueObj, IsoCode,
-} from '../../types'
-import {
+  detectMobile,
   findCountryBy,
   formatNumber,
   getCountry,
   getInitialCountry,
   getCountryList,
-} from '../../utils/countries-fn'
+} from '../../utils'
+import {
+  ICountry,
+  NumberFormat,
+  IReturnValueObj,
+  IsoCode,
+  Region,
+} from '../../types'
 import './styles.scss'
 
 const FlagIcon = FlagIconFactory(React, { useCssModules: false })
@@ -45,11 +49,11 @@ export interface IPhoneInputProps {
    /** Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database */
    initialValue?: string;
    /** Sets the default country (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
-   defaultCountry?: string;
+   defaultCountry?: IsoCode;
    /** Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
-   preferredCountries?: string[];
+   preferredCountries?: IsoCode[];
    /** Lets you restrict the country dropdown to a list of countries in the specified regions */
-   regions?:string | string[];
+   regions?: Region | Region[];
    /** Adds a custom class to the Phone Nr. Input Field */
    className?: string,
   }

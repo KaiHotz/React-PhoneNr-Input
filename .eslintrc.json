@@ -148,7 +148,8 @@
         "@typescript-eslint/explicit-function-return-type": "error",
         "@typescript-eslint/no-empty-function": "error",
         "@typescript-eslint/no-explicit-any": "error",
-        "@typescript-eslint/prefer-includes": "error"
+        "@typescript-eslint/prefer-includes": "error",
+        "@typescript-eslint/prefer-regexp-exec": 0
       }
     }
   ]
