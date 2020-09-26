@@ -4,7 +4,8 @@ export type {
   Region,
   IsoCode,
   ICountry,
-  IReturnValueObj,
+  IPhoneNumberObj,
   Identifyer,
   NumberFormat,
+  PhoneNumber,
 } from './types'

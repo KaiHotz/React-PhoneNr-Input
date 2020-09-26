@@ -15,9 +15,9 @@ import {
   getCountryList,
 } from '../../utils'
 import {
+  PhoneNumber,
   ICountry,
   NumberFormat,
-  IReturnValueObj,
   IsoCode,
   Region,
 } from '../../types'
@@ -33,7 +33,7 @@ export interface IPhoneInputProps {
   /** Disables the Phone Nr. Input Field */
   disabled?: boolean;
   /** The function/method that returns the entered Phone Nr. */
-  onChange: (data: string | IReturnValueObj) => void;
+  onChange: (data: PhoneNumber) => void;
   /**
    * changes the retuned value into an Object that contains the phone number and country meta information
    * eg.:
@@ -86,7 +86,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   const { iso2 } = country
 
   useEffect(() => {
-    const data: string | IReturnValueObj = withCountryMeta
+    const data: PhoneNumber = withCountryMeta
       ? { phoneNumber, country: omit(country, ['hasAreaCodes', 'isAreaCode', 'dialCode', 'regions']) }
       : phoneNumber
 

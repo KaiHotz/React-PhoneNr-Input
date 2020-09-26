@@ -12,11 +12,12 @@ export interface ICountry {
   isAreaCode?: boolean;
 }
 
-export interface IReturnValueObj {
+export interface IPhoneNumberObj {
   phoneNumber: string;
   country: Omit<ICountry, 'hasAreaCodes' | 'isAreaCode' | 'dialCode' | 'regions'>
 }
 
+export type PhoneNumber = string | IPhoneNumberObj
 export type Identifyer = 'name' | 'iso2' | 'dialCode'
 export type NumberFormat = 'INTERNATIONAL' | 'NATIONAL'
 export type DetectMobile = boolean | null | RegExpMatchArray
