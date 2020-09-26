@@ -117,23 +117,23 @@ yarn add react-phonenr-input
 ###### In addition to the here listed Props you can pass all other properties that can be used on a normal Html input field
 
 #### Code example:
-```jsx
-import React, { Component } from 'react'
-import { PhoneInput } from 'react-phonenr-input';
+```tsx
+import React, { useState } from 'react'
+import { PhoneInput, PhoneNumber } from 'react-phonenr-input';
 
-class Example extends Component {
+const Example = () => {
+  const [value, setValue] = useState<PhoneNumber>('')
 
-  handleChange = phoneNumber => {
+  const handleChange = (phoneNumber: PhoneNumber) => {
     // Do something with the phoneNumber
+    setValue(phoneNumber)
   }
 
-  render () {
-    return (
-      <div>
-        <PhoneInput onChange={this.handleChange}/>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <PhoneInput onChange={handleChange}/>
+    </div>
+  )
 }
 ```
 
