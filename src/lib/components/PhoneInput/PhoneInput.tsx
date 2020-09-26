@@ -1,4 +1,3 @@
-
 import React, {
   FC, useEffect, useRef, useState, ChangeEvent,
 } from 'react'
@@ -118,6 +117,17 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
     }
   }, [])
 
+  const handleMobileSelect = (e: ChangeEvent<HTMLSelectElement>): void => {
+    const { value } = e.target
+    const selectedCountry = findCountryBy('iso2', value)
+
+    setCountry(selectedCountry)
+    setPhoneNumber(selectedCountry.dialCode)
+    setShowCountries(false)
+
+    phoneInput.current?.focus()
+  }
+
   const handleSelect = (countryCode: IsoCode) => (): void => {
     const selectedCountry = findCountryBy('iso2', countryCode)
 
@@ -175,7 +185,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
               isMobile && (
                 <select
                   className={className}
-                  onChange={handleSelect(iso2)}
+                  onChange={handleMobileSelect}
                   disabled={disabled}
                 >
                   {
