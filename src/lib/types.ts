@@ -23,6 +23,6 @@ export type DetectMobile = boolean | null | RegExpMatchArray
 export type FindCountryBy = (identifyer: Identifyer, item: IsoCode | string) => ICountry
 export type GetCountry = (phoneNumber: string) => ICountry | undefined
 export type GetPreferredCountries = (preferredCountries: IsoCode[]) => ICountry[]
-export type GetInitialCountry = (defaultCountry?: string, preferredCountries?: string[], regions?: Region | Region[]) => ICountry
+export type GetInitialCountry = (defaultCountry?: string, preferredCountries?: IsoCode[], regions?: Region | Region[]) => ICountry
 export type GetCountryList = (preferredCountries?: IsoCode[], regions?: Region | Region[]) => ICountry[]
 export type FormatNumber = (pohneNumber: string, format: NumberFormat, iso2: CountryCode) => string
