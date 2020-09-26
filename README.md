@@ -1,3 +1,14 @@
+<h1 align="center">React-PhoneNr-Input</h1>
+
+<div align="center">
+
+[![NPM](https://img.shields.io/npm/v/react-phonenr-input.svg)](https://www.npmjs.com/package/react-phonenr-input)
+![npm bundle size](https://img.shields.io/bundlephobia/minzip/react-phonenr-input)
+[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/KaiHotz/react-phonenr-input/blob/master/LICENSE)
+![npm](https://img.shields.io/npm/dw/react-phonenr-input)
+
+</div>
+
 ## Support
 If you like the project and want to support my work, you can buy me a coffee :)
 
