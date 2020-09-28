@@ -1,6 +1,6 @@
 {
   "name": "react-phonenr-input",
-  "version": "2.0.9",
+  "version": "2.0.10",
   "description": "An automated and intuitive international and national phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
@@ -10,11 +10,8 @@
   },
   "homepage": "https://github.com/KaiHotz/React-PhoneNr-Input",
   "main": "dist/index.js",
-  "module": "dist/index.es.js",
-  "jsnext:main": "dist/index.es.js",
-  "files": [
-    "dist"
-  ],
+  "module": "dist/index.js",
+  "jsnext:main": "dist/index.js",
   "types": "dist/index.d.ts",
   "engines": {
     "node": ">=8",

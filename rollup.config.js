@@ -17,14 +17,11 @@ export default {
     {
       file: pkg.module,
       format: 'es',
-      sourcemap: true,
     },
   ],
   plugins: [
     postcss({
-      plugins: [],
       minimize: true,
-      sourceMap: 'inline',
     }),
     external({
       includeDependencies: true,
