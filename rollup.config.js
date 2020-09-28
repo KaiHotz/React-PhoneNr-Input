@@ -30,6 +30,8 @@ export default {
       typescript: require('typescript'),
       include: ['*.js+(|x)', '**/*.js+(|x)'],
       exclude: [
+        'coverage',
+        'config',
         'dist',
         'node_modules/**',
         '*.test.{js+(|x), ts+(|x)}',

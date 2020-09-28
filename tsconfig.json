@@ -32,13 +32,12 @@
     "emitDecoratorMetadata": false,
     "experimentalDecorators": false,
     "strictPropertyInitialization": true,
-
-  "importHelpers": true,
-  "sourceMap": true,
-  "strictNullChecks": true,
-  "strictFunctionTypes": true,
-  "noImplicitThis": true,
-  "alwaysStrict": true,
+    "importHelpers": true,
+    "sourceMap": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
   },
   "include": [
     "src/**/*"
@@ -46,8 +45,8 @@
   "exclude": [
     "coverage",
     "config",
-    "node_modules",
     "dist",
+    "node_modules/**",
     "src/**/*.test.js",
     "src/**/*.test.ts",
   ]
