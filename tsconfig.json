@@ -48,7 +48,7 @@
     "config",
     "node_modules",
     "dist",
-    "src/lib/**/*.test.js",
-    "src/lib/**/*.test.ts",
+    "src/**/*.test.js",
+    "src/**/*.test.ts",
   ]
 }
