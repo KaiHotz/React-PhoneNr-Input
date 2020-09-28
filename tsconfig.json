@@ -44,9 +44,11 @@
     "src/**/*"
   ],
   "exclude": [
+    "coverage",
+    "config",
     "node_modules",
     "dist",
-    "src/lib/components/**/*.test.js",
-    "src/lib/components/**/*.test.ts",
+    "src/lib/**/*.test.js",
+    "src/lib/**/*.test.ts",
   ]
 }

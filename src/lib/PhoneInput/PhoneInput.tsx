@@ -12,14 +12,14 @@ import {
   getCountry,
   getInitialCountry,
   getCountryList,
-} from '../../utils'
+} from '../utils'
 import {
   PhoneNumber,
   ICountry,
   NumberFormat,
   IsoCode,
   Region,
-} from '../../types'
+} from '../types'
 import './styles.scss'
 
 const FlagIcon = FlagIconFactory(React, { useCssModules: false })

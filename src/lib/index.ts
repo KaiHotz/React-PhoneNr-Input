@@ -1,5 +1,5 @@
-export { PhoneInput } from './components/PhoneInput'
-export type { IPhoneInputProps } from './components/PhoneInput'
+export { PhoneInput } from './PhoneInput'
+export type { IPhoneInputProps } from './PhoneInput'
 export type {
   Region,
   IsoCode,
