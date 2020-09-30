@@ -1,5 +1,5 @@
 import React, {
-  FC, useEffect, useRef, useState, ChangeEvent,
+  FC, useEffect, useRef, useState, ChangeEvent, FocusEvent,
 } from 'react'
 import { CountryCode, findPhoneNumbersInText } from 'libphonenumber-js'
 import cx from 'classnames'
@@ -27,6 +27,8 @@ const FlagIcon = FlagIconFactory(React, { useCssModules: false })
 export interface IPhoneInputProps {
   /** Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set */
   format?: NumberFormat;
+  /** sets the maximum lenght of the phonenumber */
+  maxLength?: number;
   /** Sets the Placeholder text */
   placeholder?: string;
   /** Disables the Phone Nr. Input Field */
@@ -43,22 +45,27 @@ export interface IPhoneInputProps {
        iso2: "DE"
       }
     }
-    */
-   withCountryMeta?: boolean;
-   /** Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database */
-   initialValue?: string;
-   /** Sets the default country (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
-   defaultCountry?: IsoCode;
-   /** Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
-   preferredCountries?: IsoCode[];
-   /** Lets you restrict the country dropdown to a list of countries in the specified regions */
-   regions?: Region | Region[];
-   /** Adds a custom class to the Phone Nr. Input Field */
-   className?: string,
-  }
+  */
+  /** Function that is called when entering the focus */
+  onFocus?: (event: FocusEvent<unknown>) => void;
+  /** Function that is called when leaving the focus */
+  onBlur?: (event: FocusEvent<unknown>) => void;
+  withCountryMeta?: boolean;
+  /** Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database */
+  initialValue?: string;
+  /** Sets the default country (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
+  defaultCountry?: IsoCode;
+  /** Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
+  preferredCountries?: IsoCode[];
+  /** Lets you restrict the country dropdown to a list of countries in the specified regions */
+  regions?: Region | Region[];
+  /** Adds a custom class to the Phone Nr. Input Field */
+  className?: string,
+}
 
 export const PhoneInput: FC<IPhoneInputProps> = ({
   className,
+  maxLength = 21,
   defaultCountry,
   preferredCountries,
   regions,
@@ -68,6 +75,10 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   onChange,
   disabled = false,
   placeholder = '+1 702 123 4567',
+  onFocus,
+  onBlur,
+  ...rest
+
 }) => {
   const initialCountry = getInitialCountry(defaultCountry, preferredCountries, regions)
   const isInternational = format === 'INTERNATIONAL'
@@ -208,6 +219,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
         )
       }
       <input
+        {...rest}
         className={className}
         type="tel"
         value={phoneNumber}
@@ -215,7 +227,9 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
         placeholder={placeholder}
         disabled={disabled}
         ref={phoneInput}
-        maxLength={21}
+        maxLength={maxLength}
+        onFocus={onFocus}
+        onBlur={onBlur}
       />
       {
         showCountries && isInternational && !isMobile && (
