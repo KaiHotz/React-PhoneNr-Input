@@ -74,7 +74,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   withCountryMeta = false,
   onChange,
   disabled = false,
-  placeholder = '+1 702 123 4567',
+  placeholder,
   onFocus,
   onBlur,
   ...rest

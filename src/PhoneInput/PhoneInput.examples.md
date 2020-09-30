@@ -16,7 +16,7 @@ const handleChange = phoneNumber => {
 <Fragment>
   <p>Enter a Phone number to see the retuned value</p>
 
-  <PhoneInput onChange={handleChange}/>
+  <PhoneInput onChange={handleChange} placeholder='+1 702 123 4567'/>
 
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
     <legend>Preview of the returned Value:</legend>
@@ -75,6 +75,7 @@ const handleChange = phoneNumber => {
   <PhoneInput
     withCountryMeta
     onChange={handleChange}
+    placeholder='+1 702 123 4567'
   />
 
   <fieldset style={{maxWidth: 290, minHeight: 32, marginTop: 20}}>
