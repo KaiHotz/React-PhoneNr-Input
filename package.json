@@ -125,8 +125,7 @@
     ],
     "resolver": "jest-pnp-resolver",
     "setupFiles": [
-      "react-app-polyfill/jsdom",
-      "<rootDir>/config/enzymeConfig.js"
+      "react-app-polyfill/jsdom"
     ],
     "setupFilesAfterEnv": [
       "<rootDir>/config/setupTests.js"
