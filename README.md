@@ -9,13 +9,13 @@
 </div>
 
 ## Overview
-React-PhoneNr-Input is a simple to use phone number input field with country selection, that by default, intuitively guesses the country for- and formats the entered phone number
+React-PhoneNr-Input is a simple to use phonenumber input field with country selection, that by default, intuitively guesses the country for- and formats the entered phonenumber
 
-For International phone numbers a dropdown menu is available to select ya country from.
+For International phonenumbers a dropdown menu is available to select ya country from.
 
-By passing the prop `format='NATIONAL'` and a default country e.g. `defaultCountry='DE'`  a simple input field is shown that formats the entered phone number with the national format declared by the `defaultCountry` prop.
+By passing the prop `format='NATIONAL'` and a default country e.g. `defaultCountry='DE'`  a simple input field is shown that formats the entered phonenumber with the national format declared by the `defaultCountry` prop.
 
-All written with around 300 lines of code
+All written with less than 300 lines of code
 
 
 ### Demo and Examples [here](https://kaihotz.github.io/React-PhoneNr-Input/)
@@ -44,14 +44,14 @@ yarn add react-phonenr-input
     <td>onChange</td>
     <td>(data: PhoneNumber) => void</td>
     <td>required</td>
-    <td>The function/method that returns the entered Phone Nr.</td>
+    <td>The function/method that returns the entered phonenumber or phonenumber object</td>
   </tr>
   <tr>
     <td>withCountryMeta</td>
     <td>boolean</td>
     <td>false</td>
     <td>
-      changes the retuned value into an Object that contains the phone number and the country information.
+      changes the retuned value into an Object that contains the phonenumber and the country information.
       eg.:
       <pre>
         {
@@ -68,7 +68,7 @@ yarn add react-phonenr-input
     <td>className</td>
     <td>string</td>
     <td>undefined</td>
-    <td>Adds a custom class to the Phone Nr. Input Field</td>
+    <td>Adds a custom class to the Phonenumber Input Field</td>
   </tr>
   <tr>
     <td>defaultCountry</td>
@@ -80,19 +80,19 @@ yarn add react-phonenr-input
     <td>disabled</td>
     <td>boolean</td>
     <td>false</td>
-    <td>Disables the Phone Nr. Input Field</td>
+    <td>Disables the Phonenumber Input Field</td>
   </tr>
   <tr>
     <td>format</td>
     <td>NumberFormat</td>
     <td>'INTERNATIONAL'</td>
-    <td>One of: 'INTERNATIONAL', 'NATIONAL'. Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set</td>
+    <td>One of: 'INTERNATIONAL', 'NATIONAL'. Sets the format of the entered  phonenumber, in case of 'NATIONAL' the defaultCountry must be set</td>
   </tr>
   <tr>
     <td>initialValue</td>
     <td>string</td>
     <td>undefined</td>
-    <td>Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database</td>
+    <td>Sets the initial Value of the Phonenumber Input. This is usefull in case you need to set a phonenumber stored for example in a database</td>
   </tr>
   <tr>
     <td>placeholder</td>

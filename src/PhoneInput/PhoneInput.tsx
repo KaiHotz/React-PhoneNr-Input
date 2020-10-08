@@ -25,7 +25,7 @@ import './styles.scss'
 const FlagIcon = FlagIconFactory(React, { useCssModules: false })
 
 export interface IPhoneInputProps {
-  /** Sets the format of the entered  phone number, in case of 'NATIONAL' the defaultCountry must be set */
+  /** Sets the format of the entered  phonenumber, in case of 'NATIONAL' the defaultCountry must be set */
   format?: NumberFormat;
   /** sets the maximum lenght of the phonenumber */
   maxLength?: number;
@@ -33,10 +33,14 @@ export interface IPhoneInputProps {
   placeholder?: string;
   /** Disables the Phone Nr. Input Field */
   disabled?: boolean;
-  /** The function/method that returns the entered Phone Nr. */
+  /** The function/method that returns the  phonenumber or phonenumber object */
   onChange: (data: PhoneNumber) => void;
+  /** Function that is called when entering the focus */
+  onFocus?: (event: FocusEvent<unknown>) => void;
+  /** Function that is called when leaving the focus */
+  onBlur?: (event: FocusEvent<unknown>) => void;
   /**
-   * changes the retuned value into an Object that contains the phone number and country meta information
+   * changes the retuned value into an Object that contains the phonenumber and country meta information
    * eg.:
    {
      phoneNumber: "+49 176 12345678",
@@ -46,12 +50,8 @@ export interface IPhoneInputProps {
       }
     }
   */
-  /** Function that is called when entering the focus */
-  onFocus?: (event: FocusEvent<unknown>) => void;
-  /** Function that is called when leaving the focus */
-  onBlur?: (event: FocusEvent<unknown>) => void;
   withCountryMeta?: boolean;
-  /** Sets the initial Value of the Phone Number Input. This is usefull in case you need to set a phone number stored for example in a database */
+  /** Sets the initial Value of the Phonenumber Input. This is usefull in case you need to set a phonenumber stored for example in a database */
   initialValue?: string;
   /** Sets the default country (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
   defaultCountry?: IsoCode;
@@ -59,7 +59,7 @@ export interface IPhoneInputProps {
   preferredCountries?: IsoCode[];
   /** Lets you restrict the country dropdown to a list of countries in the specified regions */
   regions?: Region | Region[];
-  /** Adds a custom class to the Phone Nr. Input Field */
+  /** Adds a custom class to the Phonenumber Input Field */
   className?: string,
 }
 
@@ -77,8 +77,6 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   placeholder,
   onFocus,
   onBlur,
-  ...rest
-
 }) => {
   const initialCountry = getInitialCountry(defaultCountry, preferredCountries, regions)
   const isInternational = format === 'INTERNATIONAL'
@@ -219,7 +217,6 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
         )
       }
       <input
-        {...rest}
         className={className}
         type="tel"
         value={phoneNumber}

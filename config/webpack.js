@@ -1,4 +1,4 @@
-// Webpack configuration
+// Webpack configuration used by React-Styleguidist
 module.exports = {
   module: {
     rules: [
