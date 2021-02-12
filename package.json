@@ -39,7 +39,7 @@
   },
   "dependencies": {
     "classnames": "^2.2.6",
-    "libphonenumber-js": "^1.9.10",
+    "libphonenumber-js": "^1.9.11",
     "lodash.omit": "^4.5.0",
     "react-flag-icon-css": "^1.0.25"
   },
