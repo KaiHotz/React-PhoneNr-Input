@@ -1,4 +1,4 @@
-export { allCountries } from './allCountries'
+export { allCountries } from './allCountries';
 export {
   findCountryBy,
   getCountry,
@@ -7,5 +7,5 @@ export {
   getInitialCountry,
   getCountryList,
   formatNumber,
-} from './countries-fn'
-export { hasWindowObj, detectMobile } from './detectMobile'
+} from './countries-fn';
+export { hasWindowObj, detectMobile } from './detectMobile';

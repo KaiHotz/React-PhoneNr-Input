@@ -1,6 +1,6 @@
 .react-phonenr-input {
   display: flex;
-  max-width: 320px;
+  max-width: 320;
   position: relative;
   button,
   input {
@@ -10,7 +10,7 @@
     box-sizing: border-box;
     border: 1px solid #ccc;
     outline: none;
-    border-radius: 0px;
+    border-radius: 0;
     height: calc(0.3rem * 6);
   }
   .flag-wrapper {
@@ -21,12 +21,12 @@
     align-items: center;
     padding-right: 7px;
     padding-left: 2px;
-    width: 30px;
+    width: 30;
     border: 1px solid #ccc;
     border-right: none;
     background-color: #ddd;
     img {
-      width: 20px;
+      width: 20;
       position: absolute;
       top: 50%;
       transform: translateY(-50%);
@@ -42,16 +42,16 @@
       padding: 0;
       margin: 0;
       border: none;
-      border-radius: 0px;
+      border-radius: 0;
       opacity: 0;
       z-index: 10;
     }
-    &::after {
-      content: "";
+    &:after {
+      content: '';
       width: 0;
       height: 0;
       border: 2.8px solid transparent;
-      border-color: #000 transparent transparent transparent;
+      border-color: #000 transparent transparent;
       position: absolute;
       right: 2px;
       top: 50%;
@@ -60,14 +60,14 @@
     }
   }
   input {
-    width: 280px;
+    width: 280;
     font-size: inherit;
-    padding: 0px 5px;
+    padding: 0 5px;
   }
   ul {
     box-sizing: border-box;
     width: 100%;
-    max-height: 290px;
+    max-height: 290;
     position: absolute;
     top: 35px;
     border: 1px solid #ccc;
@@ -95,7 +95,7 @@
         top: 50% !important;
         left: 3px !important;
         transform: translateY(-50%) !important;
-        margin: 0px 5px;
+        margin: 0 5px;
       }
     }
     /* width */

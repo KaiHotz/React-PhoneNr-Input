@@ -1,4 +1,4 @@
-import { ICountry } from '../types'
+import { ICountry } from '../types';
 
 export const allCountries: ICountry[] = [
   {
@@ -4282,4 +4282,4 @@ export const allCountries: ICountry[] = [
     hasAreaCodes: false,
     isAreaCode: false,
   },
-]
+];

@@ -1,6 +1,7 @@
-import { DetectMobile } from '../types'
+/* eslint-disable @typescript-eslint/prefer-regexp-exec */
+import { DetectMobile } from '../types';
 
-export const hasWindowObj = typeof window !== 'undefined'
+export const hasWindowObj = typeof window !== 'undefined';
 
 export const detectMobile = {
   Android: (): DetectMobile => hasWindowObj && window.navigator.userAgent.match(/Android/i),
@@ -8,5 +9,6 @@ export const detectMobile = {
   iOS: (): DetectMobile => hasWindowObj && window.navigator.userAgent.match(/iPhone|iPad|iPod/i),
   Opera: (): DetectMobile => hasWindowObj && window.navigator.userAgent.match(/Opera Mini/i),
   Windows: (): DetectMobile => hasWindowObj && window.navigator.userAgent.match(/IEMobile/i),
-  any: (): DetectMobile => (detectMobile.Android() || detectMobile.BlackBerry() || detectMobile.iOS() || detectMobile.Opera() || detectMobile.Windows()),
-}
+  any: (): DetectMobile =>
+    detectMobile.Android() || detectMobile.BlackBerry() || detectMobile.iOS() || detectMobile.Opera() || detectMobile.Windows(),
+};
