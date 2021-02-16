@@ -1,4 +1,6 @@
 // Webpack configuration used by React-Styleguidist
+const webpack = require('webpack');
+
 module.exports = {
   module: {
     rules: [
@@ -27,4 +29,9 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx", ".json"]
   },
+  plugins: [
+    new webpack.ProvidePlugin({
+      process: 'process/browser',
+    }),
+  ],
 };
