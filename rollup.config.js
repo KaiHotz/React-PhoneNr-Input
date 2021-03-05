@@ -8,15 +8,16 @@ import resolve from '@rollup/plugin-node-resolve';
 import url from '@rollup/plugin-url';
 import svgr from '@svgr/rollup';
 import { terser } from 'rollup-plugin-terser';
-
 import pkg from './package.json';
 
 export default {
-  input: 'src/index.ts',
+  input: ['src/index.ts'],
   output: [
     {
-      file: pkg.module,
+      dir: 'dist',
       format: 'es',
+      preserveModules: true,
+      preserveModulesRoot: 'src',
     },
   ],
   plugins: [
@@ -32,16 +33,8 @@ export default {
       exclude: ['coverage', 'config', 'dist', 'node_modules/**', '*.test.{js+(|x), ts+(|x)}', '**/*.test.{js+(|x), ts+(|x)}'],
     }),
     babel({
-      presets: ['react-app'],
+      ...pkg.babel,
       extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
-      plugins: [
-        '@babel/plugin-proposal-object-rest-spread',
-        '@babel/plugin-proposal-optional-chaining',
-        '@babel/plugin-syntax-dynamic-import',
-        '@babel/plugin-proposal-class-properties',
-        'transform-react-remove-prop-types',
-      ],
-      exclude: 'node_modules/**',
       babelHelpers: 'runtime',
     }),
     url(),
