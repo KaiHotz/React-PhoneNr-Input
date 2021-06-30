@@ -9,7 +9,7 @@ module.exports = {
     'no-duplicate-at-import-rules': true,
     'no-duplicate-selectors': true,
     'selector-max-universal': 0,
-    // 'max-nesting-depth': 6,
+    'max-nesting-depth': 3,
 
     'scss/at-import-no-partial-leading-underscore': true,
 

@@ -1,4 +1,3 @@
-import { DEFAULT_EXTENSIONS } from '@babel/core';
 import babel from '@rollup/plugin-babel';
 import typescript from 'rollup-plugin-typescript2';
 import commonjs from '@rollup/plugin-commonjs';
@@ -8,7 +7,7 @@ import resolve from '@rollup/plugin-node-resolve';
 import url from '@rollup/plugin-url';
 import svgr from '@svgr/rollup';
 import { terser } from 'rollup-plugin-terser';
-import pkg from './package.json';
+import typescriptEngine from 'typescript';
 
 export default {
   input: ['src/index.ts'],
@@ -28,14 +27,14 @@ export default {
       includeDependencies: true,
     }),
     typescript({
-      typescript: require('typescript'),
+      typescript: typescriptEngine,
       include: ['*.js+(|x)', '**/*.js+(|x)'],
       exclude: ['coverage', 'config', 'dist', 'node_modules/**', '*.test.{js+(|x), ts+(|x)}', '**/*.test.{js+(|x), ts+(|x)}'],
     }),
     babel({
-      ...pkg.babel,
-      extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
+      extensions: ['.js', '.ts', 'tsx', 'jsx'],
       babelHelpers: 'runtime',
+      exclude: /node_modules/,
     }),
     url(),
     svgr(),

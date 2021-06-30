@@ -19,7 +19,6 @@ module.exports = {
   rules: {
     'prettier/prettier': 'error',
     'import/no-extraneous-dependencies': 'off',
-    'import/no-named-as-default': 0,
     'no-use-before-define': 'off', // we use @typescript-eslint/no-use-before-define instead
     'global-require': 'off',
     'react/require-default-props': 'off',
@@ -122,7 +121,7 @@ module.exports = {
     yoda: 'error',
     'no-shadow': 'off', // we use @typescript-eslint/no-shadow instead
     'no-undef-init': 'error',
-    'no-nested-ternary': 0,
+    'no-nested-ternary': 'error',
     'no-unneeded-ternary': 'error',
     camelcase: 0,
     'no-unused-vars': 'error',

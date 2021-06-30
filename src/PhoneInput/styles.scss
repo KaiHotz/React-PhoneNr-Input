@@ -19,19 +19,12 @@
     align-content: center;
     justify-content: center;
     align-items: center;
-    padding-right: 7px;
-    padding-left: 2px;
-    width: 30;
+    padding-right: 12px;
+    padding-left: 5px;
+    width: 20px;
     border: 1px solid #ccc;
     border-right: none;
     background-color: #ddd;
-    img {
-      width: 20;
-      position: absolute;
-      top: 50%;
-      transform: translateY(-50%);
-      z-index: 5;
-    }
     select {
       position: absolute;
       appearance: none;
@@ -50,11 +43,11 @@
       content: '';
       width: 0;
       height: 0;
-      border: 2.8px solid transparent;
+      border: 4px solid transparent;
       border-color: #000 transparent transparent;
       position: absolute;
       right: 2px;
-      top: 50%;
+      top: 55%;
       transform: translateY(-50%);
       pointer-events: none;
     }
