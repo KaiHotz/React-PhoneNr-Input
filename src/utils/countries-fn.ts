@@ -15,7 +15,7 @@ import {
 import { allCountries } from './allCountries';
 
 export const findCountryBy: FindCountryBy = (identifyer: Identifyer, item: IsoCode | string) =>
-  allCountries.find((country) => country[identifyer] === item || country[identifyer].startsWith(item)) || allCountries[0];
+  allCountries.find((country) => country[identifyer].startsWith(item)) || allCountries[0];
 
 export const getCountry: GetCountry = (phoneNumber: string) => {
   let tel = phoneNumber;
@@ -73,7 +73,7 @@ export const getCountryList: GetCountryList = (preferredCountries?: IsoCode[], r
     return getCountriesByRegions(regions);
   }
 
-  return allCountries.filter((country) => country.iso2 !== 'INTL');
+  return allCountries.filter((country) => country.iso2 !== 'NO_FLAG');
 };
 
 export const formatNumber: FormatNumber = (pohneNumber: string, format: NumberFormat, iso2: IsoCode) => {

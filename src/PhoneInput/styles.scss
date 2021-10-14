@@ -60,7 +60,7 @@
   ul {
     box-sizing: border-box;
     width: 100%;
-    max-height: 290;
+    max-height: 290px;
     position: absolute;
     top: 35px;
     border: 1px solid #ccc;
@@ -76,21 +76,18 @@
       align-items: center;
       align-content: space-between;
       font-size: 1rem;
-      padding: 3px 0.5rem 3px 35px;
+      padding: 3px 0.5rem 3px 5px;
       &:hover,
       &.active-country {
         background-color: #ddd;
         color: currentColor;
         cursor: pointer;
       }
-      span {
-        position: absolute !important;
-        top: 50% !important;
-        left: 3px !important;
-        transform: translateY(-50%) !important;
-        margin: 0 5px;
+      img {
+        margin-right: 10px;
       }
     }
+
     /* width */
     &::-webkit-scrollbar {
       width: 3px;

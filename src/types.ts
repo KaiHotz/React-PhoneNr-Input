@@ -15,7 +15,7 @@ export type Region =
   | 'middle-east'
   | 'central-america'
   | 'north-america';
-export type IsoCode = CountryCode | 'INTL';
+export type IsoCode = CountryCode | 'NO_FLAG';
 
 export interface ICountry {
   name: string;
@@ -79,4 +79,4 @@ export type GetCountry = (phoneNumber: string) => ICountry | undefined;
 export type GetPreferredCountries = (preferredCountries: IsoCode[]) => ICountry[];
 export type GetInitialCountry = (defaultCountry?: IsoCode, preferredCountries?: IsoCode[], regions?: Region | Region[]) => ICountry;
 export type GetCountryList = (preferredCountries?: IsoCode[], regions?: Region | Region[]) => ICountry[];
-export type FormatNumber = (pohneNumber: string, format: NumberFormat, iso2: CountryCode) => string;
+export type FormatNumber = (pohneNumber: string, format: NumberFormat, iso2: IsoCode) => string;

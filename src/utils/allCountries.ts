@@ -2,9 +2,9 @@ import { ICountry } from '../types';
 
 export const allCountries: ICountry[] = [
   {
-    name: '',
+    name: 'NO_COUNTRY',
     regions: [],
-    iso2: 'INTL',
+    iso2: 'NO_FLAG',
     dialCode: '',
     isAreaCode: false,
     hasAreaCodes: false,
