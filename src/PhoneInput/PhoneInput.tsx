@@ -65,7 +65,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
 
     onChange(data);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [country, phoneNumber]);
+  }, [country, phoneNumber, showCountries]);
 
   const handleToggleList = (): void => {
     if (!disabled) {
