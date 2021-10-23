@@ -1,28 +1,22 @@
-import { findCountryBy, getCountry } from './countries-fn';
+import { findCountryByCode, getCountryByDialCode, getInitialCountry } from './countries-fn';
 import { allCountries } from './allCountries';
 
-describe('findCountryBy', () => {
-  describe('when passed name as identifier', () => {
-    it('should return corresponding country', () => {
-      expect(findCountryBy('name', 'Germany')).toBe(allCountries[122]);
-    });
-  });
-
+describe('findCountryByCode', () => {
   describe('when passed iso2 as identifier', () => {
     it('should return corresponding country', () => {
-      expect(findCountryBy('iso2', 'DE')).toBe(allCountries[122]);
+      expect(findCountryByCode('DE')).toEqual(allCountries[121]);
     });
   });
 
-  describe('when passed dialCode as identifier', () => {
-    it('should return corresponding country', () => {
-      expect(findCountryBy('dialCode', '+49')).toBe(allCountries[122]);
+  describe('when no code is provided', () => {
+    it('should return undefined', () => {
+      expect(findCountryByCode()).toBe(undefined);
     });
   });
 
   describe('when no match is found', () => {
-    it('should return inital country', () => {
-      expect(findCountryBy('name', 'notFound')).toBe(allCountries[0]);
+    it('should return undefined', () => {
+      expect(findCountryByCode('notFound')).toBe(undefined);
     });
   });
 });
@@ -30,25 +24,45 @@ describe('findCountryBy', () => {
 describe('getCountry', () => {
   describe('when passed phonenumber starting with +00', () => {
     it('should return corresponding country', () => {
-      expect(getCountry('+0049')).toBe(allCountries[122]);
+      expect(getCountryByDialCode('+0049')).toEqual(allCountries[121]);
     });
   });
 
   describe('when passed phonenumber starting with +', () => {
     it('should return corresponding country', () => {
-      expect(getCountry('+49')).toBe(allCountries[122]);
+      expect(getCountryByDialCode('+49')).toEqual(allCountries[121]);
     });
   });
 
   describe('when passed phonenumber starting with 00', () => {
     it('should return corresponding country', () => {
-      expect(getCountry('0049')).toBe(allCountries[122]);
+      expect(getCountryByDialCode('0049')).toEqual(allCountries[121]);
     });
   });
 
   describe('when passed phonenumber starting with 49', () => {
     it('should return corresponding country', () => {
-      expect(getCountry('49')).toBe(allCountries[122]);
+      expect(getCountryByDialCode('49')).toEqual(allCountries[121]);
+    });
+  });
+});
+
+describe('getInitialCountry', () => {
+  describe('when no data is provided', () => {
+    it('should return undefined', () => {
+      expect(getInitialCountry()).toBe(undefined);
+    });
+  });
+
+  describe('when default country is provided', () => {
+    it('should return undefined', () => {
+      expect(getInitialCountry('DE')).toEqual(allCountries[121]);
+    });
+  });
+
+  describe('when preferred country list is provided', () => {
+    it('should return undefined', () => {
+      expect(getInitialCountry(undefined, ['DE', 'CL', 'AR'])).toEqual(allCountries[121]);
     });
   });
 });

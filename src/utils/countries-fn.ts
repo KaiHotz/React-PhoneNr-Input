@@ -1,23 +1,10 @@
 import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
-import {
-  ICountry,
-  Identifyer,
-  FindCountryBy,
-  GetCountry,
-  GetPreferredCountries,
-  GetInitialCountry,
-  GetCountryList,
-  NumberFormat,
-  FormatNumber,
-  IsoCode,
-  Region,
-} from '../types';
+import { ICountry, NumberFormat, Region } from '../types';
 import { allCountries } from './allCountries';
 
-export const findCountryBy: FindCountryBy = (identifyer: Identifyer, item: IsoCode | string) =>
-  allCountries.find((country) => country[identifyer] === item || country[identifyer].startsWith(item)) || allCountries[0];
+export const findCountryByCode = (code?: CountryCode) => allCountries.find((country) => country.iso2 === code);
 
-export const getCountry: GetCountry = (phoneNumber: string) => {
+export const getCountryByDialCode = (phoneNumber: string) => {
   let tel = phoneNumber;
 
   if (phoneNumber.startsWith('+00')) {
@@ -41,45 +28,38 @@ export const getCountriesByRegions = (regions: Region[] | Region): ICountry[] =>
   return allCountries.filter((country) => regions.map((region) => country.regions.includes(region)).some((el) => el));
 };
 
-export const getPreferredCountries: GetPreferredCountries = (preferredCountries: IsoCode[]) =>
-  preferredCountries.map((prefCountry) => findCountryBy('iso2', prefCountry));
-
-export const getInitialCountry: GetInitialCountry = (
-  defaultCountry?: IsoCode,
-  preferredCountries?: IsoCode[],
-  regions?: Region | Region[],
-) => {
+export const getInitialCountry = (defaultCountry?: CountryCode, preferredCountries?: CountryCode[], regions?: Region | Region[]) => {
   if (defaultCountry) {
-    return findCountryBy('iso2', defaultCountry);
+    return findCountryByCode(defaultCountry);
   }
 
-  if (preferredCountries?.length) {
-    return findCountryBy('iso2', preferredCountries[0]);
+  if (preferredCountries) {
+    return findCountryByCode(preferredCountries[0]);
   }
 
-  if (regions?.length) {
+  if (regions) {
     return getCountriesByRegions(regions)[0];
   }
 
-  return allCountries[0];
+  return undefined;
 };
 
-export const getCountryList: GetCountryList = (preferredCountries?: IsoCode[], regions?: Region | Region[]) => {
-  if (preferredCountries?.length) {
-    return getPreferredCountries(preferredCountries);
+export const getCountryList = (preferredCountries?: CountryCode[], regions?: Region | Region[]) => {
+  if (preferredCountries) {
+    return preferredCountries.map((prefCountry) => findCountryByCode(prefCountry));
   }
 
   if (regions) {
     return getCountriesByRegions(regions);
   }
 
-  return allCountries.filter((country) => country.iso2 !== 'INTL');
+  return allCountries;
 };
 
-export const formatNumber: FormatNumber = (pohneNumber: string, format: NumberFormat, iso2: IsoCode) => {
+export const formatNumber = (pohneNumber: string, format: NumberFormat, iso2: CountryCode) => {
   let fromatedPhoneNumber = pohneNumber;
 
-  if (format === 'INTERNATIONAL') {
+  if (format === 'INTERNATIONAL' && pohneNumber.length > 0) {
     if (!fromatedPhoneNumber.startsWith('+')) {
       fromatedPhoneNumber = `+${fromatedPhoneNumber}`;
     }
