@@ -1,5 +1,7 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 declare module 'react-country-flag' {
   import * as React from 'react';
+
   export interface ReactCountryFlagProps<T> extends React.DetailedHTMLProps<React.LabelHTMLAttributes<T>, T> {
     cdnSuffix?: string;
     cdnUrl?: string;

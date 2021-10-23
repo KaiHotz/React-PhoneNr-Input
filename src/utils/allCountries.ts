@@ -1,14 +1,14 @@
 import { ICountry } from '../types';
 
 export const allCountries: ICountry[] = [
-  {
-    name: 'NO_COUNTRY',
-    regions: [],
-    iso2: 'NO_FLAG',
-    dialCode: '',
-    isAreaCode: false,
-    hasAreaCodes: false,
-  },
+  // {
+  //   name: 'NO_COUNTRY',
+  //   regions: [],
+  //   iso2: 'NO_FLAG',
+  //   dialCode: '',
+  //   isAreaCode: false,
+  //   hasAreaCodes: false,
+  // },
   {
     name: 'Afghanistan (‫افغانستان‬‎)',
     regions: ['asia'],

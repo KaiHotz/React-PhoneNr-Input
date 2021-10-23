@@ -2,17 +2,17 @@
   display: flex;
   max-width: 320;
   position: relative;
+
   button,
   input {
     appearance: none;
-    -moz-appearance: none;
-    -webkit-appearance: none;
     box-sizing: border-box;
     border: 1px solid #ccc;
     outline: none;
     border-radius: 0;
     height: calc(0.3rem * 6);
   }
+
   .flag-wrapper {
     position: relative;
     display: flex;
@@ -25,22 +25,22 @@
     border: 1px solid #ccc;
     border-right: none;
     background-color: #ddd;
+
     select {
       position: absolute;
       appearance: none;
-      -moz-appearance: none;
-      -webkit-appearance: none;
       width: 100%;
       height: 100%;
       padding: 0;
       margin: 0;
       border: none;
       border-radius: 0;
-      opacity: 0;
+      opacity: 0%;
       z-index: 10;
     }
+
     &:after {
-      content: '';
+      content: "";
       width: 0;
       height: 0;
       border: 4px solid transparent;
@@ -52,11 +52,13 @@
       pointer-events: none;
     }
   }
+
   input {
     width: 280;
     font-size: inherit;
     padding: 0 5px;
   }
+
   ul {
     box-sizing: border-box;
     width: 100%;
@@ -70,6 +72,7 @@
     padding: 0;
     background-color: #fff;
     z-index: 999;
+
     li {
       position: relative;
       display: flex;
@@ -77,12 +80,14 @@
       align-content: space-between;
       font-size: 1rem;
       padding: 3px 0.5rem 3px 5px;
+
       &:hover,
       &.active-country {
         background-color: #ddd;
         color: currentColor;
         cursor: pointer;
       }
+
       img {
         margin-right: 10px;
       }

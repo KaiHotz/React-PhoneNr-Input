@@ -3,7 +3,6 @@
 
 ##### **Default example**
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 
 const [value, setValue] = React.useState('')
@@ -13,7 +12,7 @@ const handleChange = phoneNumber => {
   setValue(phoneNumber)
 };
 
-<Fragment>
+<>
   <p>Enter a Phone number to see the retuned value</p>
 
   <PhoneInput onChange={handleChange} placeholder='+1 702 123 4567'/>
@@ -24,13 +23,11 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 ```
 
 ##### **Default example** with an intial phone number set
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 const [value, setValue] = React.useState('+491761234112')
 
@@ -39,7 +36,7 @@ const handleChange = phoneNumber => {
   setValue(phoneNumber)
 };
 
-<Fragment>
+<>
   <p>Enter a Phone number to see the retuned value</p>
 
   <PhoneInput
@@ -53,14 +50,12 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 ```
 
 
 ###### **Default example** _with phone number and country meta information as the return value_
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 const [value, setValue] = React.useState('')
 
@@ -69,7 +64,7 @@ const handleChange = phoneNumber => {
   setValue(phoneNumber)
 };
 
-<Fragment>
+<>
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
@@ -84,13 +79,11 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 ```
 
 ###### **Example** _with a default country_
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 const [value, setValue] = React.useState('')
 
@@ -99,7 +92,7 @@ const handleChange = phoneNumber => {
   setValue(phoneNumber)
 };
 
-<Fragment>
+<>
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
@@ -113,14 +106,12 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 
 ```
 
 ###### **Example** _with preferred countries_
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 const [value, setValue] = React.useState('')
 
@@ -128,7 +119,7 @@ const handleChange = phoneNumber => {
   /* Do something with the phoneNumber eg.: setting state */
   setValue(phoneNumber)
 };
-<Fragment>
+<>
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
@@ -142,13 +133,11 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 ```
 
 ###### **Example** _with regions_
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 const [value, setValue] = React.useState('')
 
@@ -157,7 +146,7 @@ const handleChange = phoneNumber => {
   setValue(phoneNumber)
 };
 
-<Fragment>
+<>
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
@@ -171,13 +160,11 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 ```
 
 ###### **Example** _for national phone number format_
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 const [value, setValue] = React.useState('')
 
@@ -186,7 +173,7 @@ const handleChange = phoneNumber => {
   setValue(phoneNumber)
 };
 
-<Fragment>
+<>
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
@@ -202,13 +189,11 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 ```
 
 ###### **Example** _for national phone number format with phone number and country information as the return value_
 ```jsx
-import { Fragment } from 'react';
 import { PhoneInput } from 'react-phonenr-input';
 const [value, setValue] = React.useState('')
 
@@ -217,7 +202,7 @@ const handleChange = phoneNumber => {
   setValue(phoneNumber)
 };
 
-<Fragment>
+<>
   <p><cite>Enter a Phone number to see the retuned value</cite></p>
 
   <PhoneInput
@@ -234,8 +219,7 @@ const handleChange = phoneNumber => {
       {value && JSON.stringify(value, null, 2)}
     </pre>
   </fieldset>
-
-</Fragment>
+</>
 ```
 
 
