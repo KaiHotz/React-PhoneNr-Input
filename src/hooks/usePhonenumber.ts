@@ -2,7 +2,7 @@ import { useEffect, useReducer } from 'react';
 import { produce } from 'immer';
 import { CountryCode, findPhoneNumbersInText } from 'libphonenumber-js';
 import { IPhoneNumberState, IUsePhoneInputProps } from '../types';
-import { formatNumber, getCountry, findCountryByCode } from '../utils/countries-fn';
+import { formatNumber, getCountryByDialCode, findCountryByCode } from '../utils/countries-fn';
 
 export const initialState: IPhoneNumberState = {
   country: undefined,
@@ -37,7 +37,7 @@ const phoneInputReducer = (state: IPhoneNumberState, action: IOnChange | ISetSho
   }
 };
 
-export const usePhoneInput = ({ initialValue, initialCountry, format }: IUsePhoneInputProps) => {
+export const usePhonenumber = ({ initialValue, initialCountry, format }: IUsePhoneInputProps) => {
   const reducer = produce(phoneInputReducer);
   const [state, dispatch] = useReducer(reducer, initialState);
   const isInternational = format === 'INTERNATIONAL';
@@ -81,7 +81,7 @@ export const usePhoneInput = ({ initialValue, initialCountry, format }: IUsePhon
 
   const onInputChange = (value: string) => {
     const formated = state.country ? formatNumber(value, format, state.country.iso2) : '';
-    const selectedCountry = getCountry(formated.length > 0 ? formated : value);
+    const selectedCountry = getCountryByDialCode(formated.length > 0 ? formated : value);
 
     dispatch({
       type: 'onChange',

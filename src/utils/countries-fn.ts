@@ -4,7 +4,7 @@ import { allCountries } from './allCountries';
 
 export const findCountryByCode = (code?: CountryCode) => allCountries.find((country) => country.iso2 === code);
 
-export const getCountry = (phoneNumber: string) => {
+export const getCountryByDialCode = (phoneNumber: string) => {
   let tel = phoneNumber;
 
   if (phoneNumber.startsWith('+00')) {

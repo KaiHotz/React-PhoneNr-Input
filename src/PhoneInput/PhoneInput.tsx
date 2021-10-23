@@ -3,7 +3,7 @@ import cx from 'classnames';
 import omit from 'lodash.omit';
 import FlagIcon from 'react-country-flag';
 import { CountryCode } from 'libphonenumber-js';
-import { usePhoneInput, detectMobile, getInitialCountry, getCountryList } from '../utils';
+import { usePhonenumber, detectMobile, getInitialCountry, getCountryList } from '../utils';
 import { PhoneNumber, IPhoneInputProps } from '../types';
 import './styles.scss';
 
@@ -32,11 +32,13 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   const countryList = useRef<HTMLUListElement>(null);
   const activeCountry = useRef<HTMLLIElement>(null);
 
-  const { country, phoneNumber, showCountries, setShowCountries, onSelect, onInputChange, resetState } = usePhoneInput({
-    initialValue,
-    initialCountry,
-    format,
-  });
+  const { country, phoneNumber, showCountries, setShowCountries, onSelect, onInputChange, resetState } = usePhonenumber(
+    {
+      initialValue,
+      initialCountry,
+      format,
+    },
+  );
 
   useEffect(() => {
     const clickOutside = (e: Event): void => {
