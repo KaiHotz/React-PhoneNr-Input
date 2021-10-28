@@ -1,6 +1,6 @@
 {
   "name": "react-phonenr-input",
-  "version": "3.0.0",
+  "version": "3.0.1",
   "description": "An automated and intuitive international and national phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
@@ -31,6 +31,7 @@
     "stylelint": "stylelint \"**/*.{css,scss,sass}\"",
     "stylelint:fix": "stylelint \"**/*.{css,scss,sass}\" --fix",
     "check-types": "tsc",
+    "audit:fix": "npx yarn-audit-fix",
     "prepare": "yarn build",
     "prerelease": "yarn lint:fix && yarn test:coverage",
     "release": "npm publish",
@@ -135,6 +136,7 @@
     "stylelint-config-standard-scss": "^2.0.0",
     "typescript": "^4.4.4",
     "url-loader": "^4.1.1",
-    "webpack": "^5.59.1"
+    "webpack": "^5.59.1",
+    "yarn-audit-fix": "^7.1.3"
   }
 }
