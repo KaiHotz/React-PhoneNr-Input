@@ -1,6 +1,7 @@
 const bemClass = /^([a-z0-9\\-]{2,})(__[a-z0-9\\-]{2,})?(--[a-z0-9\\-]{2,})?$/;
 module.exports = {
   extends: ['stylelint-config-standard-scss'],
+  customSyntax: 'postcss-scss',
   rules: {
     // General / Sheet
     'no-duplicate-at-import-rules': true,
