@@ -14,8 +14,8 @@
   "jsnext:main": "dist/index.es.js",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=14",
-    "npm": ">=6"
+    "node": "^14.17.3 || >=16.0.0",
+    "yarn": "^1.x"
   },
   "scripts": {
     "start": "NODE_ENV=development BABEL_ENV=development styleguidist server --open",
