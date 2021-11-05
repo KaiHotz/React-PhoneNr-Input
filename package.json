@@ -33,8 +33,8 @@
     "check-types": "tsc",
     "audit:fix": "npx yarn-audit-fix",
     "prepare": "yarn build",
-    "prerelease": "yarn lint:fix && yarn test:coverage",
-    "release": "yarb publish",
+    "prerelease": "yarn lint:fix && yarn test:coverage && yarn build",
+    "release": "yarn publish",
     "predeploy": "yarn styleguide:build",
     "deploy": "gh-pages -d styleguide"
   },
