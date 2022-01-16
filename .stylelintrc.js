@@ -1,13 +1,16 @@
 const bemClass = /^([a-z0-9\\-]{2,})(__[a-z0-9\\-]{2,})?(--[a-z0-9\\-]{2,})?$/;
+
 module.exports = {
-  extends: ['stylelint-config-standard-scss'],
+  plugins: ['stylelint-scss', 'stylelint-prettier'],
   customSyntax: 'postcss-scss',
   rules: {
+    'prettier/prettier': true,
+
     // General / Sheet
     'no-duplicate-at-import-rules': true,
     'no-duplicate-selectors': true,
     'selector-max-universal': 0,
-    'max-nesting-depth': 3,
+    'max-nesting-depth': 4,
 
     'scss/at-import-no-partial-leading-underscore': true,
 
@@ -59,7 +62,7 @@ module.exports = {
 
     // Function
     'function-linear-gradient-no-nonstandard-direction': true,
-
+    // 'function-calc-no-invalid': true,
     // Comment
     'comment-no-empty': true,
 
