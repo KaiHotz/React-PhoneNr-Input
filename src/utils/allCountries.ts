@@ -1,16 +1,8 @@
 import { ICountry } from '../types';
 
 export const allCountries: ICountry[] = [
-  // {
-  //   name: 'NO_COUNTRY',
-  //   regions: [],
-  //   iso2: 'NO_FLAG',
-  //   dialCode: '',
-  //   isAreaCode: false,
-  //   hasAreaCodes: false,
-  // },
   {
-    name: 'Afghanistan (‫افغانستان‬‎)',
+    name: 'Afghanistan',
     regions: ['asia'],
     iso2: 'AF',
     dialCode: '+93',
@@ -26,7 +18,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Algeria (‫الجزائر‬‎)',
+    name: 'Algeria',
     regions: ['africa', 'north-africa'],
     iso2: 'DZ',
     dialCode: '+213',
@@ -82,7 +74,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Armenia (Հայաստան)',
+    name: 'Armenia',
     regions: ['asia', 'ex-ussr'],
     iso2: 'AM',
     dialCode: '+374',
@@ -130,7 +122,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Bahrain (‫البحرين‬‎)',
+    name: 'Bahrain',
     regions: ['middle-east'],
     iso2: 'BH',
     dialCode: '+973',
@@ -154,7 +146,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Belarus (Беларусь)',
+    name: 'Belarus',
     regions: ['europe', 'ex-ussr'],
     iso2: 'BY',
     dialCode: '+375',
@@ -210,7 +202,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Bosnia and Herzegovina (Босна и Херцеговина)',
+    name: 'Bosnia and Herzegovina',
     regions: ['europe'],
     iso2: 'BA',
     dialCode: '+387',
@@ -258,7 +250,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Bulgaria (България)',
+    name: 'Bulgaria',
     regions: ['europe', 'european-union'],
     iso2: 'BG',
     dialCode: '+359',
@@ -698,7 +690,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Comoros (‫جزر القمر‬‎)',
+    name: 'Comoros',
     regions: ['africa'],
     iso2: 'KM',
     dialCode: '+269',
@@ -738,7 +730,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Côte d’Ivoire',
+    name: 'Côte d Ivoire',
     regions: ['africa'],
     iso2: 'CI',
     dialCode: '+225',
@@ -770,7 +762,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Cyprus (Κύπρος)',
+    name: 'Cyprus',
     regions: ['europe', 'european-union'],
     iso2: 'CY',
     dialCode: '+357',
@@ -850,7 +842,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Egypt (‫مصر‬‎)',
+    name: 'Egypt',
     regions: ['africa', 'north-africa'],
     iso2: 'EG',
     dialCode: '+20',
@@ -1002,7 +994,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Greece (Ελλάδα)',
+    name: 'Greece',
     regions: ['europe', 'european-union'],
     iso2: 'GR',
     dialCode: '+30',
@@ -1130,7 +1122,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Iran (‫ایران‬‎)',
+    name: 'Iran',
     regions: ['middle-east'],
     iso2: 'IR',
     dialCode: '+98',
@@ -1138,7 +1130,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Iraq (‫العراق‬‎)',
+    name: 'Iraq',
     regions: ['middle-east'],
     iso2: 'IQ',
     dialCode: '+964',
@@ -1154,7 +1146,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Israel (‫ישראל‬‎)',
+    name: 'Israel',
     regions: ['middle-east'],
     iso2: 'IL',
     dialCode: '+972',
@@ -1186,7 +1178,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Jordan (‫الأردن‬‎)',
+    name: 'Jordan',
     regions: ['middle-east'],
     iso2: 'JO',
     dialCode: '+962',
@@ -1194,7 +1186,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Russia (Россия)',
+    name: 'Russia',
     regions: ['europe', 'asia', 'ex-ussr'],
     iso2: 'RU',
     dialCode: '+7',
@@ -1202,7 +1194,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7',
@@ -1210,7 +1202,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7313',
@@ -1218,7 +1210,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7327',
@@ -1226,7 +1218,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+77172',
@@ -1234,7 +1226,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7312',
@@ -1242,7 +1234,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+773622',
@@ -1250,7 +1242,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7321',
@@ -1258,7 +1250,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7324',
@@ -1266,7 +1258,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7336',
@@ -1274,7 +1266,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7318',
@@ -1282,7 +1274,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7315',
@@ -1290,7 +1282,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7325',
@@ -1298,7 +1290,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7311',
@@ -1306,7 +1298,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7326',
@@ -1314,7 +1306,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Kazakhstan (Казахстан)',
+    name: 'Kazakhstan',
     regions: ['asia', 'ex-ussr'],
     iso2: 'KZ',
     dialCode: '+7310',
@@ -1338,7 +1330,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Kuwait (‫الكويت‬‎)',
+    name: 'Kuwait',
     regions: ['middle-east'],
     iso2: 'KW',
     dialCode: '+965',
@@ -1370,7 +1362,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Lebanon (‫لبنان‬‎)',
+    name: 'Lebanon',
     regions: ['middle-east'],
     iso2: 'LB',
     dialCode: '+961',
@@ -1394,7 +1386,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Libya (‫ليبيا‬‎)',
+    name: 'Libya',
     regions: ['africa', 'north-africa'],
     iso2: 'LY',
     dialCode: '+218',
@@ -1434,7 +1426,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Macedonia (FYROM) (Македонија)',
+    name: 'Macedonia (FYROM)',
     regions: ['europe'],
     iso2: 'MK',
     dialCode: '+389',
@@ -1506,7 +1498,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Mauritania (‫موريتانيا‬‎)',
+    name: 'Mauritania',
     regions: ['africa'],
     iso2: 'MR',
     dialCode: '+222',
@@ -1578,7 +1570,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Morocco (‫المغرب‬‎)',
+    name: 'Morocco',
     regions: ['africa', 'north-africa'],
     iso2: 'MA',
     dialCode: '+212',
@@ -1714,7 +1706,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Oman (‫عُمان‬‎)',
+    name: 'Oman',
     regions: ['middle-east'],
     iso2: 'OM',
     dialCode: '+968',
@@ -1722,7 +1714,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Pakistan (‫پاکستان‬‎)',
+    name: 'Pakistan',
     regions: ['asia'],
     iso2: 'PK',
     dialCode: '+92',
@@ -1738,7 +1730,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Palestine (‫فلسطين‬‎)',
+    name: 'Palestine',
     regions: ['middle-east'],
     iso2: 'PS',
     dialCode: '+970',
@@ -1826,7 +1818,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: true,
   },
   {
-    name: 'Qatar (‫قطر‬‎)',
+    name: 'Qatar',
     regions: ['middle-east'],
     iso2: 'QA',
     dialCode: '+974',
@@ -1938,7 +1930,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Saudi Arabia (‫المملكة العربية السعودية‬‎)',
+    name: 'Saudi Arabia',
     regions: ['middle-east'],
     iso2: 'SA',
     dialCode: '+966',
@@ -1954,7 +1946,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Serbia (Србија)',
+    name: 'Serbia',
     regions: ['europe'],
     iso2: 'RS',
     dialCode: '+381',
@@ -2042,7 +2034,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'South Sudan (‫جنوب السودان‬‎)',
+    name: 'South Sudan',
     regions: ['africa', 'north-africa'],
     iso2: 'SS',
     dialCode: '+211',
@@ -2066,7 +2058,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Sudan (‫السودان‬‎)',
+    name: 'Sudan',
     regions: ['africa'],
     iso2: 'SD',
     dialCode: '+249',
@@ -2106,7 +2098,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Syria (‫سوريا‬‎)',
+    name: 'Syria',
     regions: ['middle-east'],
     iso2: 'SY',
     dialCode: '+963',
@@ -2186,7 +2178,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Tunisia (‫تونس‬‎)',
+    name: 'Tunisia',
     regions: ['africa', 'north-africa'],
     iso2: 'TN',
     dialCode: '+216',
@@ -2250,7 +2242,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'United Arab Emirates (‫الإمارات العربية المتحدة‬‎)',
+    name: 'United Arab Emirates',
     regions: ['middle-east'],
     iso2: 'AE',
     dialCode: '+971',
@@ -4259,7 +4251,7 @@ export const allCountries: ICountry[] = [
     isAreaCode: false,
   },
   {
-    name: 'Yemen (‫اليمن‬‎)',
+    name: 'Yemen',
     regions: ['middle-east'],
     iso2: 'YE',
     dialCode: '+967',

@@ -30,6 +30,8 @@ export interface IPhoneNumberObj {
   country: Omit<ICountry, 'hasAreaCodes' | 'isAreaCode' | 'dialCode' | 'regions'> | null;
 }
 
+export type PhoneNumber = string | IPhoneNumberObj;
+
 export interface IPhoneInputProps {
   /** The function that returns the  phonenumber or phonenumber object */
   onChange: (data: PhoneNumber) => void;
@@ -69,7 +71,6 @@ export interface IPhoneInputProps {
   className?: string;
 }
 
-export type PhoneNumber = string | IPhoneNumberObj;
 export type NumberFormat = 'INTERNATIONAL' | 'NATIONAL';
 export type DetectMobile = boolean | null | RegExpMatchArray;
 
