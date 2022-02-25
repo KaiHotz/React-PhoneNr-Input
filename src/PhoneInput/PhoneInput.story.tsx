@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { FC, useState } from 'react';
 import { PhoneInput } from './PhoneInput';
 import { PhoneNumber } from '../types';
 
@@ -7,7 +7,7 @@ export default {
   component: PhoneInput,
 };
 
-export const Default = () => {
+export const Default: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
@@ -29,7 +29,7 @@ export const Default = () => {
   );
 };
 
-export const WithIntialPhoneNumber = () => {
+export const WithIntialPhoneNumber: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
@@ -51,7 +51,7 @@ export const WithIntialPhoneNumber = () => {
   );
 };
 
-export const WithPhoneNumberAndCountryMeta = () => {
+export const WithPhoneNumberAndCountryMeta: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
@@ -75,7 +75,7 @@ export const WithPhoneNumberAndCountryMeta = () => {
   );
 };
 
-export const WithDefaultCountry = () => {
+export const WithDefaultCountry: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
@@ -99,7 +99,7 @@ export const WithDefaultCountry = () => {
   );
 };
 
-export const WithPreferredCountries = () => {
+export const WithPreferredCountries: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
@@ -123,7 +123,7 @@ export const WithPreferredCountries = () => {
   );
 };
 
-export const WithPreferredRegions = () => {
+export const WithPreferredRegions: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
@@ -147,7 +147,7 @@ export const WithPreferredRegions = () => {
   );
 };
 
-export const NationalPhoneNumberFormat = () => {
+export const NationalPhoneNumberFormat: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
@@ -171,7 +171,7 @@ export const NationalPhoneNumberFormat = () => {
   );
 };
 
-export const NationalPhoneNumberFormatWithMeta = () => {
+export const NationalPhoneNumberFormatWithMeta: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
 
   const handleChange = (phoneNumber: PhoneNumber) => {
