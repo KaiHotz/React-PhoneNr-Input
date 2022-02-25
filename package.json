@@ -1,6 +1,6 @@
 {
   "name": "react-phonenr-input",
-  "version": "3.0.6",
+  "version": "3.0.7",
   "description": "An automated and intuitive international and national phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
@@ -164,7 +164,7 @@
     "node-fetch": "^2.6.7",
     "prismjs": "^1.24.0",
     "trim": "^0.0.3",
-    "highlight.js": "^9.18.2",
+    "highlight.js": "^10.4.1",
     "postcss": "^8.4.7"
   }
 }
