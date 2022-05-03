@@ -20,7 +20,6 @@
   "scripts": {
     "start": "NODE_ENV=development BABEL_ENV=development yarn storybook",
     "build": "rimraf dist && NODE_ENV=production BABEL_ENV=production rollup -c",
-    "build:watch": "rollup -c -w",
     "storybook": "rimraf dist && start-storybook -p 6060",
     "storybook:build": "rimraf dist && build-storybook",
     "test": "jest",
