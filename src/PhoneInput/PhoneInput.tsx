@@ -141,6 +141,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
         maxLength={maxLength}
         onFocus={onFocus}
         onBlur={onBlur}
+        data-testid="PhoneNrInput"
       />
       {showCountries && isInternational && !isMobile && (
         <ul className="country-list" ref={countryList}>

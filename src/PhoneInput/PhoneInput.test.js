@@ -1,5 +1,5 @@
 import React from 'react';
-import { shallow, mount } from 'enzyme';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { PhoneInput } from './PhoneInput';
 
 describe('<PhoneInput />', () => {
@@ -9,16 +9,14 @@ describe('<PhoneInput />', () => {
   };
 
   it('should render', () => {
-    const wrapper = shallow(<PhoneInput {...baseProps} />);
-
-    expect(wrapper).toBeDefined();
+    render(<PhoneInput {...baseProps} />);
+    const input = screen.getByTestId('PhoneNrInput');
+    expect(input).toBeDefined();
   });
 
   it('should have the initial dialCode', () => {
-    const wrapper = mount(<PhoneInput {...baseProps} />);
-    const input = wrapper.find('input');
-
-    expect(input.prop('value')).toBe('');
+    render(<PhoneInput {...baseProps} />);
+    expect(screen.getByTestId('PhoneNrInput')).toHaveValue('');
   });
 
   it('should have default Country DE', () => {
@@ -26,23 +24,22 @@ describe('<PhoneInput />', () => {
       ...baseProps,
       defaultCountry: 'DE',
     };
-    const wrapper = mount(<PhoneInput {...props} />);
-    const input = wrapper.find('input');
+    render(<PhoneInput {...props} />);
 
-    expect(input.prop('value')).toBe('+49');
+    expect(screen.getByTestId('PhoneNrInput')).toHaveValue('+49');
   });
 
   it('should call onChange', () => {
-    const wrapper = mount(<PhoneInput {...baseProps} />);
-    wrapper.find('input').simulate('change', { target: { value: '907' } });
+    render(<PhoneInput {...baseProps} />);
+    fireEvent.click(screen.getByTestId('PhoneNrInput'));
 
     expect(baseProps.onChange).toHaveBeenCalled();
   });
 
   it('should be disabled', () => {
-    const wrapper = shallow(<PhoneInput disabled {...baseProps} />);
+    render(<PhoneInput disabled {...baseProps} />);
 
-    expect(wrapper.find('input').prop('disabled')).toBe(true);
+    expect(screen.getByTestId('PhoneNrInput')).toHaveProperty('disabled');
   });
 
   it('should allow custom className', () => {
@@ -50,8 +47,8 @@ describe('<PhoneInput />', () => {
       ...baseProps,
       className: 'Custom',
     };
-    const wrapper = shallow(<PhoneInput {...props} />);
+    render(<PhoneInput {...props} />);
 
-    expect(wrapper.find('input').prop('className')).toBe(props.className);
+    expect(screen.getByTestId('PhoneNrInput')).toHaveProperty('className');
   });
 });
