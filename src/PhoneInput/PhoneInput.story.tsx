@@ -1,11 +1,12 @@
 import React, { FC, useState } from 'react';
+import { Meta } from '@storybook/react';
 import { PhoneInput } from './PhoneInput';
-import { PhoneNumber } from '../types';
+import { PhoneNumber, IPhoneInputProps } from '../types';
 
 export default {
   title: 'PhoneInput',
   component: PhoneInput,
-};
+} as Meta<IPhoneInputProps>;
 
 export const Default: FC = () => {
   const [value, setValue] = useState<PhoneNumber>('');
