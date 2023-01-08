@@ -13,8 +13,12 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "types": "dist/index.d.ts",
+    "files": [
+      "dist"
+    ],
   "engines": {
-    "node": "^14.17.3 || >=16.0.0",
+    "node": ">=14.18.0",
+    "npm": ">=6",
     "yarn": "^1.x"
   },
   "scripts": {
@@ -168,6 +172,7 @@
     "trim-newlines": "^3.0.1",
     "trim": "^0.0.3",
     "highlight.js": "^10.4.1",
-    "postcss": "^8.4.16"
+    "postcss": "^8.4.16",
+    "@typescript-eslint/parser": "^5.48.0"
   }
 }
