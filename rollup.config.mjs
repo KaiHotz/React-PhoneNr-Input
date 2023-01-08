@@ -1,6 +1,6 @@
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import babel from '@rollup/plugin-babel';
-import typescript from 'rollup-plugin-typescript2';
+import typescript from '@rollup/plugin-typescript';
 import commonjs from '@rollup/plugin-commonjs';
 import external from 'rollup-plugin-peer-deps-external';
 import postcss from 'rollup-plugin-postcss';
@@ -9,31 +9,38 @@ import url from '@rollup/plugin-url';
 import svgr from '@svgr/rollup';
 import { terser } from 'rollup-plugin-terser';
 import typescriptEngine from 'typescript';
-import pkg from './package.json';
+import pkg from './package.json' assert { type: 'json' };
 
 const config = {
-  input: 'src/index.ts',
+  input: './src/index.ts',
   output: [
     {
       file: pkg.main,
       format: 'cjs',
+      exports: 'named',
+      sourcemap: false,
     },
     {
       file: pkg.module,
       format: 'es',
+      exports: 'named',
+      sourcemap: false,
     },
   ],
   plugins: [
     postcss({
+      plugins: [],
       minimize: true,
     }),
     external({
       includeDependencies: true,
     }),
     typescript({
+      tsconfig: './tsconfig.json',
       typescript: typescriptEngine,
       include: ['*.js+(|x)', '**/*.js+(|x)'],
       exclude: ['coverage', 'config', 'dist', 'node_modules/**', '*.test.{js+(|x), ts+(|x)}', '**/*.test.{js+(|x), ts+(|x)}'],
+      sourceMap: false,
     }),
     commonjs(),
     babel({
@@ -46,6 +53,9 @@ const config = {
     resolve(),
     terser(),
   ],
+  watch: {
+    clearScreen: false,
+  },
 };
 
 export default config;
