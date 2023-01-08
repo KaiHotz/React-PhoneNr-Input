@@ -172,7 +172,6 @@
     "trim-newlines": "^3.0.1",
     "trim": "^0.0.3",
     "highlight.js": "^10.4.1",
-    "postcss": "^8.4.16",
-    "@typescript-eslint/parser": "^5.48.0"
+    "postcss": "^8.4.16"
   }
 }
