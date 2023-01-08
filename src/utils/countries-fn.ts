@@ -76,7 +76,7 @@ export const formatNumber = (pohneNumber: string, format: NumberFormat, iso2: Co
   try {
     fromatedPhoneNumber = parsedPhoneNumber?.format(format) || '';
   } catch (e) {
-    fromatedPhoneNumber = fromatedPhoneNumber.replace(/\(+-()\)/g, '');
+    fromatedPhoneNumber = fromatedPhoneNumber.replace(/^\s+|(?<!\s)\s+$/g, '');
   }
 
   return fromatedPhoneNumber;
