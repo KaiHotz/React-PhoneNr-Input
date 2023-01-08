@@ -1,4 +1,4 @@
-name: react-rollup-boilerplate
+name: React-PhoneNr-Input
 
 on:
   pull_request:
