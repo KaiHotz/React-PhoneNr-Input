@@ -1,6 +1,6 @@
 {
   "name": "react-phonenr-input",
-  "version": "3.1.2",
+  "version": "3.1.4",
   "description": "An automated and intuitive international and national phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
@@ -13,9 +13,9 @@
   "module": "dist/index.es.js",
   "jsnext:main": "dist/index.es.js",
   "types": "dist/index.d.ts",
-    "files": [
-      "dist"
-    ],
+  "files": [
+    "dist"
+  ],
   "engines": {
     "node": ">=14.18.0",
     "npm": ">=6",
@@ -149,6 +149,7 @@
     "rollup-plugin-postcss": "^4.0.2",
     "rollup-plugin-styles": "^4.0.0",
     "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript2": "^0.34.1",
     "sass": "^1.57.1",
     "sass-loader": "^13.2.0",
     "storybook-addon-react-docgen": "^1.2.42",

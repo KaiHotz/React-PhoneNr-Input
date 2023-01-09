@@ -33,5 +33,15 @@ module.exports = {
     builder: "webpack5",
     disableTelemetry: true,
     enableCrashReports: true,
-  }
+  },
+    typescript: {
+    check: false,
+    checkOptions: {},
+    reactDocgen: 'react-docgen-typescript',
+    reactDocgenTypescriptOptions: {
+      shouldExtractLiteralValuesFromEnum: true,
+      propFilter: (prop) => (prop.parent ? !/node_modules/.test(prop.parent.fileName) : true),
+    },
+  },
+
 };
