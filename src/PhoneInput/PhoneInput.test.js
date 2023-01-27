@@ -1,5 +1,6 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
+import user from '@testing-library/user-event';
 import { PhoneInput } from './PhoneInput';
 
 describe('<PhoneInput />', () => {
@@ -10,13 +11,16 @@ describe('<PhoneInput />', () => {
 
   it('should render', () => {
     render(<PhoneInput {...baseProps} />);
-    const input = screen.getByTestId('PhoneNrInput');
-    expect(input).toBeDefined();
+    const input = screen.getByRole('textbox');
+
+    expect(input).toBeInTheDocument();
   });
 
   it('should have the initial dialCode', () => {
     render(<PhoneInput {...baseProps} />);
-    expect(screen.getByTestId('PhoneNrInput')).toHaveValue('');
+    const input = screen.getByRole('textbox');
+
+    expect(input).toHaveValue('');
   });
 
   it('should have default Country DE', () => {
@@ -25,21 +29,25 @@ describe('<PhoneInput />', () => {
       defaultCountry: 'DE',
     };
     render(<PhoneInput {...props} />);
+    const input = screen.getByRole('textbox');
 
-    expect(screen.getByTestId('PhoneNrInput')).toHaveValue('+49');
+    expect(input).toHaveValue('+49');
   });
 
   it('should call onChange', () => {
     render(<PhoneInput {...baseProps} />);
-    fireEvent.click(screen.getByTestId('PhoneNrInput'));
+    const input = screen.getByRole('textbox');
+
+    user.click(input);
 
     expect(baseProps.onChange).toHaveBeenCalled();
   });
 
   it('should be disabled', () => {
     render(<PhoneInput disabled {...baseProps} />);
+    const input = screen.getByRole('textbox');
 
-    expect(screen.getByTestId('PhoneNrInput')).toHaveProperty('disabled');
+    expect(input).toHaveProperty('disabled');
   });
 
   it('should allow custom className', () => {
@@ -48,7 +56,8 @@ describe('<PhoneInput />', () => {
       className: 'Custom',
     };
     render(<PhoneInput {...props} />);
+    const input = screen.getByRole('textbox');
 
-    expect(screen.getByTestId('PhoneNrInput')).toHaveProperty('className');
+    expect(input).toHaveProperty('className');
   });
 });
