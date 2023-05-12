@@ -16,6 +16,9 @@ export type Region =
   | 'central-america'
   | 'north-america';
 
+export type NumberFormat = 'INTERNATIONAL' | 'NATIONAL';
+export type DetectMobile = boolean | null | RegExpMatchArray;
+
 export interface ICountry {
   name: string;
   regions: Region[];
@@ -70,9 +73,6 @@ export interface IPhoneInputProps {
   /** Adds a custom class to the Phonenumber Input Field */
   className?: string;
 }
-
-export type NumberFormat = 'INTERNATIONAL' | 'NATIONAL';
-export type DetectMobile = boolean | null | RegExpMatchArray;
 
 export interface IPhoneNumberState {
   country?: ICountry;
