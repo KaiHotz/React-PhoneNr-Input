@@ -22,6 +22,11 @@ All written with less than 300 lines of code
 
 
 ## Installation
+npm:
+```sh
+npm i -S react-phonenr-input
+```
+
 yarn:
 ```sh
 yarn add react-phonenr-input
