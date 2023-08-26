@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/prefer-regexp-exec */
 import { DetectMobile } from '../types';
 
 export const hasWindowObj = typeof window !== 'undefined';

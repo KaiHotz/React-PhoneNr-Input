@@ -1,14 +1,17 @@
 import React from 'react';
+import { vi, describe, it, expect } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
+import { CountryCode } from 'libphonenumber-js';
+
 import { PhoneInput } from './PhoneInput';
 
-describe('<PhoneInput />', () => {
-  const baseProps = {
-    name: 'phoneInput',
-    onChange: jest.fn(),
-  };
+const baseProps = {
+  name: 'phoneInput',
+  onChange: vi.fn(),
+};
 
+describe('<PhoneInput />', () => {
   it('should render', () => {
     render(<PhoneInput {...baseProps} />);
     const input = screen.getByRole('textbox');
@@ -26,7 +29,7 @@ describe('<PhoneInput />', () => {
   it('should have default Country DE', () => {
     const props = {
       ...baseProps,
-      defaultCountry: 'DE',
+      defaultCountry: 'DE' as CountryCode,
     };
     render(<PhoneInput {...props} />);
     const input = screen.getByRole('textbox');
@@ -34,11 +37,11 @@ describe('<PhoneInput />', () => {
     expect(input).toHaveValue('+49');
   });
 
-  it('should call onChange', () => {
+  it('should call onChange', async () => {
     render(<PhoneInput {...baseProps} />);
     const input = screen.getByRole('textbox');
 
-    user.click(input);
+    await user.click(input);
 
     expect(baseProps.onChange).toHaveBeenCalled();
   });

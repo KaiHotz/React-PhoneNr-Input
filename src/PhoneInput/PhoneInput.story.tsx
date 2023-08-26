@@ -1,4 +1,5 @@
 import React, { FC, useState } from 'react';
+
 import { PhoneInput } from './PhoneInput';
 import { PhoneNumber } from '../types';
 
@@ -185,7 +186,13 @@ export const NationalPhoneNumberFormatWithMeta: FC = () => {
         <cite>Enter a Phone number to see the retuned value</cite>
       </p>
 
-      <PhoneInput withCountryMeta onChange={handleChange} format="NATIONAL" defaultCountry="US" placeholder="(555) 123-4567" />
+      <PhoneInput
+        withCountryMeta
+        onChange={handleChange}
+        format="NATIONAL"
+        defaultCountry="US"
+        placeholder="(555) 123-4567"
+      />
 
       <fieldset style={{ maxWidth: 250, minHeight: 32, marginTop: 20 }}>
         <legend>Preview of the returned Value:</legend>

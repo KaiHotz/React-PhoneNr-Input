@@ -1,27 +1,29 @@
-import { renderHook, act } from '@testing-library/react-hooks';
+import { describe, it, expect } from 'vitest';
+import { renderHook, act } from '@testing-library/react';
+
 import { usePhonenumber } from './usePhonenumber';
 import { allCountries } from '../utils';
 
 describe('usePhonenumber', () => {
   describe('INTERNATIONAL', () => {
     describe('default', () => {
-      it('should have initial country undefined', async () => {
-        const { result, waitFor } = renderHook(() => usePhonenumber({ format: 'INTERNATIONAL' }));
-        await waitFor(() => result.current);
+      it('should have initial country undefined', () => {
+        const { result } = renderHook(() => usePhonenumber({ format: 'INTERNATIONAL' }));
+
         expect(result.current.country).toBe(undefined);
       });
 
-      it('should have no initial value', async () => {
-        const { result, waitFor } = renderHook(() => usePhonenumber({ format: 'INTERNATIONAL' }));
-        await waitFor(() => result.current);
+      it('should have no initial value', () => {
+        const { result } = renderHook(() => usePhonenumber({ format: 'INTERNATIONAL' }));
+
         expect(result.current.phoneNumber).toBe('');
       });
 
-      it('should set correct county and dial code onSelect', async () => {
-        const { result, waitFor } = renderHook(() => usePhonenumber({ format: 'INTERNATIONAL' }));
-        await waitFor(() => result.current);
+      it('should set correct county and dial code onSelect', () => {
+        const { result } = renderHook(() => usePhonenumber({ format: 'INTERNATIONAL' }));
+
         act(() => result.current.onSelect('DE'));
-        expect(result.current.country.iso2).toBe('DE');
+        expect(result.current.country?.iso2).toBe('DE');
         expect(result.current.phoneNumber).toBe('+49');
       });
     });
