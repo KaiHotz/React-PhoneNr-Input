@@ -53,7 +53,7 @@ export interface IPhoneInputProps extends Omit<InputHTMLAttributes<HTMLInputElem
   */
   withCountryMeta?: boolean;
   /** Sets the initial Value of the Phonenumber Input. This is usefull in case you need to set a phonenumber stored for example in a database */
-  initialValue?: string;
+  initialValue?: PhoneNumber;
   /** Sets the default country (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
   defaultCountry?: CountryCode;
   /** Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'US', 'GB', 'DE') */
@@ -71,5 +71,5 @@ export interface IPhoneNumberState {
 export interface IUsePhoneInputProps {
   format: NumberFormat;
   initialCountry?: ICountry;
-  initialValue?: string;
+  initialValue?: PhoneNumber;
 }

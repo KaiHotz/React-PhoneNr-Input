@@ -49,7 +49,7 @@ export const usePhonenumber = ({ initialValue, initialCountry, format }: IUsePho
       phoneNumber: isInternational && initialCountry ? initialCountry.dialCode : '',
     };
 
-    if (initialValue) {
+    if (initialValue && typeof initialValue === 'string') {
       const metaData = findPhoneNumbersInText(initialValue);
       const selectedCountry = findCountryByCode(metaData[0].number.country);
       const formated = selectedCountry ? formatNumber(initialValue, format, selectedCountry.iso2) : initialValue;
