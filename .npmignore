@@ -13,14 +13,17 @@
 .editorconfig
 .eslint*
 .yarnrc
-.babelrc.js
-.stylelintrc.js
-.stylelintignore
+.babel*
+.stylelint*
 .storybook
-jest.config.js
-jest.setup.js
-postcss.config.js
-prettier.config.js
+.yarn*
+.prettier*
+jest*
+postcss*
+prettier*
+rollup*
+vit*
+setupTests.*
 
 config.gypi
 CVS
@@ -29,7 +32,7 @@ npm-debug.log
 yarn-debug.log*
 yarn-error.log*
 default.config
-rollup.config.mjs
+rollup.config.js
 tsconfig.json
 
 docker*
@@ -42,4 +45,3 @@ public
 src
 scripts
 storybook-static
-

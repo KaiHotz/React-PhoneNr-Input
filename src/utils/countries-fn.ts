@@ -1,4 +1,5 @@
 import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
+
 import { ICountry, NumberFormat, Region } from '../types';
 import { allCountries } from './allCountries';
 
@@ -71,7 +72,7 @@ export const formatNumber = (pohneNumber: string, format: NumberFormat, iso2: Co
     }
   }
 
-  const parsedPhoneNumber = parsePhoneNumberFromString(fromatedPhoneNumber, iso2 as CountryCode);
+  const parsedPhoneNumber = parsePhoneNumberFromString(fromatedPhoneNumber, iso2);
 
   try {
     fromatedPhoneNumber = parsedPhoneNumber?.format(format) || '';

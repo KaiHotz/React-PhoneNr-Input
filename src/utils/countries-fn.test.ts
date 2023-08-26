@@ -1,3 +1,6 @@
+import { describe, it, expect } from 'vitest';
+import { CountryCode } from 'libphonenumber-js';
+
 import { findCountryByCode, getCountryByDialCode, getInitialCountry } from './countries-fn';
 import { allCountries } from './allCountries';
 
@@ -16,7 +19,7 @@ describe('findCountryByCode', () => {
 
   describe('when no match is found', () => {
     it('should return undefined', () => {
-      expect(findCountryByCode('notFound')).toBe(undefined);
+      expect(findCountryByCode('notFound' as CountryCode)).toBe(undefined);
     });
   });
 });
