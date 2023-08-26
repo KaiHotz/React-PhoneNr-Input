@@ -1,6 +1,6 @@
 {
   "name": "react-phonenr-input",
-  "version": "3.2.2",
+  "version": "3.2.4",
   "description": "An automated and intuitive international and national phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
@@ -13,8 +13,7 @@
   "module": "dist/esm/index.js",
   "types": "dist/index.d.ts",
   "engines": {
-    "node": ">=18.17.1",
-    "yarn": "^3.x"
+    "node": ">=16.x"
   },
   "scripts": {
     "start": "NODE_ENV=development BABEL_ENV=development yarn storybook",
@@ -28,7 +27,7 @@
     "check-types": "tsc --noEmit true",
     "ci": "yarn lint && yarn test --watch=false",
     "test": "vitest --config ./vitest.config.ts",
-    "release": "yarn lint:fix && yarn test && yarn build && npm publish",
+    "release": "yarn ci && yarn build && npm publish",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
     "storybook:deploy": "yarn storybook:build && touch ./storybook-static/.nojekyll && gh-pages -d ./storybook-static -t true"
