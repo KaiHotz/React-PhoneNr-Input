@@ -1,4 +1,4 @@
-import { FocusEvent } from 'react';
+import { InputHTMLAttributes } from 'react';
 import { CountryCode } from 'libphonenumber-js';
 
 export type Region =
@@ -35,21 +35,11 @@ export interface IPhoneNumberObj {
 
 export type PhoneNumber = string | IPhoneNumberObj;
 
-export interface IPhoneInputProps {
+export interface IPhoneInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
   /** The function that returns the  phonenumber or phonenumber object */
   onChange: (data: PhoneNumber) => void;
   /** Sets the format of the entered  phonenumber, in case of 'NATIONAL' the defaultCountry must be set */
   format?: NumberFormat;
-  /** sets the maximum lenght of the phonenumber */
-  maxLength?: number;
-  /** Sets the Placeholder text */
-  placeholder?: string;
-  /** Disables the Phone Nr. Input Field */
-  disabled?: boolean;
-  /** Function that is called when entering the focus */
-  onFocus?: (event: FocusEvent<unknown>) => void;
-  /** Function that is called when leaving the focus */
-  onBlur?: (event: FocusEvent<unknown>) => void;
   /**
    * changes the retuned value into an Object that contains the phonenumber and country meta information
    * eg.:
@@ -70,8 +60,6 @@ export interface IPhoneInputProps {
   preferredCountries?: CountryCode[];
   /** Lets you restrict the country dropdown to a list of countries in the specified regions */
   regions?: Region | Region[];
-  /** Adds a custom class to the Phonenumber Input Field */
-  className?: string;
 }
 
 export interface IPhoneNumberState {

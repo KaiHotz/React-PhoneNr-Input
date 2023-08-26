@@ -18,10 +18,11 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   initialValue,
   withCountryMeta = false,
   onChange,
-  disabled = false,
+  disabled,
   placeholder,
   onFocus,
   onBlur,
+  ...rest
 }) => {
   const initialCountry = getInitialCountry(defaultCountry, preferredCountries, regions);
   const countriesList = getCountryList(preferredCountries, regions);
@@ -140,6 +141,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
         </div>
       )}
       <input
+        {...rest}
         className={className}
         type="tel"
         value={phoneNumber}
