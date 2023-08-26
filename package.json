@@ -1,6 +1,6 @@
 {
   "name": "react-phonenr-input",
-  "version": "3.2.0",
+  "version": "3.2.1",
   "description": "An automated and intuitive international and national phone input field",
   "author": "Kai Hotz",
   "license": "MIT",
@@ -28,8 +28,7 @@
     "check-types": "tsc --noEmit true",
     "ci": "yarn lint && yarn test --watch=false",
     "test": "vitest --config ./vitest.config.ts",
-    "prepare": "yarn build",
-    "prerelease": "yarn lint:fix && yarn test:coverage",
+    "prerelease": "yarn lint:fix && yarn test:coverage && yarn build",
     "release": "npm publish",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
