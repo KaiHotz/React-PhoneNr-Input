@@ -1,11 +1,11 @@
-import React, { FC, useEffect, useRef, ChangeEvent } from 'react';
+import { ChangeEvent, FC, useEffect, useRef } from 'react';
 import cx from 'clsx';
 import omit from 'lodash.omit';
 import FlagIcon from 'react-country-flag';
 import { CountryCode } from 'libphonenumber-js';
 
-import { usePhonenumber, detectMobile, getInitialCountry, getCountryList } from '../utils';
-import { PhoneNumber, IPhoneInputProps } from '../types';
+import { detectMobile, getCountryList, getInitialCountry, usePhonenumber } from '../utils';
+import { IPhoneInputProps, PhoneNumber } from '../types';
 import './styles.scss';
 
 export const PhoneInput: FC<IPhoneInputProps> = ({

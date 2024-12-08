@@ -1,4 +1,4 @@
-import { parsePhoneNumberFromString, CountryCode } from 'libphonenumber-js';
+import { CountryCode, parsePhoneNumberFromString } from 'libphonenumber-js';
 
 import { ICountry, NumberFormat, Region } from '../types';
 import { allCountries } from './allCountries';
@@ -76,7 +76,8 @@ export const formatNumber = (pohneNumber: string, format: NumberFormat, iso2: Co
 
   try {
     fromatedPhoneNumber = parsedPhoneNumber?.format(format) || '';
-  } catch (e) {
+  } catch (error) {
+    console.error(error);
     fromatedPhoneNumber = fromatedPhoneNumber.replace(/^\s+|(?<!\s)\s+$/g, '');
   }
 

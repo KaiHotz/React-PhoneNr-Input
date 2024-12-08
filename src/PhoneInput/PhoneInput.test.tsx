@@ -1,5 +1,4 @@
-import React from 'react';
-import { vi, describe, it, expect } from 'vitest';
+import { describe, expect, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/react';
 import user from '@testing-library/user-event';
 import { CountryCode } from 'libphonenumber-js';
