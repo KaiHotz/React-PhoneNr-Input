@@ -1,34 +1,28 @@
+import { mergeConfig } from 'vite';
+import svgr from 'vite-plugin-svgr';
 import type { StorybookConfig } from '@storybook/react-vite';
 
 const config: StorybookConfig = {
-  stories: [
-    '../src/**/*.stories.@(js|jsx|ts|tsx)',
-    '../src/**/*.story.@(js|jsx|ts|tsx)'
-  ],
-  addons: [
+  'stories': ['../src/**/*.mdx', '../src/**/*.stories.@(js|jsx|mjs|ts|tsx)'],
+
+  'addons': [
     '@storybook/addon-links',
     '@storybook/addon-essentials',
-    '@storybook/addon-interactions',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-        babelOptions: {},
-        sourceLoaderOptions: null,
-        transcludeMarkdown: true
-      }
-    },
+    '@chromatic-com/storybook',
+    '@storybook/addon-interactions'
   ],
-  framework: {
-    name: '@storybook/react-vite',
-    options: {},
+
+  'framework': {
+    'name': '@storybook/react-vite',
+    'options': {},
   },
-  docs: {
-    autodocs: true,
+  'docs': {},
+  'typescript': {
+    'reactDocgen': 'react-docgen-typescript'
   },
-  core: {
-    disableTelemetry: true,
-  }
+  'core': {
+    'disableTelemetry': true
+  },
 };
 
 export default config;

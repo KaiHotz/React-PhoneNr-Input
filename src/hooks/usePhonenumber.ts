@@ -3,7 +3,7 @@ import { produce } from 'immer';
 import { CountryCode, findPhoneNumbersInText } from 'libphonenumber-js';
 
 import { IPhoneNumberState, IUsePhoneInputProps } from '../types';
-import { formatNumber, getCountryByDialCode, findCountryByCode } from '../utils/countries-fn';
+import { findCountryByCode, formatNumber, getCountryByDialCode } from '../utils/countries-fn';
 
 export const initialState: IPhoneNumberState = {
   country: undefined,
