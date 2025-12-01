@@ -9,8 +9,12 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "24"
-      - run: yarn install
-      - run: yarn ci
-      - uses: JS-DevTools/npm-publish@v4
+          registry-url: "https://registry.npmjs.org"
+      - name: Install dependencies
+        run: yarn install --immutable
+      - name: Build project
+        run: yarn build
+      - name: Publish to NPM
+        uses: JS-DevTools/npm-publish@v4
         with:
           token: ${{ secrets.NPM_TOKEN }}
