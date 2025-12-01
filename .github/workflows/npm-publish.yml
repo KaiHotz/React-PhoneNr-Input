@@ -9,8 +9,8 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: "24"
-      - run: npm ci
-      - run: npm test
+      - run: yarn install
+      - run: yarn ci
       - uses: JS-DevTools/npm-publish@v4
         with:
           token: ${{ secrets.NPM_TOKEN }}
