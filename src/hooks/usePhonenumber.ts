@@ -1,34 +1,41 @@
-import { useEffect, useReducer } from 'react';
-import { produce } from 'immer';
-import { CountryCode, findPhoneNumbersInText } from 'libphonenumber-js';
+import { useEffect, useReducer } from "react";
+import { produce } from "immer";
+import { CountryCode, findPhoneNumbersInText } from "libphonenumber-js";
 
-import { IPhoneNumberState, IUsePhoneInputProps } from '../types';
-import { findCountryByCode, formatNumber, getCountryByDialCode } from '../utils/countries-fn';
+import { IPhoneNumberState, IUsePhoneInputProps } from "../types";
+import {
+  findCountryByCode,
+  formatNumber,
+  getCountryByDialCode,
+} from "../utils/countries-fn";
 
 export const initialState: IPhoneNumberState = {
   country: undefined,
-  phoneNumber: '',
+  phoneNumber: "",
   showCountries: false,
 };
 
 interface IOnChange {
-  type: 'onChange';
+  type: "onChange";
   payload: Partial<IPhoneNumberState>;
 }
 
 interface ISetShowCountries {
-  type: 'setShowCountries';
+  type: "setShowCountries";
   payload: boolean;
 }
 
-const phoneInputReducer = (state: IPhoneNumberState, action: IOnChange | ISetShowCountries) => {
+const phoneInputReducer = (
+  state: IPhoneNumberState,
+  action: IOnChange | ISetShowCountries,
+) => {
   switch (action.type) {
-    case 'onChange':
+    case "onChange":
       state = { ...state, ...action.payload };
 
       return state;
 
-    case 'setShowCountries':
+    case "setShowCountries":
       state.showCountries = action.payload;
 
       return state;
@@ -38,21 +45,28 @@ const phoneInputReducer = (state: IPhoneNumberState, action: IOnChange | ISetSho
   }
 };
 
-export const usePhonenumber = ({ initialValue, initialCountry, format }: IUsePhoneInputProps) => {
+export const usePhonenumber = ({
+  initialValue,
+  initialCountry,
+  format,
+}: IUsePhoneInputProps) => {
   const reducer = produce(phoneInputReducer);
   const [state, dispatch] = useReducer(reducer, initialState);
-  const isInternational = format === 'INTERNATIONAL';
+  const isInternational = format === "INTERNATIONAL";
 
   useEffect(() => {
     let payload = {
       country: initialCountry,
-      phoneNumber: isInternational && initialCountry ? initialCountry.dialCode : '',
+      phoneNumber:
+        isInternational && initialCountry ? initialCountry.dialCode : "",
     };
 
-    if (initialValue && typeof initialValue === 'string') {
+    if (initialValue && typeof initialValue === "string") {
       const metaData = findPhoneNumbersInText(initialValue);
       const selectedCountry = findCountryByCode(metaData[0].number.country);
-      const formated = selectedCountry ? formatNumber(initialValue, format, selectedCountry.iso2) : initialValue;
+      const formated = selectedCountry
+        ? formatNumber(initialValue, format, selectedCountry.iso2)
+        : initialValue;
 
       payload = {
         country: selectedCountry,
@@ -61,33 +75,37 @@ export const usePhonenumber = ({ initialValue, initialCountry, format }: IUsePho
     }
 
     dispatch({
-      type: 'onChange',
+      type: "onChange",
       payload,
     });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [format, initialCountry, initialValue, isInternational]);
 
   const onSelect = (countryCode: CountryCode) => {
     const selectedCountry = findCountryByCode(countryCode);
 
     dispatch({
-      type: 'onChange',
+      type: "onChange",
       payload: {
         country: selectedCountry,
-        phoneNumber: selectedCountry?.dialCode || '',
+        phoneNumber: selectedCountry?.dialCode || "",
         showCountries: false,
       },
     });
   };
 
   const onInputChange = (value: string) => {
-    const formated = state.country ? formatNumber(value, format, state.country.iso2) : '';
-    const selectedCountry = getCountryByDialCode(formated.length > 0 ? formated : value);
+    const formated = state.country
+      ? formatNumber(value, format, state.country.iso2)
+      : "";
+    const selectedCountry = getCountryByDialCode(
+      formated.length > 0 ? formated : value,
+    );
 
     dispatch({
-      type: 'onChange',
+      type: "onChange",
       payload: {
-        country: isInternational && selectedCountry ? selectedCountry : state.country,
+        country:
+          isInternational && selectedCountry ? selectedCountry : state.country,
         phoneNumber: formated.length > 0 ? formated : value,
       },
     });
@@ -95,14 +113,14 @@ export const usePhonenumber = ({ initialValue, initialCountry, format }: IUsePho
 
   const resetState = () => {
     dispatch({
-      type: 'onChange',
-      payload: isInternational ? initialState : { phoneNumber: '' },
+      type: "onChange",
+      payload: isInternational ? initialState : { phoneNumber: "" },
     });
   };
 
   const setShowCountries = (show: boolean) => {
     dispatch({
-      type: 'setShowCountries',
+      type: "setShowCountries",
       payload: show,
     });
   };

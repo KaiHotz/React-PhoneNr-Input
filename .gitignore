@@ -1,27 +1,52 @@
-
-# See https://help.github.com/ignore-files/ for more about ignoring files.
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
 
 # dependencies
 node_modules
 .yarn/cache
-.yarn/install-state.gz
+
+# registry
+.npmrc
+.yarnrc
+.yarnrc.yml
 
 # builds
 build
 coverage
 dist
+dist-ssr
+*.local
 .rpt2_cache
 
-# misc
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
 .DS_Store
-.env
+.tanstack
+.vscode
+npm-debug.log*
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# .env files
 .env.local
+.env.client-dev
 .env.development.local
 .env.test.local
 .env.production.local
 
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-coverage
+# Storybook
+*storybook.log
 storybook-static
+

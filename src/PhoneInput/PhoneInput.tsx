@@ -1,12 +1,17 @@
-import { ChangeEvent, FC, useEffect, useRef } from 'react';
-import cx from 'clsx';
-import omit from 'lodash.omit';
-import FlagIcon from 'react-country-flag';
-import { CountryCode } from 'libphonenumber-js';
+import { ChangeEvent, FC, useEffect, useRef } from "react";
+import cx from "clsx";
+import { omit } from "lodash";
+import FlagIcon from "react-country-flag";
+import { CountryCode } from "libphonenumber-js";
 
-import { detectMobile, getCountryList, getInitialCountry, usePhonenumber } from '../utils';
-import { IPhoneInputProps, PhoneNumber } from '../types';
-import './styles.scss';
+import {
+  detectMobile,
+  getCountryList,
+  getInitialCountry,
+  usePhonenumber,
+} from "../utils";
+import { IPhoneInputProps, PhoneNumber } from "../types";
+import "./styles.scss";
 
 export const PhoneInput: FC<IPhoneInputProps> = ({
   className,
@@ -14,7 +19,7 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   defaultCountry,
   preferredCountries,
   regions,
-  format = 'INTERNATIONAL',
+  format = "INTERNATIONAL",
   initialValue,
   withCountryMeta = false,
   onChange,
@@ -24,9 +29,13 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   onBlur,
   ...rest
 }) => {
-  const initialCountry = getInitialCountry(defaultCountry, preferredCountries, regions);
+  const initialCountry = getInitialCountry(
+    defaultCountry,
+    preferredCountries,
+    regions,
+  );
   const countriesList = getCountryList(preferredCountries, regions);
-  const isInternational = format === 'INTERNATIONAL';
+  const isInternational = format === "INTERNATIONAL";
   const isMobile = detectMobile.any();
 
   const phoneInputWrapper = useRef<HTMLDivElement>(null);
@@ -34,35 +43,59 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   const countryList = useRef<HTMLUListElement>(null);
   const activeCountry = useRef<HTMLLIElement>(null);
 
-  const { country, phoneNumber, showCountries, setShowCountries, onSelect, onInputChange, resetState } = usePhonenumber(
-    {
-      initialValue,
-      initialCountry,
-      format,
-    },
-  );
+  const {
+    country,
+    phoneNumber,
+    showCountries,
+    setShowCountries,
+    onSelect,
+    onInputChange,
+    resetState,
+  } = usePhonenumber({
+    initialValue,
+    initialCountry,
+    format,
+  });
 
   useEffect(() => {
     const clickOutside = (e: Event): void => {
-      if (phoneInputWrapper.current && !phoneInputWrapper.current.contains(e.target as Node)) {
+      if (
+        phoneInputWrapper.current &&
+        !phoneInputWrapper.current.contains(e.target as Node)
+      ) {
         setShowCountries(false);
       }
     };
-    document.addEventListener('mousedown', clickOutside);
+    document.addEventListener("mousedown", clickOutside);
 
     return (): void => {
-      document.removeEventListener('mousedown', clickOutside);
+      document.removeEventListener("mousedown", clickOutside);
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   useEffect(() => {
-    if (showCountries && country && countryList.current && activeCountry.current) {
+    if (
+      showCountries &&
+      country &&
+      countryList.current &&
+      activeCountry.current
+    ) {
       countryList.current.scrollTop = activeCountry.current.offsetTop - 50;
     }
 
     const data: PhoneNumber = withCountryMeta
-      ? { phoneNumber, country: country ? omit(country, ['hasAreaCodes', 'isAreaCode', 'dialCode', 'regions']) : null }
+      ? {
+          phoneNumber,
+          country: country
+            ? omit(country, [
+                "hasAreaCodes",
+                "isAreaCode",
+                "dialCode",
+                "regions",
+              ])
+            : null,
+        }
       : phoneNumber;
 
     onChange(data);
@@ -95,7 +128,9 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
       resetState();
     }
 
-    if (!/^[\d ()+-]+$/.test(value)) return;
+    if (!/^[\d ()+-]+$/.test(value)) {
+      return;
+    }
 
     onInputChange(value);
   };
@@ -103,14 +138,18 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
   return (
     <div className="react-phonenr-input" ref={phoneInputWrapper}>
       {isInternational && (
-        <div onClick={!isMobile ? handleToggleList : undefined} className="flag-wrapper" role="none">
+        <div
+          onClick={!isMobile ? handleToggleList : undefined}
+          className="flag-wrapper"
+          role="none"
+        >
           {country ? (
             <FlagIcon
               countryCode={country.iso2}
               svg
               aria-label={country.name}
               title={country.iso2}
-              style={{ width: '20px', height: '20px' }}
+              style={{ width: "20px", height: "20px" }}
             />
           ) : (
             <svg
@@ -124,7 +163,11 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
             </svg>
           )}
           {isMobile && (
-            <select className={className} onChange={handleMobileSelect} disabled={disabled}>
+            <select
+              className={className}
+              onChange={handleMobileSelect}
+              disabled={disabled}
+            >
               {countriesList.map((c) => {
                 if (c?.isAreaCode) {
                   return null;
@@ -163,17 +206,19 @@ export const PhoneInput: FC<IPhoneInputProps> = ({
             return (
               <li
                 key={c?.iso2}
-                className={cx('country-list-item', { 'active-country': c?.iso2 === country?.iso2 })}
+                className={cx("country-list-item", {
+                  "active-country": c?.iso2 === country?.iso2,
+                })}
                 ref={c?.iso2 === country?.iso2 ? activeCountry : null}
                 onClick={handleSelect(c?.iso2 as CountryCode)}
                 role="presentation"
               >
                 <FlagIcon
-                  countryCode={c?.iso2 || ''}
+                  countryCode={c?.iso2 || ""}
                   svg
                   aria-label={c?.name}
                   title={c?.iso2}
-                  style={{ width: '20px', height: '20px' }}
+                  style={{ width: "20px", height: "20px" }}
                 />
                 {` (${c?.dialCode}) ${c?.name}`}
               </li>

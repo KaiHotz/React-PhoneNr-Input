@@ -1,17 +1,17 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "rootDir": ".",
     "paths": {
       "*": [
-        "*",
+        "./*"
       ]
     },
     "allowJs": true,
     "target": "ES2023",
     "module": "ESNext",
     "useDefineForClassFields": true,
-    "lib": ["DOM", "DOM.Iterable", "ESNext"],
-    "types": ["@testing-library/jest-dom"],
+    "lib": ["DOM", "DOM.Iterable", "ES2023"],
+    "types": ["node", "@testing-library/jest-dom", "vite/client"],
     "skipLibCheck": true,
     "sourceMap": true,
     "outDir": "dist",
@@ -21,28 +21,14 @@
     "resolveJsonModule": true,
     "downlevelIteration": true,
 
-    /* Bundler mode */
     "moduleResolution": "bundler",
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "moduleDetection": "force",
-    "noEmit": false,
+    "noEmit": true,
     "jsx": "react-jsx",
-
-    /* Linting */
     "strict": true,
-    "strictNullChecks": true,
-    "noImplicitAny": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
   },
-  "include": ["src", "*.tsx", "*.ts", "eslint.config.js"],
-  "exclude": [
-    "coverage",
-    "config",
-    "dist",
-    "node_modules/**"
-  ]
+  "include": ["src", ".storybook", "vite.config.ts", "vite-env.d.ts", "eslint.config.js", "postcss.config.js", "tailwind.config.js"],
+    "exclude": ["node_modules"],
 }

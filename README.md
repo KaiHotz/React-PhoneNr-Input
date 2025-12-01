@@ -1,148 +1,239 @@
-<h1 align="center">React-PhoneNr-Input</h1>
+# React Phone Number Input
 
-<div align="center">
+[![npm version](https://img.shields.io/npm/v/react-phonenr-input.svg)](https://www.npmjs.com/package/react-phonenr-input)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 
-[![NPM](https://img.shields.io/npm/v/react-phonenr-input.svg)](https://www.npmjs.com/package/react-phonenr-input)
-[![license](https://img.shields.io/badge/license-MIT-green.svg)](https://github.com/KaiHotz/react-formik-ui/blob/master/LICENSE)
-![npm](https://img.shields.io/npm/dw/react-phonenr-input)
+An automated and intuitive international and national phone input field for React with TypeScript support.
 
-</div>
+## Features
 
-## Overview
-React-PhoneNr-Input is a simple to use phonenumber input field with country selection, that by default, intuitively guesses the country for- and formats the entered phonenumber
-
-For International phonenumbers a dropdown menu is available to select ya country from.
-
-By passing the prop `format='NATIONAL'` and a default country e.g. `defaultCountry='DE'`  a simple input field is shown that formats the entered phonenumber with the national format declared by the `defaultCountry` prop.
-
-All written with less than 300 lines of code
-
-
-### Demo and Examples [here](https://kaihotz.github.io/React-PhoneNr-Input/)
-
+- 🌍 **International phone number formatting** with country code detection
+- 🎯 **Automatic phone number validation** using `libphonenumber-js`
+- 🏳️ **Country flags** with dropdown selector
+- 📱 **Mobile-friendly** with optimized UX
+- ⚙️ **Flexible configuration** - set default country, preferred countries, or filter by regions
+- 🎨 **Customizable styling** with SCSS support
+- 📦 **TypeScript first** with full type definitions
+- ♿ **Accessible** with proper ARIA attributes
+- 🔄 **Supports both INTERNATIONAL and NATIONAL formats**
 
 ## Installation
-npm:
-```sh
-npm i -S react-phonenr-input
+
+```bash
+npm install react-phonenr-input
 ```
 
-yarn:
-```sh
+or
+
+```bash
 yarn add react-phonenr-input
 ```
 
-#### Props:
-<table style="font-size: 12px">
-  <tr>
-    <th>Name</th>
-    <th>Type</th>
-    <th>Default</th>
-    <th>Description</th>
-  </tr>
-  <tr>
-    <td>onChange</td>
-    <td>(data: PhoneNumber) => void</td>
-    <td>required</td>
-    <td>The function/method that returns the entered phonenumber or phonenumber object</td>
-  </tr>
-  <tr>
-    <td>withCountryMeta</td>
-    <td>boolean</td>
-    <td>false</td>
-    <td>
-      changes the retuned value into an Object that contains the phonenumber and the country information.
-      eg.:
-      <pre>
-        {
-          phoneNumber: "+49 176 12345678",
-          country: {
-            name: "Germany (Deutschland)"
-            iso2: "DE"
-          }
-        }
-      </pre>
-    </td>
-  </tr>
-  <tr>
-    <td>className</td>
-    <td>string</td>
-    <td>undefined</td>
-    <td>Adds a custom class to the Phonenumber Input Field</td>
-  </tr>
-  <tr>
-    <td>defaultCountry</td>
-    <td>IsoCode</td>
-    <td>undefined</td>
-    <td>Sets the default country (use iso alpha-2 country code e.g 'US', 'GB', 'DE')</td>
-  </tr>
-  <tr>
-    <td>disabled</td>
-    <td>boolean</td>
-    <td>false</td>
-    <td>Disables the Phonenumber Input Field</td>
-  </tr>
-  <tr>
-    <td>format</td>
-    <td>NumberFormat</td>
-    <td>'INTERNATIONAL'</td>
-    <td>One of: 'INTERNATIONAL', 'NATIONAL'. Sets the format of the entered  phonenumber, in case of 'NATIONAL' the defaultCountry must be set</td>
-  </tr>
-  <tr>
-    <td>initialValue</td>
-    <td>string</td>
-    <td>undefined</td>
-    <td>Sets the initial Value of the Phonenumber Input. This is usefull in case you need to set a phonenumber stored for example in a database</td>
-  </tr>
-  <tr>
-    <td>placeholder</td>
-    <td>string</td>
-    <td>undefined</td>
-    <td>Sets the Placeholder text</td>
-  </tr>
-  <tr>
-    <td>preferredCountries</td>
-    <td>IsoCode[]</td>
-    <td>undefined</td>
-    <td>Lets you restrict the country dropdown to a specific list of countries (use iso alpha-2 country code e.g 'US', 'GB', 'DE')</td>
-  </tr>
-  <tr>
-    <td>regions</td>
-    <td>"asia" | "europe" | "africa" | "north-africa" | "oceania" | "america" | "carribean" | "south-america" | "ex-ussr" | "european-union" | "middle-east" | "central-america" | "north-america" | Region[]</td>
-    <td>undefined</td>
-    <td>Lets you restrict the country dropdown to a list of countries in the specified regions</td>
-  </tr>
-</table>
+## Basic Usage
 
-###### In addition to the here listed Props you can pass all other properties that can be used on a normal Html input field
-
-#### Code example:
 ```tsx
-import React, { useState } from 'react'
-import { PhoneInput, PhoneNumber } from 'react-phonenr-input';
+import { useState } from 'react';
+import { PhoneInput } from 'react-phonenr-input';
+import 'react-phonenr-input/styles.css';
 
-const Example = () => {
-  const [value, setValue] = useState<PhoneNumber>('')
-
-  const handleChange = (phoneNumber: PhoneNumber) => {
-    // Do something with the phoneNumber
-    setValue(phoneNumber)
-  }
+function App() {
+  const [phoneNumber, setPhoneNumber] = useState('');
 
   return (
-    <div>
-      <PhoneInput onChange={handleChange}/>
-    </div>
-  )
+    <PhoneInput
+      onChange={setPhoneNumber}
+      placeholder="+1 702 123 4567"
+    />
+  );
 }
 ```
 
-#### Optimized for Mobile usage
+## Props
 
-<img src="https://raw.githubusercontent.com/KaiHotz/React-PhoneNr-Input/master/styleguide/mobile.png" width="200" alt="mobile">
+| Prop | Type | Default | Description |
+|------|------|---------|-------------|
+| `onChange` | `(value: PhoneNumber) => void` | **required** | Callback fired when the phone number changes |
+| `defaultCountry` | `CountryCode` | - | Default country code (e.g., 'US', 'GB') |
+| `initialValue` | `string` | - | Initial phone number value with country code |
+| `preferredCountries` | `CountryCode[]` | - | List of countries to show at the top of the dropdown |
+| `regions` | `Region[]` | - | Filter countries by region(s) |
+| `format` | `'INTERNATIONAL' \| 'NATIONAL'` | `'INTERNATIONAL'` | Phone number format |
+| `withCountryMeta` | `boolean` | `false` | Include country metadata in the returned value |
+| `maxLength` | `number` | `21` | Maximum input length |
+| `disabled` | `boolean` | `false` | Disable the input |
+| `placeholder` | `string` | - | Placeholder text |
+| `className` | `string` | - | Custom CSS class name |
+| `onFocus` | `FocusEventHandler` | - | Focus event handler |
+| `onBlur` | `FocusEventHandler` | - | Blur event handler |
 
+Additional HTML input attributes are also supported via the spread operator.
 
-## Support
-If you like the project and want to support my work, you can buy me a coffee :)
+## Advanced Examples
 
-[![paypal](https://img.shields.io/badge/donate-paypal-blue.svg)](https://paypal.me/kaihotz)
+### With Initial Value
+
+```tsx
+<PhoneInput
+  onChange={setPhoneNumber}
+  initialValue="+491761234112"
+/>
+```
+
+### With Default Country
+
+```tsx
+<PhoneInput
+  onChange={setPhoneNumber}
+  defaultCountry="US"
+  placeholder="Enter phone number"
+/>
+```
+
+### With Preferred Countries
+
+```tsx
+<PhoneInput
+  onChange={setPhoneNumber}
+  preferredCountries={['US', 'GB', 'DE', 'FR']}
+/>
+```
+
+### Filter by Regions
+
+```tsx
+<PhoneInput
+  onChange={setPhoneNumber}
+  regions={['europe', 'north-america']}
+/>
+```
+
+### With Country Metadata
+
+```tsx
+<PhoneInput
+  onChange={setPhoneNumber}
+  withCountryMeta
+/>
+```
+
+When `withCountryMeta` is enabled, the onChange callback receives an object with the phone number and country information:
+
+```typescript
+{
+  phoneNumber: "+491761234112",
+  country: {
+    name: "Germany",
+    iso2: "DE",
+    dialCode: "49",
+    // ... additional metadata
+  }
+}
+```
+
+### National Format
+
+```tsx
+<PhoneInput
+  onChange={setPhoneNumber}
+  format="NATIONAL"
+  defaultCountry="US"
+/>
+```
+
+## Types
+
+### PhoneNumber
+
+```typescript
+type PhoneNumber = string | {
+  phoneNumber: string;
+  country: ICountry;
+}
+```
+
+### Available Regions
+
+```typescript
+type Region =
+  | "asia"
+  | "europe"
+  | "africa"
+  | "north-africa"
+  | "oceania"
+  | "america"
+  | "carribean"
+  | "south-america"
+  | "ex-ussr"
+  | "european-union"
+  | "middle-east"
+  | "central-america"
+  | "north-america"
+```
+
+## Styling
+
+Import the default styles:
+
+```tsx
+import 'react-phonenr-input/styles.css';
+```
+
+Or create your own custom styles by targeting the component classes. The component uses BEM methodology for CSS class names.
+
+## Development
+
+### Prerequisites
+
+- Node.js >= 22
+- Yarn or npm
+
+### Setup
+
+```bash
+# Install dependencies
+yarn install
+
+# Start Storybook for development
+yarn start
+
+# Run tests
+yarn test
+
+# Run linting
+yarn lint
+
+# Build the library
+yarn build
+```
+
+### Scripts
+
+- `yarn start` - Start Storybook development server
+- `yarn build` - Build the library for production
+- `yarn test` - Run tests with Vitest
+- `yarn lint` - Run ESLint and Stylelint
+- `yarn lint:fix` - Fix linting issues automatically
+- `yarn check-types` - Run TypeScript type checking
+- `yarn ci` - Run all checks (lint + tests)
+
+## Browser Support
+
+This library supports all modern browsers. For older browsers, you may need to include appropriate polyfills.
+
+## Dependencies
+
+- React 19.2.x
+- libphonenumber-js - Phone number parsing and validation
+- react-country-flag - Country flag components
+
+## License
+
+MIT © [Kai Hotz](https://github.com/KaiHotz)
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## Repository
+
+[https://github.com/KaiHotz/React-PhoneNr-Input](https://github.com/KaiHotz/React-PhoneNr-Input)

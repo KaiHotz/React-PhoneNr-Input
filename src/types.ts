@@ -1,22 +1,22 @@
-import { InputHTMLAttributes } from 'react';
-import { CountryCode } from 'libphonenumber-js';
+import { InputHTMLAttributes } from "react";
+import { CountryCode } from "libphonenumber-js";
 
 export type Region =
-  | 'asia'
-  | 'europe'
-  | 'africa'
-  | 'north-africa'
-  | 'oceania'
-  | 'america'
-  | 'carribean'
-  | 'south-america'
-  | 'ex-ussr'
-  | 'european-union'
-  | 'middle-east'
-  | 'central-america'
-  | 'north-america';
+  | "asia"
+  | "europe"
+  | "africa"
+  | "north-africa"
+  | "oceania"
+  | "america"
+  | "carribean"
+  | "south-america"
+  | "ex-ussr"
+  | "european-union"
+  | "middle-east"
+  | "central-america"
+  | "north-america";
 
-export type NumberFormat = 'INTERNATIONAL' | 'NATIONAL';
+export type NumberFormat = "INTERNATIONAL" | "NATIONAL";
 export type DetectMobile = boolean | null | RegExpMatchArray;
 
 export interface ICountry {
@@ -30,12 +30,18 @@ export interface ICountry {
 
 export interface IPhoneNumberObj {
   phoneNumber: string;
-  country: Omit<ICountry, 'hasAreaCodes' | 'isAreaCode' | 'dialCode' | 'regions'> | null;
+  country: Omit<
+    ICountry,
+    "hasAreaCodes" | "isAreaCode" | "dialCode" | "regions"
+  > | null;
 }
 
 export type PhoneNumber = string | IPhoneNumberObj;
 
-export interface IPhoneInputProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'onChange'> {
+export interface IPhoneInputProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "onChange"
+> {
   /** The function that returns the  phonenumber or phonenumber object */
   onChange: (data: PhoneNumber) => void;
   /** Sets the format of the entered  phonenumber, in case of 'NATIONAL' the defaultCountry must be set */
