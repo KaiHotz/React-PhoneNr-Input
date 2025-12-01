@@ -10,7 +10,7 @@
   },
   "homepage": "https://github.com/KaiHotz/React-PhoneNr-Input",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/KaiHotz"
+    "registry": "https://registry.npmjs.org"
   },
   "type": "module",
   "main": "dist/index.js",
