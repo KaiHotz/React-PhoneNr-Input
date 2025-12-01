@@ -20,6 +20,7 @@ export default defineConfig(
     ".yarnrc",
     "coverage",
     "storybook-static",
+    ".storybook",
   ]),
   {
     extends: [
