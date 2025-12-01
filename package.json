@@ -52,7 +52,7 @@
     "react-dom": "19.2.x"
   },
   "dependencies": {
-    "immer": "^10.1.1",
+    "immer": "^11.0.1",
     "libphonenumber-js": "^1.12.30",
     "lodash.omit": "^4.5.0",
     "react": "^19.2.0",
