@@ -5,6 +5,7 @@
     "outDir": "./dist",
     "rootDir": "./",
     "esModuleInterop": true,
+    "verbatimModuleSyntax": true,
     "allowJs": true
   },
   "include": ["**/*.ts", "**/*.tsx", "**/*.js", "**/*.jsx"],
