@@ -15,7 +15,7 @@ node_modules
 .yarnrc
 .yarnrc.yml
 .yarn/cache
-install-state.gz
+.yarn/install-state.gz
 
 
 # builds
