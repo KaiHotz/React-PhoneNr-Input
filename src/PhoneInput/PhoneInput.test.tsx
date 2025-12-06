@@ -1,65 +1,65 @@
-import { describe, expect, it, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import user from "@testing-library/user-event";
-import { CountryCode } from "libphonenumber-js";
+import { describe, expect, it, vi } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import user from '@testing-library/user-event';
+import type { CountryCode } from 'libphonenumber-js';
 
-import { PhoneInput } from "./PhoneInput";
+import { PhoneInput } from './PhoneInput';
 
 const baseProps = {
-  name: "phoneInput",
+  name: 'phoneInput',
   onChange: vi.fn(),
 };
 
-describe("<PhoneInput />", () => {
-  it("should render", () => {
+describe('<PhoneInput />', () => {
+  it('should render', () => {
     render(<PhoneInput {...baseProps} />);
-    const input = screen.getByRole("textbox");
+    const input = screen.getByRole('textbox');
 
     expect(input).toBeInTheDocument();
   });
 
-  it("should have the initial dialCode", () => {
+  it('should have the initial dialCode', () => {
     render(<PhoneInput {...baseProps} />);
-    const input = screen.getByRole("textbox");
+    const input = screen.getByRole('textbox');
 
-    expect(input).toHaveValue("");
+    expect(input).toHaveValue('');
   });
 
-  it("should have default Country DE", () => {
+  it('should have default Country DE', () => {
     const props = {
       ...baseProps,
-      defaultCountry: "DE" as CountryCode,
+      defaultCountry: 'DE' as CountryCode,
     };
     render(<PhoneInput {...props} />);
-    const input = screen.getByRole("textbox");
+    const input = screen.getByRole('textbox');
 
-    expect(input).toHaveValue("+49");
+    expect(input).toHaveValue('+49');
   });
 
-  it("should call onChange", async () => {
+  it('should call onChange', async () => {
     render(<PhoneInput {...baseProps} />);
-    const input = screen.getByRole("textbox");
+    const input = screen.getByRole('textbox');
 
     await user.click(input);
 
     expect(baseProps.onChange).toHaveBeenCalled();
   });
 
-  it("should be disabled", () => {
+  it('should be disabled', () => {
     render(<PhoneInput disabled {...baseProps} />);
-    const input = screen.getByRole("textbox");
+    const input = screen.getByRole('textbox');
 
-    expect(input).toHaveProperty("disabled");
+    expect(input).toHaveProperty('disabled');
   });
 
-  it("should allow custom className", () => {
+  it('should allow custom className', () => {
     const props = {
       ...baseProps,
-      className: "Custom",
+      className: 'Custom',
     };
     render(<PhoneInput {...props} />);
-    const input = screen.getByRole("textbox");
+    const input = screen.getByRole('textbox');
 
-    expect(input).toHaveProperty("className");
+    expect(input).toHaveProperty('className');
   });
 });

@@ -1,15 +1,15 @@
 /// <reference types="vitest" />
-import { defineConfig } from "vite";
-import { resolve } from "path";
-import react from "@vitejs/plugin-react-swc";
-import tsconfigPaths from "vite-tsconfig-paths";
-import dts from "vite-plugin-dts";
-import svgr from "vite-plugin-svgr";
-import deletePlugin from "rollup-plugin-delete";
-import terser from "@rollup/plugin-terser";
-import { readFileSync } from "fs";
+import { defineConfig } from 'vite';
+import { resolve } from 'path';
+import react from '@vitejs/plugin-react-swc';
+import tsconfigPaths from 'vite-tsconfig-paths';
+import dts from 'vite-plugin-dts';
+import svgr from 'vite-plugin-svgr';
+import deletePlugin from 'rollup-plugin-delete';
+import terser from '@rollup/plugin-terser';
+import { readFileSync } from 'fs';
 
-const packageJson = JSON.parse(readFileSync("./package.json", "utf-8"));
+const packageJson = JSON.parse(readFileSync('./package.json', 'utf-8'));
 
 // Extract dependencies for externalization
 const peerDeps = Object.keys(packageJson.peerDependencies || {});
@@ -28,26 +28,20 @@ export default defineConfig({
     dts({
       rollupTypes: false,
       insertTypesEntry: true,
-      include: ["src/**/*"],
-      exclude: [
-        "src/**/*.test.*",
-        "src/**/*.spec.*",
-        "src/**/*.stories.*",
-        "src/**/*.mdx",
-        "setupTests.ts",
-      ],
-      tsconfigPath: "./tsconfig.json",
-      outDir: "dist",
+      include: ['src/**/*'],
+      exclude: ['src/**/*.test.*', 'src/**/*.spec.*', 'src/**/*.stories.*', 'src/**/*.mdx', 'setupTests.ts'],
+      tsconfigPath: './tsconfig.json',
+      outDir: 'dist',
       copyDtsFiles: true,
       staticImport: true,
-      logLevel: "info",
+      logLevel: 'info',
     }),
 
     // SVG as React components
     svgr({
-      include: "**/*.svg",
+      include: '**/*.svg',
       svgrOptions: {
-        exportType: "default",
+        exportType: 'default',
         ref: true,
         svgo: false,
         titleProp: true,
@@ -57,20 +51,20 @@ export default defineConfig({
 
     // Clean up unwanted files after build
     deletePlugin({
-      targets: ["dist/temp"],
-      hook: "writeBundle",
+      targets: ['dist/temp'],
+      hook: 'writeBundle',
     }),
   ],
 
   resolve: {
     alias: {
-      src: resolve(__dirname, "src"),
+      src: resolve(__dirname, 'src'),
     },
   },
 
   build: {
-    outDir: "dist",
-    target: "ES2023",
+    outDir: 'dist',
+    target: 'ES2023',
     cssMinify: true,
     sourcemap: false,
     cssCodeSplit: false,
@@ -78,23 +72,23 @@ export default defineConfig({
 
     lib: {
       entry: {
-        main: resolve(__dirname, "src/index.ts"),
+        main: resolve(__dirname, 'src/index.ts'),
       },
-      name: "kai-ui",
-      formats: ["es"],
-      fileName: () => "index.js",
+      name: 'kai-ui',
+      formats: ['es'],
+      fileName: () => 'index.js',
     },
 
     rollupOptions: {
-      external: [...peerDeps, ...deps, "react/jsx-runtime"],
+      external: [...peerDeps, ...deps, 'react/jsx-runtime'],
 
       output: {
         globals: {
-          react: "React",
-          "react-dom": "ReactDOM",
+          react: 'React',
+          'react-dom': 'ReactDOM',
         },
         preserveModules: false,
-        exports: "named",
+        exports: 'named',
         inlineDynamicImports: false,
 
         // Minification with terser

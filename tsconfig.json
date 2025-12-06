@@ -2,9 +2,7 @@
   "compilerOptions": {
     "rootDir": ".",
     "paths": {
-      "*": [
-        "./*"
-      ]
+      "*": ["./*"]
     },
     "allowJs": true,
     "target": "ES2023",
@@ -20,6 +18,7 @@
     "forceConsistentCasingInFileNames": true,
     "resolveJsonModule": true,
     "downlevelIteration": true,
+    "verbatimModuleSyntax": true,
 
     "moduleResolution": "bundler",
     "isolatedModules": true,
@@ -27,8 +26,8 @@
     "moduleDetection": "force",
     "noEmit": true,
     "jsx": "react-jsx",
-    "strict": true,
+    "strict": true
   },
   "include": ["src", ".storybook", "vite.config.ts", "vite-env.d.ts", "eslint.config.js", "postcss.config.js", "tailwind.config.js"],
-    "exclude": ["node_modules"],
+  "exclude": ["node_modules"]
 }
