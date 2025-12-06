@@ -21,6 +21,10 @@ jobs:
         run: |
           yarn install --immutable
 
+      - name: Install Playwright browsers
+        run: |
+          yarn playwright install --with-deps chromium
+
       - name: Run Continuous Integration
         run: |
           yarn ci
