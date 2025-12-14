@@ -6,7 +6,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "git@github.com:KaiHotz/React-PhoneNr-Input.git"
+    "url": "git+ssh://git@github.com/KaiHotz/React-PhoneNr-Input.git"
   },
   "homepage": "https://github.com/KaiHotz/React-PhoneNr-Input",
   "publishConfig": {
