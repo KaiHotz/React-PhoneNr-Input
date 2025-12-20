@@ -28,6 +28,6 @@
     "jsx": "react-jsx",
     "strict": true
   },
-  "include": ["src", ".storybook", "vite.config.ts", "vite-env.d.ts", "eslint.config.js", "postcss.config.js", "tailwind.config.js"],
+  "include": ["src", ".storybook", "vite.config.ts", "vite-env.d.ts", "eslint.config.js"],
   "exclude": ["node_modules"]
 }
