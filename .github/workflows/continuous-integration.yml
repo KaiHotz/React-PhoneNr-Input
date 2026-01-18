@@ -15,15 +15,11 @@ jobs:
       - uses: actions/checkout@v6
       - uses: actions/setup-node@v6
         with:
-          node-version: '24'
+          node-version: '24.x'
 
       - name: Install dependencies
         run: |
           yarn install --immutable
-
-      - name: Install Playwright browsers
-        run: |
-          yarn playwright install --with-deps chromium
 
       - name: Run Continuous Integration
         run: |
