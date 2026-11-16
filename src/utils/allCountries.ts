@@ -820,7 +820,7 @@ export const allCountries: ICountry[] = [
   {
     name: 'Dominican Republic (República Dominicana)',
     regions: ['america', 'carribean'],
-    iso2: 'SO',
+    iso2: 'DO',
     dialCode: '+1829',
     hasAreaCodes: true,
     isAreaCode: true,
